@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClCompile Include="configure.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="territorio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configure.h" />
+    <ClInclude Include="territorio.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="help.txt" />
