@@ -17,8 +17,25 @@ class territorio {
     string name;
 
 public:
-    territorio(string name, int res, int, int createProd, int createGold, int victoryPoints);
+    //Constructor of territory
+    territorio(string name);
+    //Constructor of territory by copy
+    territorio(const territorio& territori);
+    //Destructor of territory
+    ~territorio();
+    //Get type of territory
     string getType(string name);
+    //
+    string getName() const;
+    void setName(string name);
+    int getRes() const;
+    void setRes(int res);
+    int getCreateProd() const;
+    void setCreateProd(int createProd);
+    int getCreateGold() const;
+    void setCreateGold(int createGold);
+    int getVictoryPoints() const;
+    void setVictoryPoints(int victoryPoints);
 };
 
 

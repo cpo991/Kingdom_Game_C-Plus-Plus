@@ -4,7 +4,7 @@
 #include "configure.h"
 
 configure::configure(){
-
+	
 }
 
 /**
@@ -33,10 +33,11 @@ void configure::initMenu(){
 	Until the flag endProgram is set to 1 and the function ends.
 */
 void configure::commands(){
-	int endProgram = 0;
+	int endConfig = 0;
 
 	do {
 		istringstream iss;
+		cout << "\nConfiguration Phase";
 		cout << "\nEnter a command: ";
 		getline(cin, phrase);
 		iss.str(phrase);
@@ -53,13 +54,9 @@ void configure::commands(){
 					lessParam(1, command);
 				}
 				else {
-					ifstream ficheiro(param1);
-					if (ficheiro) {
-						//FUNCTION CRIA HERE
-					}
-					else {
-						cout << "ERROR: File not found." << endl;
-					}
+					cout << "test1" << endl;
+					cout << param1 << endl;
+					cmdCarrega(param1);
 				}
 			}
 		}
@@ -87,23 +84,23 @@ void configure::commands(){
 				//FUNCTION SHOW LIST HERE
 			}
 		}
-		if (!command.compare("sair")) {
-			cout << "\nWARNING: The program will exit." << endl;
-			endProgram = 1;
+		if (!command.compare("avanca")) {
+			cout << "\nWARNING: The configuration phase is over. Game will start soon..." << endl;
+			endConfig = 1;
 		}
 		if (!command.compare("help")) {
 			cout << endl;
 			help();
 		}
-	} while (endProgram != 1);
-
+	} while (endConfig != 1);
+	
 }
 /**
 	Opens the file help.txt and prints everything inside it
 */
 void configure::help(){
 	fstream file;
-	file.open("help.txt");
+	file.open("helpconfig.txt");
 
 	if (!file) {
 		cout << "ERROR: Opening file." << endl;
@@ -146,4 +143,35 @@ void configure::lessParam(int num, string command) {
 		cout << "ERROR: It was inserted " << num << " parameter that's not needed in the command <" 
 			<< command << ">." << endl;
 	}
+}
+
+const string configure::cmdCarrega(string ficheiro) {
+	game NewGame;
+	string str;
+
+	ostringstream oss;
+	ifstream fCarrega(ficheiro);
+
+	if (!fCarrega) {
+		oss << "ERROR: Opening file." << endl;
+		return oss.str();
+	}
+
+	while (getline(fCarrega, str)) {
+		ostringstream oss;
+		string command, name, num;
+		int N;
+		istringstream iss(str);
+		getline(iss, command, ' ');
+		getline(iss, name, ' ');
+		getline(iss, num, ' ');
+		N = stoi(num);
+		
+
+		for (int i = 0; i < N; i++) {
+			oss << NewGame.addTerritory(name);
+		}
+	}
+
+	return oss.str();
 }

@@ -1,0 +1,8 @@
+>>>>>>> Configuration P
+Help Menu - Existing commands:
+
+carrega <nomeFicheiro>
+cria <tipo> <n>
+lista <nome>
+avanca
+help

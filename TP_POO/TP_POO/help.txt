@@ -8,6 +8,7 @@ maisprod
 maismilitar
 adquire <tipo>
 > lista <nome>
+avanca
 grava <nome>
 ativa <nome>
 apaga <nome>

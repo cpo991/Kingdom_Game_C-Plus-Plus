@@ -27,6 +27,9 @@
     <ClCompile Include="territorio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configure.h">
@@ -35,12 +38,21 @@
     <ClInclude Include="territorio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="menu.txt">
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="help.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="comandos1.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="helpconfig.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

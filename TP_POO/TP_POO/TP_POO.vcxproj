@@ -20,15 +20,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="configure.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="territorio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configure.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="territorio.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="comandos1.txt" />
     <Text Include="help.txt" />
+    <Text Include="helpconfig.txt" />
     <Text Include="menu.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

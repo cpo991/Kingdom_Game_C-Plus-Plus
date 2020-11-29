@@ -9,10 +9,12 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "game.h"
 
 using namespace std;
 
 class configure {
+    
     string phrase, command, param1, param2, param3, param4, param5, param6, param7;
 
 public:
@@ -22,6 +24,7 @@ public:
     void help();
     void needParam(int num, string command);
     void lessParam(int num, string command);
+    const string cmdCarrega(string ficheiro);
 };
 
 
