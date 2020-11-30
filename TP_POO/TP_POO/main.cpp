@@ -5,7 +5,9 @@
 using namespace std;
 
 int main() {
-    configure config;
+    
+    game newGame;
+    configure config(newGame);
     config.initMenu();
 
     return 0;

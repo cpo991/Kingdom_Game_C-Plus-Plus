@@ -14,3 +14,15 @@ const string game::addTerritory(string name){
 
 	return oss.str();
 }
+
+const vector<territorio*> game::getTerritorios()
+{
+	vector<territorio*> aux;
+
+	cout << "teste func" << endl;
+	for (territorio* it : territorios) {
+		cout << it->getName() << endl;
+		aux.push_back(it);
+	}
+	return aux;
+}

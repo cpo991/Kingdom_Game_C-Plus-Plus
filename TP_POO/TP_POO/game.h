@@ -10,7 +10,6 @@
 #include <sstream>
 #include <vector>
 #include "territorio.h"
-#include "configure.h"
 
 using namespace std;
 
@@ -20,7 +19,7 @@ class game {
 public:
     game();
     const string addTerritory(string name);
-
+    const vector<territorio*> getTerritorios();
 };
 
 

@@ -4,21 +4,19 @@
 #ifndef TP_POO_CONFIGURE_H
 #define TP_POO_CONFIGURE_H
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
 #include "game.h"
+#include <fstream>
+#include <string>
 
 using namespace std;
 
 class configure {
-    
+
+    game* newGame;
     string phrase, command, param1, param2, param3, param4, param5, param6, param7;
 
 public:
-    configure();
+    configure(game& g);
     void initMenu();
     void commands();
     void help();

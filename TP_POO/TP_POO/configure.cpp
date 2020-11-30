@@ -3,8 +3,8 @@
 //
 #include "configure.h"
 
-configure::configure(){
-	
+configure::configure(game& g){
+	newGame = &g;
 }
 
 /**
@@ -34,7 +34,7 @@ void configure::initMenu(){
 */
 void configure::commands(){
 	int endConfig = 0;
-
+	game NewGame;
 	do {
 		istringstream iss;
 		cout << "\nConfiguration Phase";
@@ -93,7 +93,7 @@ void configure::commands(){
 			help();
 		}
 	} while (endConfig != 1);
-	
+	NewGame.getTerritorios();
 }
 /**
 	Opens the file help.txt and prints everything inside it
@@ -146,7 +146,6 @@ void configure::lessParam(int num, string command) {
 }
 
 const string configure::cmdCarrega(string ficheiro) {
-	game NewGame;
 	string str;
 
 	ostringstream oss;
@@ -169,7 +168,7 @@ const string configure::cmdCarrega(string ficheiro) {
 		
 
 		for (int i = 0; i < N; i++) {
-			oss << NewGame.addTerritory(name);
+			oss << newGame->addTerritory(name);
 		}
 	}
 
