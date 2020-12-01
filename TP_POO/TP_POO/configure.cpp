@@ -70,6 +70,10 @@ void configure::commands(){
 				needParam(1, command);
 			}
 			else {
+				int num = stoi(param2);
+				for (int i = 0; i < num; i++) {
+					NewGame.addTerritory(param1);
+				}
 				// FUNCTION VERIFIE IF PARAM1 IS A TYPE
 				// FUNCTION VERIFIE IF PARAM2 IS AN EXISTING WORLD
 				// IF BOTH ARE TRUE THEN CREATE
@@ -93,6 +97,7 @@ void configure::commands(){
 			help();
 		}
 	} while (endConfig != 1);
+	//Debug mostra quais é que foram adicionados depois do comando cria -- o carrega ainda fica vazio
 	NewGame.getTerritorios();
 }
 /**
