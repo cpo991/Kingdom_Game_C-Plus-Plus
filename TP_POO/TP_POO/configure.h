@@ -22,7 +22,7 @@ public:
     void help();
     void needParam(int num, string command);
     void lessParam(int num, string command);
-    const string cmdCarrega(string ficheiro);
+    game cmdCarrega(game NewGame,string ficheiro);
 };
 
 
