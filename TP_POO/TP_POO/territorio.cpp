@@ -4,7 +4,7 @@
 #include "territorio.h"
 
 territorio::territorio(string name){
-    this->name = name;
+    this->setName(name);
     this->res = 5;
     this->createProd = 1;
     this->createGold = 1;
@@ -31,29 +31,42 @@ territorio::~territorio()
  * @return type of territory
  */
 string territorio::getType(string name) {
-    int aux = 0, digit = 0;
-    string type;
 
-    for (int i = 0; i < name.length(); i++) {
-        if (isdigit(name[i]) == true) {
-            aux = i;
-            digit = 1;
-        }
-    }
-    if (digit == 1) // if string as numbers
-        type = name.substr(0, aux); // copies the string without numbers
-    else // if string doesn't have numbers
-        type = name.substr(0, name.length()); // copies entire string
-    return type;
+    string type;
+    name.pop_back();// erases the last character [0...N]
+    type = name;
+    return  type;
+   
+    //int aux = 0, digit = 0;
+    //string type;
+
+    //for (int i = 0; i < name.length(); i++) {
+    //    if (isdigit(name[i]) == true) {
+    //        aux = i;
+    //        digit = 1;
+    //    }
+    //}
+    //if (digit == 1) // if string as numbers
+    //    type = name.substr(0, aux); // copies the string without numbers
+    //else // if string doesn't have numbers
+    //    type = name.substr(0, name.length()); // copies entire string
+    //return type;
 }
 
 string territorio::getName() const
 {
+   
     return name;
 }
 
 void territorio::setName(string name)
 {
+	/*int i = 0;
+	if (name.compare("ilha") == true)
+	{
+        i++;
+        this->name = name + std::to_string(i);
+	}*/
     this->name = name;
 }
 

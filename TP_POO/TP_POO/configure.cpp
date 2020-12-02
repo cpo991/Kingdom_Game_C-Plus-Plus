@@ -173,7 +173,7 @@ const string configure::cmdCarrega(string ficheiro) {
 		
 
 		for (int i = 0; i < N; i++) {
-			oss << newGame->addTerritory(name);
+			oss <<newGame->addTerritory(name);
 		}
 	}
 
