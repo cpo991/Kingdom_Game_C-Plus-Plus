@@ -56,7 +56,7 @@ void configure::commands(){
 				else {
 					cout << "test1" << endl;
 					cout << param1 << endl;
-					NewGame = cmdCarrega(NewGame, param1);
+					cmdCarrega(param1);
 				}
 			}
 		}
@@ -150,14 +150,15 @@ void configure::lessParam(int num, string command) {
 	}
 }
 
-game configure::cmdCarrega(game NewGame, string ficheiro) {
+const string configure::cmdCarrega(string ficheiro) {
 	string str;
+
 	ostringstream oss;
 	ifstream fCarrega(ficheiro);
 
 	if (!fCarrega) {
 		oss << "ERROR: Opening file." << endl;
-		return NewGame;
+		return oss.str();
 	}
 
 	while (getline(fCarrega, str)) {
@@ -172,9 +173,9 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 		
 
 		for (int i = 0; i < N; i++) {
-			oss <<NewGame.addTerritory(name);
+			oss <<newGame->addTerritory(name);
 		}
 	}
 
-	return NewGame;
+	return oss.str();
 }
