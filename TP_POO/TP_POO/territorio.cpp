@@ -4,11 +4,12 @@
 #include "territorio.h"
 
 territorio::territorio(string name){
+    
     this->setName(name);
-    this->res = 5;
-    this->createProd = 1;
-    this->createGold = 1;
-    this->victoryPoints = 1;
+    this->setRes(9);
+    this->setCreateGold(1);
+    this->setCreateProd(1);
+    this->setVictoryPoints(0);
 }
 
 territorio::territorio(const territorio& territori)
@@ -30,44 +31,63 @@ territorio::~territorio()
  * @param name - name of the territory that can contain numbers -- nometipoNum
  * @return type of territory
  */
-string territorio::getType(string name) {
+string territorio::getType(string name) const {
 
     string type;
     name.pop_back();// erases the last character [0...N]
     type = name;
     return  type;
-   
-    //int aux = 0, digit = 0;
-    //string type;
-
-    //for (int i = 0; i < name.length(); i++) {
-    //    if (isdigit(name[i]) == true) {
-    //        aux = i;
-    //        digit = 1;
-    //    }
-    //}
-    //if (digit == 1) // if string as numbers
-    //    type = name.substr(0, aux); // copies the string without numbers
-    //else // if string doesn't have numbers
-    //    type = name.substr(0, name.length()); // copies entire string
-    //return type;
 }
 
 string territorio::getName() const
 {
-   
     return name;
 }
 
 void territorio::setName(string name)
 {
-	/*int i = 0;
-	if (name.compare("ilha") == true)
-	{
-        i++;
-        this->name = name + std::to_string(i);
-	}*/
-    this->name = name;
+    static int a = 0;/*,b=0,c=0,d=0,e=0,f=0,g=0;*/
+    this->name = name + std::to_string(a);
+    a++;
+
+    /*for (auto it = getTerritórios.begin(); it != getTerritórios.end(); it++) {
+        int a = 0;
+        if (name == "planice") {
+            this->name = name + std::to_string(a);
+            a++;
+        }
+    }*/
+
+    /*
+    if (name == "planice") {
+        this->name = name + std::to_string(a);
+        a++;
+    }
+
+    if (name == "mina") {
+        this->name = name + std::to_string(b);
+        b++;
+    }
+    else if (name == "castelo") {
+        this->name = name + std::to_string(c);
+        c++;
+    }
+    else if (name == "montanha") {
+        this->name = name + std::to_string(d);
+        d++;
+    }
+    else if (name == "fortaleza") {
+        this->name = name + std::to_string(e);
+        e++;
+    }
+    else if (name == "duna") {
+        this->name = name + std::to_string(f);
+        f++;
+    }
+    else if (name == "ilha") {
+        this->name = name + std::to_string(g);
+        g++;
+    }*/
 }
 
 int territorio::getRes() const
@@ -77,7 +97,11 @@ int territorio::getRes() const
 
 void territorio::setRes(int res)
 {
-    this->res = res;
+    if (getType(this->name) == "territorioInicial") {
+        this->res = res;
+    }
+    else
+        this->res = 0;
 }
 
 int territorio::getCreateProd() const
@@ -87,7 +111,11 @@ int territorio::getCreateProd() const
 
 void territorio::setCreateProd(int createProd)
 {
-    this->createGold = createGold;
+    if (getType(this->name) == "territorioInicial") {
+        this->createProd = createProd;
+    }
+    else
+        this->createProd = 0;
 }
 
 int territorio::getCreateGold() const
@@ -97,7 +125,12 @@ int territorio::getCreateGold() const
 
 void territorio::setCreateGold(int createGold)
 {
-    this->createGold = createGold;
+    if (getType(this->name) == "territorioInicial") {
+        this->createGold = createGold;
+    }
+    else
+        this->createGold = 0;
+    
 }
 
 int territorio::getVictoryPoints() const
@@ -107,5 +140,22 @@ int territorio::getVictoryPoints() const
 
 void territorio::setVictoryPoints(int victoryPoints)
 {
-    this->victoryPoints;
+    if (getType(this->name) == "territorioInicial") {
+        this->victoryPoints = victoryPoints;
+    }
+    else
+        this->victoryPoints = 1;
 }
+
+string territorio::getAsString() const
+{
+    ostringstream oss;
+    oss << "\nNome do Territorio: " << name
+        << "\nTipo de Territorio: " << this->getType(name)
+        << "\nResistencia: " << res 
+        << "\nProdutos: " << createProd 
+        << "\nOuro: " << createGold
+        << "\nPontos: " << victoryPoints << endl;
+    return oss.str();
+}
+

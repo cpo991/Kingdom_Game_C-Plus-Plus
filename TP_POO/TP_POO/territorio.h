@@ -10,6 +10,7 @@
 #include <sstream>
 #include <vector>
 
+
 using namespace std;
 
 class territorio {
@@ -17,15 +18,14 @@ class territorio {
     string name;
 
 public:
-    //Constructor of territory
+    //Constructor of territory 
     territorio(string name);
     //Constructor of territory by copy
     territorio(const territorio& territori);
     //Destructor of territory
     ~territorio();
     //Get type of territory
-    string getType(string name);
-    //
+    string getType(string name) const;
     string getName() const;
     void setName(string name);
     int getRes() const;
@@ -36,6 +36,7 @@ public:
     void setCreateGold(int createGold);
     int getVictoryPoints() const;
     void setVictoryPoints(int victoryPoints);
+    string getAsString() const;
 };
 
 

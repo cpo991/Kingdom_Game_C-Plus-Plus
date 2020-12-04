@@ -5,6 +5,7 @@
 
 int max_militar = 5;
 
+
 imperio::imperio(const imperio& a)
 {
 	for (auto it = t.begin(); it < t.end(); it++) {
@@ -48,3 +49,33 @@ void imperio::setCofre(int cofre)
 {
 	this->cofre = cofre;
 }
+
+const string imperio::conquistaTerritorio(string name)
+{
+	ostringstream oss;
+	t.push_back(new territorio(name));
+
+	return oss.str(); //só está a criar um territorio no imperio 
+	//se fizer dois conquista seguidos
+	//não guarda o primeiro
+}
+
+string imperio::getAsString()
+{
+	ostringstream oss;
+	oss << "O seu imperio:"
+		<< "\n-Armazem:" << getArm()
+		<< "\n-Militar:" << getMilitar()
+		<< "\n-Cofre:" << getCofre() << endl;
+	for (int i =0; i< t.size(); i++) {
+		oss <<"-Territorios: " <<t[i]->getName() << endl;
+	}
+	return oss.str();
+}
+
+//ostream& operator<<(ostream& out, const territorio& ref)
+//{
+//	out << ref.getAsString() << endl;
+//	return out;
+//
+//}

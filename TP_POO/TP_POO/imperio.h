@@ -9,6 +9,7 @@
 #include <vector>
 #include "territorio.h"
 
+
 using namespace std;
 extern int max_militar;
 
@@ -20,7 +21,7 @@ class imperio
 
 public:
 	//construtor default
-	imperio() :arm(0), militar(0), cofre(0) { };
+	imperio() :arm(0), militar(0), cofre(0) {};
 	//construtror de territorio copia
 	imperio(const imperio& a);
 	//destrutor
@@ -34,5 +35,8 @@ public:
 
 	int getCofre() const;
 	void setCofre(int cofre);
+	const string conquistaTerritorio(string name);
+	string getAsString();
 };
 
+//ostream& operator<<(ostream& out, const territorio& ref);

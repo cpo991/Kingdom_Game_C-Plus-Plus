@@ -10,16 +10,20 @@
 #include <sstream>
 #include <vector>
 #include "territorio.h"
+#include "imperio.h"
+
 
 using namespace std;
 
 class game {
     vector<territorio*> territorios;
-    //vector<imperio> imperio;
+    imperio imperioU;
 public:
     game();
     const string addTerritory(string name);
     const vector<territorio*> getTerritorios();
+     int getSizeTerritorios();
+    const string conquistaTerritorios(string name);
 };
 
 

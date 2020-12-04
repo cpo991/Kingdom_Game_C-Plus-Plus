@@ -22,7 +22,7 @@ void configure::initMenu(){
 		cout << file.rdbuf() << endl;
 	}
 	file.close();
-	cout << "\nPress any key to continue..." << endl;
+	cout << "\nPress any key to continue...";
 	cin.ignore();
 	commands(); // calls the function to receive and read commands
 }
@@ -34,10 +34,11 @@ void configure::initMenu(){
 */
 void configure::commands(){
 	int endConfig = 0;
+	string teste;
 	game NewGame;
 	do {
 		istringstream iss;
-		cout << "\nConfiguration Phase";
+		cout << "\nConfiguration Phase"<<endl;
 		cout << "\nEnter a command: ";
 		getline(cin, phrase);
 		iss.str(phrase);
@@ -56,7 +57,7 @@ void configure::commands(){
 				else {
 					cout << "test1" << endl;
 					cout << param1 << endl;
-					cmdCarrega(param1);
+					NewGame = cmdCarrega(NewGame, param1);
 				}
 			}
 		}
@@ -80,12 +81,28 @@ void configure::commands(){
 			}
 		}
 		if (!command.compare("lista")) {
+			//falta implementar a lista puder receber o nome de um territorio e imprimir sobre esse
 			iss >> param1;
 			if (param1.compare("")) {
 				lessParam(1, command);
 			}
 			else {
-				//FUNCTION SHOW LIST HERE
+				NewGame.getTerritorios();
+			}
+		}
+		if (!command.compare("conquista")) {
+			iss >> param1;
+			if (!param1.compare("")) {
+				needParam(1, command);
+			}
+			else {
+				iss >> param2;
+				if (param2.compare("")) {
+					lessParam(1, command);
+				}
+				else {
+					cmdConquista(NewGame,param1); //recebe bem qual a adicionar ao imperio e este ja foi construido
+				}
 			}
 		}
 		if (!command.compare("avanca")) {
@@ -97,8 +114,7 @@ void configure::commands(){
 			help();
 		}
 	} while (endConfig != 1);
-	//Debug mostra quais é que foram adicionados depois do comando cria -- o carrega ainda fica vazio
-	NewGame.getTerritorios();
+	
 }
 /**
 	Opens the file help.txt and prints everything inside it
@@ -150,15 +166,14 @@ void configure::lessParam(int num, string command) {
 	}
 }
 
-const string configure::cmdCarrega(string ficheiro) {
+game configure::cmdCarrega(game NewGame, string ficheiro) {
 	string str;
-
 	ostringstream oss;
 	ifstream fCarrega(ficheiro);
 
 	if (!fCarrega) {
 		oss << "ERROR: Opening file." << endl;
-		return oss.str();
+		return NewGame;
 	}
 
 	while (getline(fCarrega, str)) {
@@ -173,9 +188,18 @@ const string configure::cmdCarrega(string ficheiro) {
 		
 
 		for (int i = 0; i < N; i++) {
-			oss <<newGame->addTerritory(name);
+			oss <<NewGame.addTerritory(name);
 		}
 	}
 
-	return oss.str();
+	return NewGame;
+}
+
+game configure::cmdConquista(game NewGame, string name){
+ostringstream oss;
+	
+	cout<<NewGame.conquistaTerritorios(name);
+	
+	return NewGame;
+	
 }
