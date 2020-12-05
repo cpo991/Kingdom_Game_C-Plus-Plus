@@ -35,6 +35,7 @@ public:
 
 	int getCofre() const;
 	void setCofre(int cofre);
+	//string conquistaTerritorio(territorio* t);
 	const string conquistaTerritorio(string name);
 	string getAsString();
 };

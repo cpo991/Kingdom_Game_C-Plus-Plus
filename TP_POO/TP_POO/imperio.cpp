@@ -50,18 +50,28 @@ void imperio::setCofre(int cofre)
 	this->cofre = cofre;
 }
 
+//string imperio::conquistaTerritorio(territorio* t)
+//{
+	//ostringstream oss;
+	////for (auto it = t.begin(); it != t.end(); it++)
+	//		//t estava a zero
+	//for(territorio* aux:)
+	//this->t.push_back(t);
+	//		//t.push_back(new territorio(t* name)); //está a adicionar ao vetor territorios do game pelo lista parece??
+	//		
+	//		return oss.str();
 
 const string imperio::conquistaTerritorio(string name)
 {
 	ostringstream oss;
 	//for (auto it = t.begin(); it != t.end(); it++)
-			t.push_back(new territorio(name)); //está a adicionar ao vetor territorios do game pelo lista parece??
-			
-			return oss.str();
+	t.push_back(new territorio(name)); //está a adicionar ao vetor territorios do game pelo lista parece??
 
-	 //só está a criar um territorio no imperio 
-	//se fizer dois conquista seguidos
-	//não guarda o primeiro
+	return oss.str();
+
+	//só está a criar um territorio no imperio 
+   //se fizer dois conquista seguidos
+   //não guarda o primeiro
 }
 
 string imperio::getAsString()

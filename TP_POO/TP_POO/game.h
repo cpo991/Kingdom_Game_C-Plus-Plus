@@ -9,6 +9,8 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 #include "territorio.h"
 #include "imperio.h"
 
@@ -22,8 +24,11 @@ public:
     game();
     const string addTerritory(string name);
     const string  removeTerritory(string name);
-    const vector<territorio*> getTerritorios();
-     //int getSizeTerritorios();
+    //territorio*  removeTerritory(const string name);
+    // vector<territorio*> getTerritorios();
+    const string listaTerritorios();
+    const string listaTerritorios(string name);
+     const int getSizeTerritorios();
     const string conquistaTerritorios(string name);
 };
 
