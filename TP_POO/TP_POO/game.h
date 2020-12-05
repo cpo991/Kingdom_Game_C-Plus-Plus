@@ -21,8 +21,9 @@ class game {
 public:
     game();
     const string addTerritory(string name);
+    const string  removeTerritory(string name);
     const vector<territorio*> getTerritorios();
-     int getSizeTerritorios();
+     //int getSizeTerritorios();
     const string conquistaTerritorios(string name);
 };
 

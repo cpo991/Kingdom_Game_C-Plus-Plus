@@ -196,8 +196,7 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 }
 
 game configure::cmdConquista(game NewGame, string name){
-ostringstream oss;
-	
+	ostringstream oss;
 	cout<<NewGame.conquistaTerritorios(name);
 	
 	return NewGame;
