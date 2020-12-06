@@ -89,7 +89,7 @@ void configure::commands() {
 			}
 			else {
 				//senão vai para o cmd e imprime do territorio x
-				cmdLista(NewGame, param1);
+				cout<<cmdLista(NewGame, param1);
 			}
 		}
 		if (!command.compare("avanca")) {
@@ -138,8 +138,11 @@ void configure::commands() {
 			}
 			else {
 				//senão vai para o cmd e imprime do territorio x
-				cmdLista(NewGame, param1);
+				cout<<cmdLista(NewGame, param1);
 			}
+		}
+		if (!command.compare("sair")) {
+			endFase1 = 1;
 		}
 		
 	} while (endFase1 != 1);
@@ -232,8 +235,16 @@ game configure::cmdConquista(game NewGame, string name){
 	
 }
 
-game configure::cmdLista(game NewGame, string name) {
-	
-	cout <<NewGame.listaTerritorios(name);
-	return NewGame;
+string configure::cmdLista(game NewGame, string name)
+{
+	ostringstream oss;
+	oss << NewGame.listaTerritorios(name);
+	return oss.str();
 }
+
+//game configure::cmdLista(game NewGame, string name) {
+//	
+//	cout <<NewGame.listaTerritorios(name);
+//	return NewGame;
+//}
+

@@ -24,7 +24,8 @@ public:
     void lessParam(int num, string command);
     game cmdCarrega(game NewGame,string ficheiro);
     game  cmdConquista(game NewGame,string name);
-    game cmdLista(game NewGame, string name);
+    //game cmdLista(game NewGame, string name);
+    string cmdLista(game NewGame, string name);
 };
 
 

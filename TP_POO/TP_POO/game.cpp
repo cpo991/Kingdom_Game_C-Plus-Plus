@@ -24,7 +24,6 @@ const string game::removeTerritory(string name)
 	for (auto it = territorios.begin(); it != territorios.end();) {
 		if ((*it)->getName() == name) {
 			oss << "TERRITORIO " << (*it)->getName() << " FOI REMOVIDO" << endl;
-			delete(*it);
 			territorios.erase(it); // está a eliminar corretamente ao vector territorios
 			return oss.str();	   // mas quando volta a pedir para listar no configure aparece na mm 
 		}
@@ -68,11 +67,26 @@ const string game::removeTerritory(string name)
 
 const string game::listaTerritorios() {
 	ostringstream oss;
-	vector <territorio*> aux;
+	//vector <territorio*> aux;
+	imperio* aux1;
+
+	oss << "\nLISTAGEM DE DADOS DO JOGO ATE AO MOMENTO" << endl;
+	oss << "\n--TERRITORIOS NO MUNDO POR CONQUISTAR--" << endl;
 	for (territorio* it : territorios) {
-		oss << it->getAsString()<<endl; // estava a ir até ao tamanho de vector correto, por exemplo dps da eliminação
-		aux.push_back(it);
+	
+		oss << it->getAsString() << endl; 
+		//aux.push_back(it);
 	}
+		oss << "--O SEU IMPERIO--" << endl;
+		oss << imperioU.getAsString() << endl;
+	
+
+	//oss << "--ANO E TURNO DO JOGO--" << endl;
+	//oss << "ULTIMO FATOR SORTE--" << endl;
+	//oss << "--TECNOLOGIAS EXISTENTES--" << endl;
+	//oss << "--PROXIMO EVENTO--" << endl;
+	//oss << "--TOTAL PONTOS--" << endl;
+
 	return oss.str();
 }
 const string game::listaTerritorios(string name) {
@@ -80,7 +94,7 @@ const string game::listaTerritorios(string name) {
 	vector <territorio*> aux;
 	for (territorio* it : territorios) {
 		if ((it)->getName() == name){
-		oss << it->getAsString() << endl; // estava a ir até ao tamanho de vector correto, por exemplo dps da eliminação
+		oss << it->getAsString() << endl; // 
 		aux.push_back(it);
 		}
 	}
@@ -103,25 +117,27 @@ const string game::conquistaTerritorios(const string name)
 
 	ostringstream oss;
 
-	vector<territorio*> aux;
+	//vector<territorio*> aux;
 	for(territorio* it: territorios){
-		//for (auto it = territorios.begin(); it != territorios.end();) {
+		/*for (auto it = territorios.begin(); it != territorios.end();) {*/
 
 			if ((it)->getName() == name) {
 
 				if (imperioU.getMilitar() + sorte >= it->getRes()) {
 
-					/*oss << this->removeTerritory(name);
-					oss << "TAMNHO DO VECTOR TERRITORIOS DO GAME: " << this->territorios.size() << endl;*/
-					oss << imperioU.conquistaTerritorio(name);
-					oss << removeTerritory(name);
+					oss << imperioU.conquistaTerritorio(it) << endl;; //copia o territorio para o imperio
+					oss << removeTerritory(name) << endl; //elimina o territorio do vector do game
 					oss << imperioU.getAsString();
-					oss << "TAMNHO DO VECTOR TERRITORIOS DO GAME: " << this->territorios.size() << endl; 
+					oss << "TAMNHO DO VECTOR TERRITORIOS DO GAME: " << this->territorios.size() << endl; //está a aparecer bem dps de eliminar
 
 					return oss.str();
 				}
+				else {
+					imperioU.setMilitar(imperioU.getMilitar() - 1);
+					oss << "Nao conquistou e reduziu em uma unidade a forca militar" << endl;
+				}
 			}
-			aux.push_back(it);
+			//aux.push_back(it);
 			//else { (*it)++; }
 		}
 		//}
