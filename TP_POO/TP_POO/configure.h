@@ -26,6 +26,7 @@ public:
     game  cmdConquista(game NewGame,string name);
     //game cmdLista(game NewGame, string name);
     string cmdLista(game NewGame, string name);
+    game setTerritorioInicial(game NewGame, string name);
 };
 
 

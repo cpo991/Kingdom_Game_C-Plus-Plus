@@ -46,48 +46,9 @@ string territorio::getName() const
 
 void territorio::setName(string name)
 {
-    static int a = 0;/*,b=0,c=0,d=0,e=0,f=0,g=0;*/
+    static int a = 0;
     this->name = name + std::to_string(a);
     a++;
-
-    /*for (auto it = getTerritórios.begin(); it != getTerritórios.end(); it++) {
-        int a = 0;
-        if (name == "planice") {
-            this->name = name + std::to_string(a);
-            a++;
-        }
-    }*/
-
-    /*
-    if (name == "planice") {
-        this->name = name + std::to_string(a);
-        a++;
-    }
-
-    if (name == "mina") {
-        this->name = name + std::to_string(b);
-        b++;
-    }
-    else if (name == "castelo") {
-        this->name = name + std::to_string(c);
-        c++;
-    }
-    else if (name == "montanha") {
-        this->name = name + std::to_string(d);
-        d++;
-    }
-    else if (name == "fortaleza") {
-        this->name = name + std::to_string(e);
-        e++;
-    }
-    else if (name == "duna") {
-        this->name = name + std::to_string(f);
-        f++;
-    }
-    else if (name == "ilha") {
-        this->name = name + std::to_string(g);
-        g++;
-    }*/
 }
 
 int territorio::getRes() const
