@@ -36,9 +36,10 @@ void configure::commands() {
 	int endConfig = 0, endFase1 = 0;
 	string teste;
 	game NewGame;
+
+	cout << "\n>>>>>>> Configuration Phase <<<<<<<" << endl;
 	do {
 		istringstream iss;
-		cout << "\nConfiguration Phase" << endl;
 		cout << "\nEnter a command: ";
 		getline(cin, phrase);
 		iss.str(phrase);
@@ -102,7 +103,7 @@ void configure::commands() {
 			}
 		} while (endConfig != 1);
 
-
+	cout << "\n>>>>>>>>>>>> Game Phase <<<<<<<<<<<" << endl;
 	//CICLO DE COMANDOS DEPOIS DO JOGO COMEÇAR
 	do {
 		istringstream iss;
@@ -113,6 +114,7 @@ void configure::commands() {
 		iss.str(phrase);
 		iss >> command;
 		param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+		
 
 
 		if (!command.compare("conquista")) {
@@ -126,7 +128,7 @@ void configure::commands() {
 					lessParam(1, command);
 				}
 				else {
-					cmdConquista(NewGame, param1); //recebe bem qual a adicionar ao imperio e este ja foi construido
+					NewGame = cmdConquista(NewGame, param1); //recebe bem qual a adicionar ao imperio e este ja foi construido
 				}
 			}
 
@@ -241,10 +243,3 @@ string configure::cmdLista(game NewGame, string name)
 	oss << NewGame.listaTerritorios(name);
 	return oss.str();
 }
-
-//game configure::cmdLista(game NewGame, string name) {
-//	
-//	cout <<NewGame.listaTerritorios(name);
-//	return NewGame;
-//}
-

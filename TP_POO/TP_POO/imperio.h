@@ -22,6 +22,7 @@ class imperio
 public:
 	//construtor default --> deviamos colocar aqui já um territorio
 	imperio() :arm(0), militar(0), cofre(0) {
+		
 		for (auto it = territorio_imperio.begin(); it != territorio_imperio.end(); it++) {
 			(*it)->getName();
 	}
@@ -41,11 +42,9 @@ public:
 	void setCofre(int cofre);
 
 
+
 	string conquistaTerritorio(territorio* a);
 
-	//string conquistaTerritorio(territorio* t);
-	//const string conquistaTerritorio(string name);
+
 	string getAsString();
 };
-
-//ostream& operator<<(ostream& out, const territorio& ref);

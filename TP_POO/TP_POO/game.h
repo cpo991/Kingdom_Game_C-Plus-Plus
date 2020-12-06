@@ -28,8 +28,9 @@ public:
     // vector<territorio*> getTerritorios();
     const string listaTerritorios();
     const string listaTerritorios(string name);
-     const int getSizeTerritorios();
+    const size_t getSizeTerritorios();
     const string conquistaTerritorios(string name);
+    const string setTerritorioDefault(const string name);
 };
 
 
