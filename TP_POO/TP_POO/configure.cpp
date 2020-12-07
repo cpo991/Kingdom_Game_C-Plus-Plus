@@ -193,10 +193,15 @@ void configure::commands() {
 					lessParam(1, command);
 				}
 				else {
-					NewGame = cmdConquista(NewGame, param1); //recebe bem qual a adicionar ao imperio e este ja foi construido
+					if (NewGame.existTerritory(param1) == true) {
+						NewGame = cmdConquista(NewGame, param1); //recebe bem qual a adicionar ao imperio e este ja foi construido
+						turnos++;
+					}
+					else {
+						cout << "\n>>> AVISO: o territorio <name> nao existe logo nao pode ser conquistado." << endl;
+					}
 				}
 			}
-			turnos++;
 		}
 		if (!command.compare("passa")) {
 			cout << "\nAVISO: NESTA META AS RESTANTES FASES NAO SE ENCONTRAM IMPLEMENTADAS." << endl;
@@ -322,7 +327,18 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 
 game configure::cmdConquista(game NewGame, string name){
 	ostringstream oss;
-	if (name.compare("init")) {
+	/*if (NewGame.existTerritory(name) == true) {
+		if (name == "territorioInicial") {
+			NewGame.conquistaTerritorios("territorioInicial");
+		}
+		else {
+			cout << NewGame.conquistaTerritorios(name);
+		}
+	}
+	else {
+		cout << "\n>>> AVISO: o territorio <name> nao existe logo nao pode ser conquistado." << endl;
+	}*/
+	if (name == "territorioInicial") {
 		NewGame.conquistaTerritorios("territorioInicial");
 	}
 	else {

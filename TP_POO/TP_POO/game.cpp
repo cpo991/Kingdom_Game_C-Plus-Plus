@@ -129,3 +129,11 @@ const string game::setTerritorioDefault(const string name)
 	return oss.str();
 }
 
+bool game::existTerritory(const string name) {
+	for (territorio* it : territorios) {
+		if ((it)->getName() == name) {
+			return true;
+		}
+	}
+	return false;
+}

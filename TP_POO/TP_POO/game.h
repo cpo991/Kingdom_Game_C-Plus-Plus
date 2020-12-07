@@ -31,6 +31,7 @@ public:
     const size_t getSizeTerritorios();
     const string conquistaTerritorios(string name);
     const string setTerritorioDefault(string name);
+    bool existTerritory(const string name);
 };
 
 

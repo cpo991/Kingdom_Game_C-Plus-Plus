@@ -123,4 +123,3 @@ string territorio::getAsString() const
         << "\no Pontos: " << victoryPoints << endl;
     return oss.str();
 }
-
