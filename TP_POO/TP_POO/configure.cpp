@@ -37,9 +37,65 @@ void configure::commands() {
 	string teste;
 	game NewGame;
 
-	cout << "\n\n>>>>>>> FASE DE CONFIGURACAO <<<<<<<" << endl;
-	cout << "\n:::::: LISTA DE COMANDOS ::::::" << endl;
-	cout << "o carrega <nomeFicheiro> \no cria <tipo> <n>\no lista <nome>\no avanca\no help" << endl;
+	help("helpconfig.txt");
+	do {
+		istringstream iss;
+		cout << "\nInsira um comando:  ";
+		getline(cin, phrase);
+		iss.str(phrase);
+		iss >> command;
+		param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+
+		//COMANDOS CARREGA, CRIA , LISTA , AVANÇA E HELP
+		if (!command.compare("carrega")) {
+			iss >> param1;//PARMA1=comandos2.txt
+			if (!param1.compare("")) {
+				needParam(1, command);
+			}
+			else {
+				iss >> param2;
+				if (param2.compare("")) {
+					lessParam(1, command);
+				}
+				else {
+					NewGame = cmdCarrega(NewGame, param1);
+				}
+			}
+		}
+		if (!command.compare("cria")) {
+			iss >> param1; //CRIA
+			iss >> param2; //MINA
+			if (!param1.compare("")) { // tipo
+				needParam(2, command);
+			}
+			else if (!param2.compare("")) { // n (mundo N)
+				needParam(1, command);
+			}
+			else {
+				int num = stoi(param2); //2
+				for (int i = 0; i < num; i++) {
+					NewGame.addTerritory(param1); //PARAM 1= MINA
+				}
+			}
+		}
+		if (!command.compare("lista")) {
+			iss >> param1;
+			if (!param1.compare("")) { //se tiver só lista imprime tudo
+				cout << NewGame.listaTerritorios();
+			}
+			else {
+				//senão vai para o cmd e imprime do territorio x
+				cout << cmdLista(NewGame, param1);
+			}
+		}
+		if (!command.compare("avanca")) {
+			cout << "\n>>> AVISO: FASE DE CONFIGURACOES NAO PODE TERMINAR SEM TERRITORIOS CRIADOS." << endl;
+		}
+		if (!command.compare("help")) {
+			cout << endl;
+			help("helpconfig.txt");
+		}
+	} while (NewGame.getSizeTerritorios()==0);
 	do {
 		istringstream iss;
 		cout << "\nInsira um comando:  ";
@@ -95,34 +151,28 @@ void configure::commands() {
 			}
 		}
 		if (!command.compare("avanca")) {
-				cout << "\n>>> AVISO: FASE DE CONFIGURACOES TERMINOU... JOGO VAI COMECAR!" << endl;
+				cout << "\n>>> AVISO: FASE DE CONFIGURACOES TERMINOU... JOGO VAI COMECAR!\n\n" << endl;
 				endConfig = 1;
 			}
 		if (!command.compare("help")) {
 				cout << endl;
-				help();
+				help("helpconfig.txt");
 			}
-		} while (endConfig != 1);
-
-	cout << "\n>>>>>>>>>>>> JOGO <<<<<<<<<<<" << endl;
-	cout << "\n:::::: LISTA DE COMANDOS ::::::" << endl;
-	cout << "o lista <nome>\no help\no conquista <nome>" << endl;
+	} while (endConfig != 1);
 
 //Ciclo de comandos depois do jogo começar
-
+	help("helpfase1.txt");
 	do {
 		istringstream iss;
-		cout << "\n########## FASE 1 #########" << endl;
-		cout << "\n--- Conquistar ou Passar? ---" << endl;
-
+		cout << "\n>>>>>>>>>>>>>>> FASE 1 <<<<<<<<<<<<<<<<" << endl;
+		cout << "\t Conquistar ou Passar?" << endl;
+		cout << "\t\tTURNO " << turnos << endl;
 		cout << "\nInsira um comando: ";
 		getline(cin, phrase);
 		iss.str(phrase);
 		iss >> command;
 		param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
 		
-
-
 		if (!command.compare("conquista")) {
 			iss >> param1;
 			if (!param1.compare("")) {
@@ -139,6 +189,11 @@ void configure::commands() {
 			}
 			turnos++;
 		}
+		if (!command.compare("passa")) {
+			cout << "\nAVISO: NESTA META AS RESTANTES FASES NAO SE ENCONTRAM IMPLEMENTADAS." << endl;
+			cout << "\t E PASSADO PARA O TURNO SEGUINTE." << endl;
+			turnos++;
+		}
 		if (!command.compare("lista")) {
 			iss >> param1;
 			if (!param1.compare("")) { //se tiver só lista imprime tudo
@@ -149,27 +204,38 @@ void configure::commands() {
 				cout<<cmdLista(NewGame, param1);
 			}
 		}
+		if (!command.compare("help")) {
+			cout << endl;
+			help("helpfase1.txt");
+		}
 		if (!command.compare("sair")) {
 			endTurno = 1;
 		}
-		
 	
 	} while (endTurno!=1 && turnos<12 && NewGame.getSizeTerritorios()!=0);
 	cout << "\n>>> SAINDO... " << endl;
 }
 
 //Opens the file help.txt and prints everything inside it
-void configure::help(){
-	fstream file;
-	file.open("helpconfig.txt");
+void configure::help(string file){
+	ifstream fhelp(file);
+	ostringstream oss;
+	//String str;
+	if (!fhelp) {
+		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
+		return ;
+	}
 
-	if (!file) {
+	/*while (getline(fCarrega, str)) {
+	file.open("helpconfig.txt");*/
+
+	if (!fhelp) {
 		cout << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
 	}
 	else {
-		cout << file.rdbuf() << endl;
+		cout << fhelp.rdbuf() << endl;
 	}
-	file.close();
+	fhelp.close();
 }
 
 /**

@@ -1,8 +1,8 @@
->>>>>>> Configuration P
-Help Menu - Existing commands:
-
-carrega <nomeFicheiro>
-cria <tipo> <n>
-lista <nome>
-avanca
-help
+>>>>>>>> FASE DE CONFIGURACAO <<<<<<<<<
+:::::::::: LISTA DE COMANDOS ::::::::::
+o  carrega <nomeFicheiro>
+o  cria <tipo> <n>
+o  lista <nome>
+o  avanca
+o  help
+:::::::::::::::::::::::::::::::::::::::

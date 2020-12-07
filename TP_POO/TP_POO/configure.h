@@ -19,7 +19,7 @@ public:
     configure(game& g);
     void initMenu();
     void commands();
-    void help();
+    void help(string file);
     void needParam(int num, string command);
     void lessParam(int num, string command);
     game cmdCarrega(game NewGame,string ficheiro);
