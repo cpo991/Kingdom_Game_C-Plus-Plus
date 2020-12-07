@@ -16,13 +16,13 @@ void configure::initMenu(){
 	file.open("menu.txt");
 
 	if (!file) {
-		cout << "ERROR: Opening file." << endl;
+		cout << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
 	}
 	else {
 		cout << file.rdbuf() << endl;
 	}
 	file.close();
-	cout << "\nPress any key to continue...";
+	cout << "\nPressione [ENTER] para continuar...";
 	cin.ignore();
 	commands(); // calls the function to receive and read commands
 }
@@ -33,14 +33,16 @@ void configure::initMenu(){
 	Until the flag endProgram is set to 1 and the function ends.
 */
 void configure::commands() {
-	int endConfig = 0, endFase1 = 0;
+	int endConfig = 0, turnos = 0, endTurno = 0,por_conquistar=0;
 	string teste;
 	game NewGame;
 
-	cout << "\n>>>>>>> Configuration Phase <<<<<<<" << endl;
+	cout << "\n\n>>>>>>> FASE DE CONFIGURACAO <<<<<<<" << endl;
+	cout << "\n:::::: LISTA DE COMANDOS ::::::" << endl;
+	cout << "o carrega <nomeFicheiro> \no cria <tipo> <n>\no lista <nome>\no avanca\no help" << endl;
 	do {
 		istringstream iss;
-		cout << "\nEnter a command: ";
+		cout << "\nInsira um comando:  ";
 		getline(cin, phrase);
 		iss.str(phrase);
 		iss >> command;
@@ -58,7 +60,6 @@ void configure::commands() {
 					lessParam(1, command);
 				}
 				else {
-					cout << param1 << endl;
 					NewGame = cmdCarrega(NewGame, param1);
 				}
 			}
@@ -94,7 +95,7 @@ void configure::commands() {
 			}
 		}
 		if (!command.compare("avanca")) {
-				cout << "\nWARNING: The configuration phase is over. Game will start soon..." << endl;
+				cout << "\n>>> AVISO: FASE DE CONFIGURACOES TERMINOU... JOGO VAI COMECAR!" << endl;
 				endConfig = 1;
 			}
 		if (!command.compare("help")) {
@@ -103,13 +104,18 @@ void configure::commands() {
 			}
 		} while (endConfig != 1);
 
-	cout << "\n>>>>>>>>>>>> Game Phase <<<<<<<<<<<" << endl;
-	//CICLO DE COMANDOS DEPOIS DO JOGO COMEÇAR
+	cout << "\n>>>>>>>>>>>> JOGO <<<<<<<<<<<" << endl;
+	cout << "\n:::::: LISTA DE COMANDOS ::::::" << endl;
+	cout << "o lista <nome>\no help\no conquista <nome>" << endl;
+
+//Ciclo de comandos depois do jogo começar
+
 	do {
 		istringstream iss;
-		cout << "\n Conquistar ou Passar?" << endl;
+		cout << "\n########## FASE 1 #########" << endl;
+		cout << "\n--- Conquistar ou Passar? ---" << endl;
 
-		cout << "\nEnter a command: ";
+		cout << "\nInsira um comando: ";
 		getline(cin, phrase);
 		iss.str(phrase);
 		iss >> command;
@@ -131,7 +137,7 @@ void configure::commands() {
 					NewGame = cmdConquista(NewGame, param1); //recebe bem qual a adicionar ao imperio e este ja foi construido
 				}
 			}
-
+			turnos++;
 		}
 		if (!command.compare("lista")) {
 			iss >> param1;
@@ -144,21 +150,21 @@ void configure::commands() {
 			}
 		}
 		if (!command.compare("sair")) {
-			endFase1 = 1;
+			endTurno = 1;
 		}
 		
-	} while (endFase1 != 1);
-
+	
+	} while (endTurno!=1 && turnos<12 && NewGame.getSizeTerritorios()!=0);
+	cout << "\n>>> SAINDO... " << endl;
 }
-/**
-	Opens the file help.txt and prints everything inside it
-*/
+
+//Opens the file help.txt and prints everything inside it
 void configure::help(){
 	fstream file;
 	file.open("helpconfig.txt");
 
 	if (!file) {
-		cout << "ERROR: Opening file." << endl;
+		cout << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
 	}
 	else {
 		cout << file.rdbuf() << endl;
@@ -174,13 +180,14 @@ void configure::help(){
 */
 void configure::needParam(int num, string command) {
 	if (num == 0) {
-		cout << "ERROR: The command <" << command << "> needs more parameters." << endl;
+		cout << "ERRO: O comando <" << command << "> necessita de mais parametros." << endl;
+		  
 	}
 	else if (num == 1) {
-		cout << "ERROR: There's 1 parameter missing in the command <" << command << ">." << endl;
+		cout << "ERRO: Falta apenas 1 parametro no comando <" << command << ">." << endl;
 	}
 	else {
-		cout << "ERROR: There are " << num << " parametros no comando <" << command << ">." << endl;
+		cout << "ERROR: Ha " << num << " parametros no comando <" << command << ">." << endl;
 	}
 }
 
@@ -192,11 +199,10 @@ void configure::needParam(int num, string command) {
 */
 void configure::lessParam(int num, string command) {
 	if (num == 1) {
-		cout << "ERROR: It was inserted 1 parameter that's not needed in the command <" << command << ">." << endl;
+		cout << "ERRO: Foi inserido 1 parametro que nao e necessario no comando <" << command << ">." << endl;
 	}
 	else {
-		cout << "ERROR: It was inserted " << num << " parameter that's not needed in the command <" 
-			<< command << ">." << endl;
+		cout << "ERRO: Foram inseridos " << num << " parametros nao necessarios no comando <" << command << ">." << endl;
 	}
 }
 
@@ -206,7 +212,7 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 	ifstream fCarrega(ficheiro);
 
 	if (!fCarrega) {
-		oss << "ERROR: Opening file." << endl;
+		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
 		return NewGame;
 	}
 
@@ -232,13 +238,10 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 game configure::cmdConquista(game NewGame, string name){
 	ostringstream oss;
 	cout<<NewGame.conquistaTerritorios(name);
-	
 	return NewGame;
-	
 }
 
-string configure::cmdLista(game NewGame, string name)
-{
+string configure::cmdLista(game NewGame, string name){
 	ostringstream oss;
 	oss << NewGame.listaTerritorios(name);
 	return oss.str();

@@ -111,12 +111,12 @@ void territorio::setVictoryPoints(int victoryPoints)
 string territorio::getAsString() const
 {
     ostringstream oss;
-    oss << "\nNome do Territorio: " << name
-        << "\nTipo de Territorio: " << this->getType(name)
-        << "\nResistencia: " << res 
-        << "\nProdutos: " << createProd 
-        << "\nOuro: " << createGold
-        << "\nPontos: " << victoryPoints << endl;
+    oss << "\no Nome do Territorio: " << name
+        << "\no Tipo de Territorio: " << this->getType(name)
+        << "\no Resistencia de conquista: " << res 
+        << "\no Criacao de produtos: " << createProd 
+        << "\no Criacao de ouro: " << createGold
+        << "\no Pontos: " << victoryPoints << endl;
     return oss.str();
 }
 

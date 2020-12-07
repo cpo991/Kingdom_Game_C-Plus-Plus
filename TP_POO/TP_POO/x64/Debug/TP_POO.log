@@ -1,3 +1,2 @@
-﻿  game.cpp
-E:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\TP_POO\game.cpp(31,4): warning C4834: discarding return value of function with 'nodiscard' attribute
-  TP_POO.vcxproj -> E:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
+﻿  configure.cpp
+  TP_POO.vcxproj -> C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe

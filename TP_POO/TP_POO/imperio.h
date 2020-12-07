@@ -27,8 +27,7 @@ public:
 			(*it)->getName();
 	}
 	};
-	//construtror de imperio copia
-	//imperio(const imperio& a);
+	
 	//destrutor
 	~imperio();
 

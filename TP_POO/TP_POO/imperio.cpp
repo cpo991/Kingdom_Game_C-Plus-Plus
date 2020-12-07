@@ -44,26 +44,27 @@ string imperio::conquistaTerritorio(territorio* a)
 {
 	ostringstream oss;
 	if (a == nullptr) {
-		oss << "Territorio invalido!" << endl;
+		oss << "\n >>> Territorio invalido!" << endl;
 		return oss.str();
 	}
 
 	setArm(getArm() + (a->getCreateProd()));
 	setCofre(getCofre() + (a->getCreateGold()));
 	territorio_imperio.push_back(a);
-	oss << "Territorio " << a->getName() << " movido para o imperio" << endl;
+	oss << "\n>>> Territorio " << a->getName() << " conquistado!" << endl;
 	return oss.str();
 }
 
 string imperio::getAsString()
 {
 	ostringstream oss;
-	
-	oss<< "Produtos em armazem:" << getArm() << endl;
-	oss<< "Forca militar:" << getMilitar() << endl;
-	oss<< "Produtos no cofre:" << getCofre() << endl;
+	oss << ":::: O SEU IMPERIO :::::" << endl;
+	oss<< "\no Produtos em armazem: " << getArm() << endl;
+	oss<< "o Forca militar: " << getMilitar() << endl;
+	oss<< "o Produtos no cofre: " << getCofre() << endl;
+	oss << "o Territorios conquistados: " << endl;
 	for (int i =0; i< territorio_imperio.size(); i++) {
-		oss <<"Territorios conquistados: " <<territorio_imperio[i]->getName() << endl;
+		oss<<"   o "<< territorio_imperio[i]->getName() << endl;
 	}
 	return oss.str();
 }
