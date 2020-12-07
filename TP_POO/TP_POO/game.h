@@ -30,7 +30,7 @@ public:
     const string listaTerritorios(string name);
     const size_t getSizeTerritorios();
     const string conquistaTerritorios(string name);
-    const string setTerritorioDefault(const string name);
+    const string setTerritorioDefault(string name);
 };
 
 

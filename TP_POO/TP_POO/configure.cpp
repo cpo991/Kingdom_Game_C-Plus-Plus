@@ -37,6 +37,9 @@ void configure::commands() {
 	string teste;
 	game NewGame;
 
+	NewGame.addTerritory("territorioInicial");
+	NewGame = cmdConquista(NewGame, "territorioInicial");
+
 	help("helpconfig.txt");
 	do {
 		istringstream iss;
@@ -72,9 +75,14 @@ void configure::commands() {
 				needParam(1, command);
 			}
 			else {
-				int num = stoi(param2); //2
-				for (int i = 0; i < num; i++) {
-					NewGame.addTerritory(param1); //PARAM 1= MINA
+				if (param1 != "territorioInicial") {
+					int num = stoi(param2); //2
+					for (int i = 0; i < num; i++) {
+						NewGame.addTerritory(param1); //PARAM 1= MINA
+					}
+				}
+				else {
+					cout << "\n>>> AVISO: nao podem ser criados <territorioInicial>" << endl;
 				}
 			}
 		}
@@ -130,16 +138,17 @@ void configure::commands() {
 				needParam(1, command);
 			}
 			else {
-				int num = stoi(param2); //2
-				for (int i = 0; i < num; i++) {
-					NewGame.addTerritory(param1); //PARAM 1= MINA
+				if (param1 != "territorioInicial") {
+					int num = stoi(param2); //2
+					for (int i = 0; i < num; i++) {
+						NewGame.addTerritory(param1); //PARAM 1= MINA
+					}
 				}
-				// FUNCTION VERIFIE IF PARAM1 IS A TYPE
-				// FUNCTION VERIFIE IF PARAM2 IS AN EXISTING WORLD
-				// IF BOTH ARE TRUE THEN CREATE
+				else {
+					cout << "\n>>> AVISO: nao podem ser criados <territorioInicial>" << endl;
+				}
 			}
 		}
-		//LISTA AQUI FUNCIONA BEM
 		if (!command.compare("lista")) {
 			iss >> param1;
 			if (!param1.compare("")) { //se tiver só lista imprime tudo
@@ -166,7 +175,7 @@ void configure::commands() {
 		istringstream iss;
 		cout << "\n>>>>>>>>>>>>>>> FASE 1 <<<<<<<<<<<<<<<<" << endl;
 		cout << "\t Conquistar ou Passar?" << endl;
-		cout << "\t\tTURNO " << turnos << endl;
+		cout << "\t\tTURNO " << turnos+1 << endl;
 		cout << "\nInsira um comando: ";
 		getline(cin, phrase);
 		iss.str(phrase);
@@ -276,6 +285,7 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 	string str;
 	ostringstream oss;
 	ifstream fCarrega(ficheiro);
+	int count = 0;
 
 	if (!fCarrega) {
 		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
@@ -292,10 +302,19 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 		getline(iss, num, ' ');
 		N = stoi(num);
 		
-
-		for (int i = 0; i < N; i++) {
-			oss <<NewGame.addTerritory(name);
+		if (name != "territorioInicial") {
+			for (int i = 0; i < N; i++) {
+				oss << NewGame.addTerritory(name);
+			}
 		}
+		else {
+			count++;
+			count = count + N;
+		}
+	}
+	if (count != 0) {
+		cout << "\n>>> AVISO: nao podem ser criados <territorioInicial>" << endl;
+		cout << "\t foi ignorada a criacao de " << count << " territorioInicial no ficheiro <" << ficheiro << ">." << endl;
 	}
 
 	return NewGame;
@@ -303,7 +322,12 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 
 game configure::cmdConquista(game NewGame, string name){
 	ostringstream oss;
-	cout<<NewGame.conquistaTerritorios(name);
+	if (name.compare("init")) {
+		NewGame.conquistaTerritorios("territorioInicial");
+	}
+	else {
+		cout << NewGame.conquistaTerritorios(name);
+	}
 	return NewGame;
 }
 

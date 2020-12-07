@@ -112,3 +112,20 @@ const string game::conquistaTerritorios(const string name)
 	oss << "\n>>> Nao conquistou  " << name << endl;
 	return oss.str();
 }
+
+const string game::setTerritorioDefault(const string name)
+{
+	ostringstream oss;
+
+	for (territorio* it : territorios) {
+		if ((it)->getName() == name) {
+
+			oss << imperioU.conquistaTerritorio(it) << endl;; //copia o territorio para o imperio
+			oss << removeTerritory(name); //elimina o territorio do vector do gamesa
+			oss << imperioU.getAsString();
+			return oss.str();
+		}
+	}
+	return oss.str();
+}
+

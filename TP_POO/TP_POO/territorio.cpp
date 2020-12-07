@@ -4,7 +4,6 @@
 #include "territorio.h"
 
 territorio::territorio(string name){
-    
     this->setName(name);
     this->setRes(9);
     this->setCreateGold(1);
@@ -46,9 +45,14 @@ string territorio::getName() const
 
 void territorio::setName(string name)
 {
-    static int a = 0;
-    this->name = name + std::to_string(a);
-    a++;
+    if (name == "territorioInicial") {
+        this->name = "territorioInicial";
+    }
+    else {
+        static int a = 0;
+        this->name = name + std::to_string(a);
+        a++;
+    }
 }
 
 int territorio::getRes() const

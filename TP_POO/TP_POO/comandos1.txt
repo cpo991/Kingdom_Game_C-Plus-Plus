@@ -4,4 +4,5 @@ cria castelo 3
 cria montanha 1
 cria fortaleza 7
 cria duna 2
+cria territorioInicial 2
 cria ilha 4
