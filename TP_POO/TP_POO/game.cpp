@@ -9,27 +9,22 @@ game::game(){
 }
 
 //Adiciona territorio ao NewGame (mundo)
-const string game::addTerritory(string name){
-	ostringstream oss;
+bool game::addTerritory(string name){
 
 	territorios.push_back(new territorio(name));
-
-	return oss.str();
+	return true;
 }
 
 //Remove territorio ao NewGame(mundo)
-const string game::removeTerritory(const string name){
+bool game::removeTerritory(const string name){
 	ostringstream oss;
-	for (auto it = territorios.begin(); it != territorios.end();) {
+	for (auto it = territorios.begin(); it != territorios.end();(it++)) {
 		if ((*it)->getName() == name) {
 			territorios.erase(it); 
-			return oss.str();	   
-		}
-		else {
-			*(it++);
+			return true;
 		}
 	}
-	return oss.str();
+	return false;
 }
 
 //Obter descrição textual do NewGame
@@ -90,29 +85,26 @@ const string game::conquistaTerritorios(const string name)
 
 			if ((it)->getName() == name) {
 
-				//if (imperioU.getMilitar() + sorte >= it->getRes()) {
+				if (imperioU.getMilitar() + sorte >= it->getRes()) {
 
 					oss << imperioU.conquistaTerritorio(it) << endl;; //copia o territorio para o imperio
-					oss << removeTerritory(name); //elimina o territorio do vector do gamesa
+					oss << removeTerritory(name); //elimina o territorio do vector do game
 					oss << imperioU.getAsString();
-					//oss << "TAMNHO DO VECTOR TERRITORIOS DO GAME: " << this->territorios.size() << endl; //está a aparecer bem dps de eliminar
 
 					return oss.str();
 				}
-				/*else {
+				else {
 					imperioU.setMilitar(imperioU.getMilitar() - 1);
-					oss << "Nao conquistou e reduziu em uma unidade a forca militar" << endl;*/
+					oss << "Nao conquistou e reduziu em uma unidade a forca militar" << endl;
 				}
-			//}
+			}
 	
-
-	imperioU.setMilitar(imperioU.getMilitar() - 1);
-	oss << "\n>>> Reduziu em uma unidade a forca militar" << endl; 
-		//}
+		}
 	oss << "\n>>> Nao conquistou  " << name << endl;
 	return oss.str();
 }
 
+//Adiciona um territorio inicial ao império
 const string game::setTerritorioDefault(const string name)
 {
 	ostringstream oss;
@@ -121,7 +113,7 @@ const string game::setTerritorioDefault(const string name)
 		if ((it)->getName() == name) {
 
 			oss << imperioU.conquistaTerritorio(it) << endl;; //copia o territorio para o imperio
-			oss << removeTerritory(name); //elimina o territorio do vector do gamesa
+			oss << removeTerritory(name); //elimina o territorio do vector do game
 			oss << imperioU.getAsString();
 			return oss.str();
 		}
@@ -129,6 +121,7 @@ const string game::setTerritorioDefault(const string name)
 	return oss.str();
 }
 
+//Confirma a existencia de um territorio x no mundo
 bool game::existTerritory(const string name) {
 	for (territorio* it : territorios) {
 		if ((it)->getName() == name) {

@@ -22,10 +22,8 @@ class game {
     imperio imperioU;
 public:
     game();
-    const string addTerritory(string name);
-    const string  removeTerritory(string name);
-    //territorio*  removeTerritory(const string name);
-    // vector<territorio*> getTerritorios();
+    bool  addTerritory(string name);
+    bool  removeTerritory(string name);
     const string listaTerritorios();
     const string listaTerritorios(string name);
     const size_t getSizeTerritorios();

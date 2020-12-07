@@ -1,7 +1,9 @@
 //
 //  Created by Carolina Oliveira & Isabel Castro on 01/12/2020
 //
-#pragma once
+#ifndef TP_POO_TECNOLOGIAS_H
+#define TP_POO_TECNOLOGIAS_H
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -20,4 +22,4 @@ class tecnologias
 	int banco = 0; //custa 3
 };
 
-
+#endif //TP_POO_TECNOLOGIAS_H

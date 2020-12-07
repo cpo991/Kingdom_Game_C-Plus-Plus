@@ -1,7 +1,10 @@
+
 >>>>>>>>>>>>>>>> JOGO <<<<<<<<<<<<<<<<<
+
 :::::::::: LISTA DE COMANDOS ::::::::::
 o  lista <nome>
 o  conquista <nome>
 o  passa
 o  help
+o  sair
 :::::::::::::::::::::::::::::::::::::::

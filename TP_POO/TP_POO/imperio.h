@@ -1,7 +1,9 @@
 //
 //  Created by Carolina Oliveira & Isabel Castro on 21/11/2020
 //
-#pragma once
+#ifndef TP_POO_IMPERIO_H
+#define TP_POO_IMPERIO_H
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -11,7 +13,6 @@
 
 
 using namespace std;
-extern int max_militar;
 
 class imperio
 {
@@ -20,30 +21,33 @@ class imperio
 	//tecnologias
 
 public:
-	//construtor default --> deviamos colocar aqui já um territorio
+	//construtor
 	imperio() :arm(0), militar(0), cofre(0) {
-		
 		for (auto it = territorio_imperio.begin(); it != territorio_imperio.end(); it++) {
 			(*it)->getName();
-	}
+		}
 	};
 	
 	//destrutor
 	~imperio();
 
+	//set/get de produtos no armazem
 	int getArm() const;
 	void setArm(int arm);
 
+	//set/get de força militar
 	int getMilitar() const;
 	void setMilitar(int militar);
 
+	//set/get de ouro no cofre
 	int getCofre() const;
 	void setCofre(int cofre);
 
-
-
+	//Obtem territorio conquistado
 	string conquistaTerritorio(territorio* a);
 
-
+	//Obtem descrição textual do império
 	string getAsString();
 };
+
+#endif //TP_POO_IMPERIO_H

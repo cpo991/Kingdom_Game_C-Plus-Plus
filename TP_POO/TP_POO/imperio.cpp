@@ -3,43 +3,43 @@
 //
 #include "imperio.h"
 
-int max_militar = 5;
-
 imperio::~imperio()
 {
 }
 
+//set/get de produtos no armazem
 int imperio::getArm() const
 {
 	return arm;
 }
-
 void imperio::setArm(int arm)
 {
 	this->arm = arm;
 }
 
+//set/get de força militar
 int imperio::getMilitar() const
 {
 	return militar;
 }
-
 void imperio::setMilitar(int militar)
 {
+	static int max_militar = 5;
 	if (militar <= max_militar)
 		this->militar = militar;
 }
 
+//set/get de ouro no cofre
 int imperio::getCofre() const
 {
 	return cofre;
 }
-
 void imperio::setCofre(int cofre)
 {
 	this->cofre = cofre;
 }
 
+//Obtem territorio conquistado
 string imperio::conquistaTerritorio(territorio* a)
 {
 	ostringstream oss;
@@ -55,6 +55,7 @@ string imperio::conquistaTerritorio(territorio* a)
 	return oss.str();
 }
 
+//Obtem descrição textual do império
 string imperio::getAsString()
 {
 	ostringstream oss;

@@ -1,2 +1,8 @@
 ﻿  configure.cpp
-  TP_POO.vcxproj -> E:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
+  game.cpp
+  imperio.cpp
+  main.cpp
+  tecnologias.cpp
+  territorio.cpp
+  Generating Code...
+  TP_POO.vcxproj -> C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe

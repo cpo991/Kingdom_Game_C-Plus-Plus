@@ -24,25 +24,20 @@ territorio::~territorio()
 {
 }
 
-/**
- * Returns the type of territory
- *
- * @param name - name of the territory that can contain numbers -- nometipoNum
- * @return type of territory
- */
+
 string territorio::getType(string name) const {
 
     string type;
-    name.pop_back();// erases the last character [0...N]
+    name.pop_back();//elimina ultimo caracter
     type = name;
     return  type;
 }
+
 
 string territorio::getName() const
 {
     return name;
 }
-
 void territorio::setName(string name)
 {
     if (name == "territorioInicial") {
@@ -55,11 +50,11 @@ void territorio::setName(string name)
     }
 }
 
+
 int territorio::getRes() const
 {
     return res;
 }
-
 void territorio::setRes(int res)
 {
     if (getType(this->name) == "territorioInicial") {
@@ -73,7 +68,6 @@ int territorio::getCreateProd() const
 {
     return createProd;
 }
-
 void territorio::setCreateProd(int createProd)
 {
     if (getType(this->name) == "territorioInicial") {
@@ -87,7 +81,6 @@ int territorio::getCreateGold() const
 {
     return createGold;
 }
-
 void territorio::setCreateGold(int createGold)
 {
     if (getType(this->name) == "territorioInicial") {
@@ -102,7 +95,6 @@ int territorio::getVictoryPoints() const
 {
     return victoryPoints;
 }
-
 void territorio::setVictoryPoints(int victoryPoints)
 {
     if (getType(this->name) == "territorioInicial") {

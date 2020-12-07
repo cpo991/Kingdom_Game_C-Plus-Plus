@@ -1,4 +1,6 @@
+
 >>>>>>>> FASE DE CONFIGURACAO <<<<<<<<<
+
 :::::::::: LISTA DE COMANDOS ::::::::::
 o  carrega <nomeFicheiro>
 o  cria <tipo> <n>
