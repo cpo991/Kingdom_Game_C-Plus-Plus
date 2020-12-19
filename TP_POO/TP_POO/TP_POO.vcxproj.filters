@@ -16,6 +16,9 @@
     <Filter Include="Source Files\territorios">
       <UniqueIdentifier>{ac75d8f6-7982-44c2-ae44-1fe9eb85e556}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\territorios">
+      <UniqueIdentifier>{d8fa28c7-a4f8-46dc-b059-edf948fac1a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,33 @@
     <ClCompile Include="tecnologias.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="territorioInicial.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="planicie.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="mina.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="duna.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="fortaleza.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="castelo.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="montanha.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="pescaria.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
+    <ClCompile Include="refugioPiratas.cpp">
+      <Filter>Source Files\territorios</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configure.h">
@@ -52,6 +82,33 @@
     </ClInclude>
     <ClInclude Include="tecnologias.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="territorioInicial.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="planicie.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="duna.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="castelo.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="fortaleza.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="mina.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="montanha.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="refugioPiratas.h">
+      <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="pescaria.h">
+      <Filter>Header Files\territorios</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

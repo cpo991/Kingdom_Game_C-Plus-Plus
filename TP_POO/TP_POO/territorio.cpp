@@ -3,7 +3,7 @@
 //
 #include "territorio.h"
 
-territorio::territorio(string name){
+territorio::territorio(const string name) : name(name){
     this->setName(name);
     this->setRes(9);
     this->setCreateGold(1);

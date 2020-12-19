@@ -19,7 +19,7 @@ class territorio {
 
 public:
     //Construtor default
-    territorio(string name);
+    territorio(const string name);
 
     //Construtor por cópia
     territorio(const territorio& territori);
