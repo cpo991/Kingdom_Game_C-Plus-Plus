@@ -2,17 +2,60 @@
 //  Created by Carolina Oliveira & Isabel Castro on 29/11/2020
 //
 #include "game.h"
+#include "territorioInicial.h"
+#include "castelo.h"
+#include "duna.h"
+#include "fortaleza.h"
+#include "mina.h"
+#include "montanha.h"
+#include "pescaria.h"
+#include "planicie.h"
+#include "refugioPiratas.h"
 
 
 game::game(){
 	
 }
-
+/*
 //Adiciona territorio ao NewGame (mundo)
 bool game::addTerritory(string name){
 
 	territorios.push_back(new territorio(name));
 	return true;
+}
+*/
+const string game::addTerritory(string nome) {
+	ostringstream oss;
+
+
+	if (nome == "territorioInicial") {
+		territorios.push_back(new territorioInicial(nome));
+	}
+	else if (nome == "castelo") {
+		territorios.push_back(new castelo(nome));
+	}
+	else if (nome == "duna") {
+		territorios.push_back(new duna(nome));
+	}
+	else if (nome == "fortaleza") {
+		territorios.push_back(new fortaleza(nome));
+	}
+	else if (nome == "mina") {
+		territorios.push_back(new mina(nome));
+	}
+	else if (nome == "montanha") {
+		territorios.push_back(new montanha(nome));
+	}
+	else if (nome == "pescaria") {
+		territorios.push_back(new pescaria(nome));
+	}
+	else if (nome == "planicie") {
+		territorios.push_back(new planicie(nome));
+	}
+	else if (nome == "refugioPiratas") {
+		territorios.push_back(new refugioPiratas(nome));
+	}
+	return oss.str();
 }
 
 //Remove territorio ao NewGame(mundo)

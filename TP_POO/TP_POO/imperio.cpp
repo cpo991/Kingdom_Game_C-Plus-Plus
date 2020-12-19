@@ -47,10 +47,11 @@ string imperio::conquistaTerritorio(territorio* a)
 		oss << "\n >>> Territorio invalido!" << endl;
 		return oss.str();
 	}
-
+	
 	setArm(getArm() + (a->getCreateProd()));
-	setCofre(getCofre() + (a->getCreateGold()));
+	//setCofre(getCofre() + (a->getCreateGold()));
 	territorio_imperio.push_back(a);
+	setCofre(getCofre() + 2);
 	oss << "\n>>> Territorio " << a->getName() << " conquistado!" << endl;
 	return oss.str();
 }

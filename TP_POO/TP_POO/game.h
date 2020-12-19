@@ -22,7 +22,8 @@ class game {
     imperio imperioU;
 public:
     game();
-    bool  addTerritory(string name);
+    //bool  addTerritory(string name);
+    const string addTerritory(string nome);
     bool  removeTerritory(string name);
     const string listaTerritorios();
     const string listaTerritorios(string name);

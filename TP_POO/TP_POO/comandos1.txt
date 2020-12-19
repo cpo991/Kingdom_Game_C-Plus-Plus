@@ -1,8 +1,9 @@
-cria planicie 2
-cria mina 4
-cria castelo 3
-cria montanha 1
-cria fortaleza 7
+cria castelo 2
+cria territorioInicial 4
+cria fortaleza 1
 cria duna 2
-cria territorioInicial 2
-cria ilha 4
+cria mina 1
+cria montanha 3
+cria planicie 2
+cria refugioPiratas 1
+cria pescaria 2

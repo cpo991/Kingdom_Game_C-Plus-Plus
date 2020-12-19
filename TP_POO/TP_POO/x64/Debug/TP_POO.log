@@ -1,8 +1,6 @@
 ﻿  configure.cpp
-  game.cpp
-  imperio.cpp
-  main.cpp
-  tecnologias.cpp
-  territorio.cpp
-  Generating Code...
-  TP_POO.vcxproj -> C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
+E:\Documentos_Carolina\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(63,47): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+E:\Documentos_Carolina\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(65,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+E:\Documentos_Carolina\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(83,47): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+E:\Documentos_Carolina\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(87,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  TP_POO.vcxproj -> E:\Documentos_Carolina\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe

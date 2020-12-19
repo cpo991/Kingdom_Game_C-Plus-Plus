@@ -59,7 +59,12 @@ void configure::commands() {
 					lessParam(1, command);
 				}
 				else {
+					//verificação para erro de tipo de territorio n permitido
+					int nVetor = NewGame.getSizeTerritorios();
 					NewGame = cmdCarrega(NewGame, param1);
+					int newNVetor = NewGame.getSizeTerritorios();
+					if (nVetor == newNVetor)
+						cout << "ERROR: O ficheiro <" << param1 << "> esta vazio ou nao existe." << endl;
 				}
 			}
 		}
@@ -75,9 +80,13 @@ void configure::commands() {
 			else {
 				if (param1 != "territorioInicial") {
 					int num = stoi(param2); //2
+					int nVetor = NewGame.getSizeTerritorios();
 					for (int i = 0; i < num; i++) {
 						NewGame.addTerritory(param1); //cria x territorios de nome y
 					}
+					int newNVetor = NewGame.getSizeTerritorios();
+					if (nVetor == newNVetor)
+						cout << "ERROR: O tipo de territorio <" << param1 << "> nao e permitido." << endl;
 				}
 				else {
 					cout << "\n>>> AVISO: nao podem ser criados <territorioInicial>" << endl;
