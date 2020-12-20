@@ -48,10 +48,10 @@ string imperio::conquistaTerritorio(territorio* a)
 		return oss.str();
 	}
 	
-	setArm(getArm() + (a->getCreateProd()));
+	//setArm(getArm() + (a->getCreateProd()));
 	//setCofre(getCofre() + (a->getCreateGold()));
 	territorio_imperio.push_back(a);
-	setCofre(getCofre() + 2);
+	//setCofre(getCofre() + 2);
 	oss << "\n>>> Territorio " << a->getName() << " conquistado!" << endl;
 	return oss.str();
 }
@@ -69,4 +69,15 @@ string imperio::getAsString()
 		oss<<"   o "<< territorio_imperio[i]->getName() << endl;
 	}
 	return oss.str();
+}
+
+int imperio::recolheProd()
+{
+	ostringstream oss;
+	int num = 0;
+	for (int i = 0; i < territorio_imperio.size(); i++) {
+		num = num + territorio_imperio[i]->getCreateProd();
+	}
+	cout << "\n\n TESTE DE PRODUTOS RECOLHIDOS NESTE TURNO: " << num << "\n\n" << endl;
+	return num;
 }

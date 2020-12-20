@@ -173,3 +173,12 @@ bool game::existTerritory(const string name) {
 	}
 	return false;
 }
+
+const string game::recolheProdGold()
+{
+	ostringstream oss;
+	int prod = 0;
+	prod = imperioU.recolheProd();
+	imperioU.setCofre(prod);
+	return oss.str();
+}

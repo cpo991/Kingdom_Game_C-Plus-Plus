@@ -48,6 +48,9 @@ public:
 
 	//Obtem descrição textual do império
 	string getAsString();
+
+	//Recolhe produtos e ouro
+	int recolheProd();
 };
 
 #endif //TP_POO_IMPERIO_H

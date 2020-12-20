@@ -80,11 +80,11 @@ void configure::commands() {
 			else {
 				if (param1 != "territorioInicial") {
 					int num = stoi(param2); //2
-					int nVetor = NewGame.getSizeTerritorios();
+					size_t nVetor = NewGame.getSizeTerritorios();
 					for (int i = 0; i < num; i++) {
 						NewGame.addTerritory(param1); //cria x territorios de nome y
 					}
-					int newNVetor = NewGame.getSizeTerritorios();
+					size_t newNVetor = NewGame.getSizeTerritorios();
 					if (nVetor == newNVetor)
 						cout << "ERROR: O tipo de territorio <" << param1 << "> nao e permitido." << endl;
 				}
@@ -202,6 +202,7 @@ void configure::commands() {
 				else {
 					if (NewGame.existTerritory(param1) == true) {
 						NewGame = cmdConquista(NewGame, param1);
+						NewGame.recolheProdGold();
 						turnos++;
 					}
 					else {
@@ -211,6 +212,7 @@ void configure::commands() {
 			}
 		}
 		if (!command.compare("passa")) {
+			NewGame.recolheProdGold();
 			cout << "\nAVISO: NESTA META AS RESTANTES FASES NAO SE ENCONTRAM IMPLEMENTADAS." << endl;
 			cout << "\t E PASSADO PARA O TURNO SEGUINTE." << endl;
 			turnos++;

@@ -5,10 +5,14 @@
 
 territorio::territorio(const string name) : name(name){
     this->setName(name);
-    this->setRes(9);
-    this->setCreateGold(1);
-    this->setCreateProd(1);
-    this->setVictoryPoints(0);
+	this->res = 1;
+	this->createProd = 1;
+	this->createGold = 1;
+	this->victoryPoints = 0;
+    //this->setRes(9);
+    //this->setCreateGold(1);
+    //this->setCreateProd(1);
+    //this->setVictoryPoints(0);
 }
 
 territorio::territorio(const territorio& territori)
