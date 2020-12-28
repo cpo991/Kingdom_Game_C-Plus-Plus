@@ -25,6 +25,7 @@ public:
     game cmdCarrega(game NewGame,string ficheiro);
     game  cmdConquista(game NewGame,string name);
     string cmdLista(game NewGame, string name);
+    game cmdAumenta(game NewGame);
 };
 
 

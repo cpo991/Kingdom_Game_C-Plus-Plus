@@ -16,7 +16,7 @@ using namespace std;
 
 class imperio
 {
-	int arm = 0, militar = 0, cofre = 0;
+	int arm = 0, militar = 0, cofre = 0,pontos=0;
 	vector <territorio*> territorio_imperio;
 	//tecnologias
 
@@ -42,6 +42,9 @@ public:
 	//set/get de ouro no cofre
 	int getCofre() const;
 	void setCofre(int cofre);
+
+	int getPontos() const;
+	void setPontos(int pontos);
 
 	//Obtem territorio conquistado
 	string conquistaTerritorio(territorio* a);

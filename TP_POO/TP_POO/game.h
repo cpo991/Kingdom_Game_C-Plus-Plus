@@ -31,8 +31,10 @@ public:
     const string conquistaTerritorios(string name);
     const string setTerritorioDefault(string name);
     bool existTerritory(const string name);
+    
     //Recolhe produtos e ouro
-    const string recolheProdGold();
+    const bool recolheProdGold();
+    const bool AumentaForca();
 };
 
 

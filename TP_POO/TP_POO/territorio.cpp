@@ -111,6 +111,6 @@ string territorio::getAsString() const
 		<< "\no Resistencia de conquista: " << res 
 		<< "\no Criacao de produtos: " << createProd 
 		<< "\no Criacao de ouro: " << createGold
-		<< "\no Pontos: " << victoryPoints << endl;
+		<< "\no Pontos que da: " << victoryPoints << endl;
 	return oss.str();
 }

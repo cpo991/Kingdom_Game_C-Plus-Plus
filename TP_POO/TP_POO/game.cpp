@@ -30,6 +30,7 @@ const string game::addTerritory(string nome) {
 
 	if (nome == "territorioInicial") {
 		territorios.push_back(new territorioInicial(nome));
+		setTerritorioDefault(nome);
 	}
 	else if (nome == "castelo") {
 		territorios.push_back(new castelo(nome));
@@ -138,6 +139,8 @@ const string game::conquistaTerritorios(const string name)
 				}
 				else {
 					imperioU.setMilitar(imperioU.getMilitar() - 1);
+					if(imperioU.getMilitar()<0)
+						imperioU.setMilitar((imperioU.getMilitar() < 0) ? 0 : imperioU.getMilitar());
 					oss << "Nao conquistou e reduziu em uma unidade a forca militar" << endl;
 				}
 			}
@@ -174,11 +177,17 @@ bool game::existTerritory(const string name) {
 	return false;
 }
 
-const string game::recolheProdGold()
+const bool game::recolheProdGold()
 {
-	ostringstream oss;
-	int prod = 0;
-	prod = imperioU.recolheProd();
-	imperioU.setCofre(prod);
-	return oss.str();
+	imperioU.recolheProd();
+	return true;
+}
+
+
+const bool game::AumentaForca() {
+	
+	imperioU.setMilitar(imperioU.getMilitar() + 1);
+	imperioU.setArm(imperioU.getArm() - 1);
+	imperioU.setCofre(imperioU.getCofre() - 1);
+	return true;
 }
