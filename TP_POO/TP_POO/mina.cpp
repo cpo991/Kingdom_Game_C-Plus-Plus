@@ -4,32 +4,21 @@
 #include "mina.h"
 
 mina::mina(const string name) : territorio(name) {
-	this->res = 5;
-	this->createProd = 0;
-	this->createGold = 1; // só nos primeiros 3 turnos de cada ano (?) passa para 2 nos seguundos 3 turnos do ano
-	this->victoryPoints = 1;
+	this->setName(name);
+	this->setRes(5);
+	this->setCreateProd(0);
+	this->setCreateGold(1); // só nos primeiros 3 turnos de cada ano (?) passa para 2 nos seguundos 3 turnos do ano
+	this->setVictoryPoints(1);
 }
 
 mina::~mina() {
 
 }
 
-int mina::getRes() const
+void mina::setName(string name)
 {
-	return res;
-}
-
-int mina::getCreateProd() const
-{
-	return createProd;
-}
-
-int mina::getCreateGold() const
-{
-	return createGold;
-}
-
-int mina::getVictoryPoints() const
-{
-	return victoryPoints;
+	static int a = 0;
+	territorio::setName(getName() + std::to_string(a));
+	name = (name + std::to_string(a));
+	a++;
 }

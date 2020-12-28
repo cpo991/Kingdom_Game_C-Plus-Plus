@@ -4,32 +4,23 @@
 #include "territorioInicial.h"
 
 territorioInicial::territorioInicial(const string name) : territorio(name){
-	this->res = 9;
-	this->createProd = 1;
-	this->createGold = 1;
-	this->victoryPoints = 0;
+	this->setRes(9);
+	this->setCreateGold(1);
+	this->setCreateProd(1);
+	this->setVictoryPoints(0);
 }
+
 
 territorioInicial::~territorioInicial(){
 
 }
 
-int territorioInicial::getRes() const
+void territorioInicial::setName(string name)
 {
-	return res;
+	static int a = 0;
+	territorio::setName(getName() + std::to_string(a));
+	name = (name + std::to_string(a));
+	a++;
 }
 
-int territorioInicial::getCreateProd() const
-{
-	return createProd;
-}
 
-int territorioInicial::getCreateGold() const
-{
-	return createGold;
-}
-
-int territorioInicial::getVictoryPoints() const
-{
-	return victoryPoints;
-}

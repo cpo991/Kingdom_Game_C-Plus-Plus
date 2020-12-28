@@ -4,32 +4,23 @@
 #include "montanha.h"
 
 montanha::montanha(const string name) : territorio(name) {
-	this->res = 6;
-	this->createProd = 0; // 0 nos primeiros 2 turnos, depois passa a 1
-	this->createGold = 0;
-	this->victoryPoints = 1;
+	this->setName(name);
+	this->setRes(6);
+	this->setCreateGold(0);
+	this->setCreateProd(0);
+	this->setVictoryPoints(1);
 }
 
 montanha::~montanha() {
 
 }
 
-int montanha::getRes() const
+void montanha::setName(string name)
 {
-	return res;
+	static int a = 0;
+	territorio::setName(getName() + std::to_string(a));
+	name = (name + std::to_string(a));
+	a++;
 }
 
-int montanha::getCreateProd() const
-{
-	return createProd;
-}
 
-int montanha::getCreateGold() const
-{
-	return createGold;
-}
-
-int montanha::getVictoryPoints() const
-{
-	return victoryPoints;
-}

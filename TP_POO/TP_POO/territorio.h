@@ -32,7 +32,7 @@ public:
 
     //Nome do território
     string getName() const;
-    void setName(string name);
+    virtual void setName(string name);
 
     //Resistencia do território
     int getRes() const;

@@ -4,32 +4,21 @@
 #include "planicie.h"
 
 planicie::planicie(const string name) : territorio(name) {
-	this->res = 5;
-	this->createProd = 1; // nos turnos do primeiro ano depois passa a 2
-	this->createGold = 1;
-	this->victoryPoints = 1;
+	this->setName(name);
+	this->setRes(5);
+	this->setCreateGold(1);
+	this->setCreateProd(1);
+	this->setVictoryPoints(1);
 }
 
 planicie::~planicie() {
 
 }
 
-int planicie::getRes() const
+void planicie::setName(string name)
 {
-	return res;
-}
-
-int planicie::getCreateProd() const
-{
-	return createProd;
-}
-
-int planicie::getCreateGold() const
-{
-	return createGold;
-}
-
-int planicie::getVictoryPoints() const
-{
-	return victoryPoints;
+	static int a = 0;
+	territorio::setName(getName() + std::to_string(a));
+	name = (name + std::to_string(a));
+	a++;
 }

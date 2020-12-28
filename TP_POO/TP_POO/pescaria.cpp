@@ -4,32 +4,23 @@
 #include "pescaria.h"
 
 pescaria::pescaria(const string name) : territorio(name) {
-	this->res = 9;
-	this->createProd = 0;
-	this->createGold = 1;
-	this->victoryPoints = 2;
+	this->setName(name);
+	this->setRes(9);
+	this->setCreateGold(0);
+	this->setCreateProd(1);
+	this->setVictoryPoints(2);
 }
 
 pescaria::~pescaria() {
 
 }
 
-int pescaria::getRes() const
+void pescaria::setName(string name)
 {
-	return res;
+	static int a = 0;
+	territorio::setName(getName() + std::to_string(a));
+	name = (name + std::to_string(a));
+	a++;
 }
 
-int pescaria::getCreateProd() const
-{
-	return createProd;
-}
 
-int pescaria::getCreateGold() const
-{
-	return createGold;
-}
-
-int pescaria::getVictoryPoints() const
-{
-	return victoryPoints;
-}
