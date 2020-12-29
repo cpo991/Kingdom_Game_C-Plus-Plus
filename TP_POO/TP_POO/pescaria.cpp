@@ -12,7 +12,6 @@ pescaria::pescaria(const string name) : territorio(name) {
 }
 
 pescaria::~pescaria() {
-
 }
 
 void pescaria::setName(string name)
@@ -22,5 +21,3 @@ void pescaria::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
-
-

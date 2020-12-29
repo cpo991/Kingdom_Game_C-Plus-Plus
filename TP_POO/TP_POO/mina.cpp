@@ -12,7 +12,6 @@ mina::mina(const string name) : territorio(name) {
 }
 
 mina::~mina() {
-
 }
 
 void mina::setName(string name)

@@ -7,16 +7,14 @@
 #include "territorio.h"
 
 class pescaria : public territorio {
-   
 public:
-    //Construtor default
-    pescaria(const string nome);
+	//Construtor default
+	pescaria(const string nome);
 
-    //Destrutor
-    ~pescaria();
+	//Destrutor
+	~pescaria();
 
-    void setName(string name) override;
+	void setName(string name) override;
 };
-
 
 #endif

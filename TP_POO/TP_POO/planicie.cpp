@@ -12,7 +12,6 @@ planicie::planicie(const string name) : territorio(name) {
 }
 
 planicie::~planicie() {
-
 }
 
 void planicie::setName(string name)

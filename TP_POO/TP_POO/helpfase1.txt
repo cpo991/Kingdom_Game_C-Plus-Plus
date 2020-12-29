@@ -4,9 +4,15 @@
 :::::::::: LISTA DE COMANDOS ::::::::::
 o  conquista <nome>
 o  passa
-o  aumenta 
-o  adquirir <nome_tecnologia>
+o  maismilitar
+o  adquire <tipo>
 o  lista <nome>
+o  grava <nome>
+o  ativa <nome>
+o  apaga <nome>
+o  toma <qual><nome>
+o  modifica <ouro|prod>
+o  fevento <nome_evento>
 o  help
 o  sair
 :::::::::::::::::::::::::::::::::::::::

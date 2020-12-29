@@ -12,7 +12,6 @@ montanha::montanha(const string name) : territorio(name) {
 }
 
 montanha::~montanha() {
-
 }
 
 void montanha::setName(string name)
@@ -22,5 +21,3 @@ void montanha::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
-
-

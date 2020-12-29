@@ -5,10 +5,9 @@
 using namespace std;
 
 int main() {
-    
-    game newGame;
-    configure config(newGame);
-    config.initMenu();
+	game newGame;
+	configure config(newGame);
+	config.initMenu();
 
-    return 0;
+	return 0;
 }

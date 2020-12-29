@@ -10,49 +10,47 @@
 #include <sstream>
 #include <vector>
 
-
 using namespace std;
 
 class territorio {
-    int res, createProd, createGold, victoryPoints;
-    string name;
+	int res, createProd, createGold, victoryPoints;
+	string name;
 
 public:
-    //Construtor default
-    territorio(const string name);
+	//Construtor default
+	territorio(const string name);
 
-    //Construtor por cópia
-    territorio(const territorio& territori);
+	//Construtor por cópia
+	territorio(const territorio& territori);
 
-    //Destrutor
-    ~territorio();
+	//Destrutor
+	~territorio();
 
-    //Tipo de território
-    string getType(string name) const;
+	//Tipo de território
+	string getType(string name) const;
 
-    //Nome do território
-    string getName() const;
-    virtual void setName(string name);
+	//Nome do território
+	string getName() const;
+	virtual void setName(string name);
 
-    //Resistencia do território
-    int getRes() const;
-    void setRes(int res);
+	//Resistencia do território
+	int getRes() const;
+	void setRes(int res);
 
-    //Produção de produtos do território
-    int getCreateProd() const;
-    void setCreateProd(int createProd);
+	//Produção de produtos do território
+	int getCreateProd() const;
+	void setCreateProd(int createProd);
 
-    //Produção de ouro do território
-    int getCreateGold() const;
-    void setCreateGold(int createGold);
+	//Produção de ouro do território
+	int getCreateGold() const;
+	void setCreateGold(int createGold);
 
-    //Pontos de conquista do território
-    int getVictoryPoints() const;
-    void setVictoryPoints(int victoryPoints);
+	//Pontos de conquista do território
+	int getVictoryPoints() const;
+	void setVictoryPoints(int victoryPoints);
 
-    //Descrição Textual do território
-    string getAsString() const;
+	//Descrição Textual do território
+	string getAsString() const;
 };
-
 
 #endif //TP_POO_CONFIGURE_H

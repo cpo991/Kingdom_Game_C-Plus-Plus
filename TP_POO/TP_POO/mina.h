@@ -8,14 +8,12 @@
 
 class mina : public territorio {
 public:
-    //Construtor default
-    mina(const string nome);
+	//Construtor default
+	mina(const string nome);
 
-    //Destrutor
-    ~mina();
-    void setName(string name) override;
- 
+	//Destrutor
+	~mina();
+	void setName(string name) override;
 };
-
 
 #endif

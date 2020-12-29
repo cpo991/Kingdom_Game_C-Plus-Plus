@@ -3,16 +3,14 @@
 //
 #include "territorioInicial.h"
 
-territorioInicial::territorioInicial(const string name) : territorio(name){
+territorioInicial::territorioInicial(const string name) : territorio(name) {
 	this->setRes(9);
 	this->setCreateGold(1);
 	this->setCreateProd(1);
 	this->setVictoryPoints(0);
 }
 
-
-territorioInicial::~territorioInicial(){
-
+territorioInicial::~territorioInicial() {
 }
 
 void territorioInicial::setName(string name)
@@ -22,5 +20,3 @@ void territorioInicial::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
-
-

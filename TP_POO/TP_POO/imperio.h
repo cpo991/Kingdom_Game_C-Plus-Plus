@@ -10,15 +10,19 @@
 #include <sstream>
 #include <vector>
 #include "territorio.h"
-
+#include "tecnologias.h"
+static int MAX_MILITAR = 3; //Confirmar se chega a alterar ou não
+static int MAX_COFRE = 3; //Havia erros de linkagem aqui
+static int MAX_ARM = 3; //acho que n se podia usar extern int tb
 
 using namespace std;
 
 class imperio
 {
-	int arm = 0, militar = 0, cofre = 0,pontos=0;
+	int arm = 0, militar = 0, cofre = 0, pontos = 0;
 	vector <territorio*> territorio_imperio;
-	//tecnologias
+	//vector <tecnologias*> tecnologias_imperio; ?????????????
+	tecnologias a;
 
 public:
 	//construtor
@@ -27,7 +31,7 @@ public:
 			(*it)->getName();
 		}
 	};
-	
+
 	//destrutor
 	~imperio();
 
@@ -49,11 +53,18 @@ public:
 	//Obtem territorio conquistado
 	string conquistaTerritorio(territorio* a);
 
+	//Recolhe produtos e ouro
+	void recolheProd();
+
+	//Adiciona tecnologias compradas ao imperio
+	string compraTecnologias(string nome);
+
 	//Obtem descrição textual do império
 	string getAsString();
 
-	//Recolhe produtos e ouro
-	int recolheProd();
+	//Obtem descrição textual apenas dos territorios no imperio
+	string getAsStringT();
+
 };
 
 #endif //TP_POO_IMPERIO_H

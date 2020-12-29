@@ -12,7 +12,6 @@ refugioPiratas::refugioPiratas(const string name) : territorio(name) {
 }
 
 refugioPiratas::~refugioPiratas() {
-
 }
 
 void refugioPiratas::setName(string name)
@@ -22,5 +21,3 @@ void refugioPiratas::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
-
-

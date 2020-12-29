@@ -7,17 +7,13 @@
 #include "territorio.h"
 
 class fortaleza : public territorio {
-
 public:
-    //Construtor default
-    fortaleza(const string nome);
+	//Construtor default
+	fortaleza(const string nome);
 
-    //Destrutor
-    ~fortaleza();
-    void setName(string name) override;
-
-
+	//Destrutor
+	~fortaleza();
+	void setName(string name) override;
 };
-
 
 #endif

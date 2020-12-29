@@ -3,13 +3,13 @@
 //
 #include "configure.h"
 
-configure::configure(game& g){
+configure::configure(game& g) {
 	newGame = &g;
 }
 
 // Abre o ficheiro menu.txt e imprime
 // Chama a função commands()
-void configure::initMenu(){
+void configure::initMenu() {
 	fstream file;
 	file.open("menu.txt");
 
@@ -29,7 +29,7 @@ void configure::initMenu(){
 //Se for, chama a respetiva função
 //Termina esta função quando endConfig=1 ou então certas condições do jogo atingidas
 void configure::commands() {
-	int endConfig = 0, turnos = 0, endTurno = 0,por_conquistar=0,recolha_prod=0,compras=0;
+	int endConfig = 0, turnos = 0, endTurno = 0, por_conquistar = 0, recolha_prod = 0, compras = 0;
 	string teste;
 	game NewGame;
 
@@ -109,7 +109,7 @@ void configure::commands() {
 			cout << endl;
 			help("helpconfig.txt");
 		}
-	} while (NewGame.getSizeTerritorios()==0);
+	} while (NewGame.getSizeTerritorios() == 0);
 
 	//Ciclo de comandos antes do jogo começar enquanto carrega mais que um territorio
 	do {
@@ -139,7 +139,7 @@ void configure::commands() {
 		if (!command.compare("cria")) {
 			iss >> param1;
 			iss >> param2;
-			if (!param1.compare("")) { 
+			if (!param1.compare("")) {
 				needParam(2, command);
 			}
 			else if (!param2.compare("")) {
@@ -149,7 +149,7 @@ void configure::commands() {
 				if (param1 != "territorioInicial") {
 					int num = stoi(param2); //2
 					for (int i = 0; i < num; i++) {
-						NewGame.addTerritory(param1); 
+						NewGame.addTerritory(param1);
 					}
 				}
 				else {
@@ -159,28 +159,28 @@ void configure::commands() {
 		}
 		if (!command.compare("lista")) {
 			iss >> param1;
-			if (!param1.compare("")) { 
-				cout<<NewGame.listaTerritorios();
+			if (!param1.compare("")) {
+				cout << NewGame.listaTerritorios();
 			}
 			else {
-				cout<<cmdLista(NewGame, param1);
+				cout << cmdLista(NewGame, param1);
 			}
 		}
 		if (!command.compare("avanca")) {
-				cout << "\n>>> AVISO: FASE DE CONFIGURACOES TERMINOU... JOGO VAI COMECAR!\n\n" << endl;
-				endConfig = 1;
-			}
+			cout << "\n>>> AVISO: FASE DE CONFIGURACOES TERMINOU... JOGO VAI COMECAR!\n\n" << endl;
+			endConfig = 1;
+		}
 		if (!command.compare("help")) {
-				cout << endl;
-				help("helpconfig.txt");
-			}
+			cout << endl;
+			help("helpconfig.txt");
+		}
 	} while (endConfig != 1);
 
 	//Ciclo de comandos depois do jogo começar
 	help("helpfase1.txt");
 	do {
 		istringstream iss;
-		cout << "\n>>>>>>>>>>>>>>> TURNO " << turnos + 1 <<"<<<<<<<<<<<<<<<"<< endl;
+		cout << "\n>>>>>>>>>>>>>>> TURNO " << turnos + 1 << "<<<<<<<<<<<<<<<" << endl;
 		do {
 			cout << "------FASE 1 ----" << endl;
 			cout << "\t Conquistar ou Passar?" << endl;
@@ -216,7 +216,6 @@ void configure::commands() {
 				}
 			}
 			if (!command.compare("passa")) {
-				
 				cout << "AVISO: Nao acrescentou nada ao imperio nem perdeu forca militar!" << endl;
 				por_conquistar = 1;
 
@@ -240,7 +239,6 @@ void configure::commands() {
 			if (!command.compare("sair")) {
 				endTurno = 1;
 			}
-		
 		} while (por_conquistar != 1);
 
 		do {
@@ -248,64 +246,54 @@ void configure::commands() {
 			cout << "\n>>>> A recolher produtos e ouro!" << endl;
 			NewGame.recolheProdGold();
 			recolha_prod = 1;
-
 		} while (recolha_prod != 1);
 
 		do {
-				cout << "------FASE 3 ----" << endl;
-				cout << "\t Aumentar a forca militar ou Adquirir tecnologia ?" << endl;
-				cout << "\nInsira um comando: ";
-				getline(cin, phrase);
-				iss.str(phrase);
-				iss >> command;
-				param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+			cout << "------FASE 3 ----" << endl;
+			cout << "\t Aumentar a forca militar ou Adquirir tecnologia ?" << endl;
+			cout << "\nInsira um comando: ";
+			getline(cin, phrase);
+			iss.str(phrase);
+			iss >> command;
+			param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
 
-				if (!command.compare("aumentar")) {
-						NewGame = cmdAumenta(NewGame);
-						compras = 1;
+			if (!command.compare("maismilitar")) {
+				NewGame = cmdAumenta(NewGame);
+				compras = 1;
+			}
+
+			if (!command.compare("lista")) {
+				iss >> param1;
+				if (!param1.compare("")) {
+					cout << NewGame.listaTerritorios();
 				}
-			
-				if (!command.compare("lista")) {
-					iss >> param1;
-					if (!param1.compare("")) {
-						cout << NewGame.listaTerritorios();
-					}
-					else {
-						cout << cmdLista(NewGame, param1);
-					}
+				else {
+					cout << cmdLista(NewGame, param1);
 				}
-				if (!command.compare("help")) {
-					cout << endl;
-					help("helpfase1.txt");
-				}
-				if (!command.compare("sair")) {
-					endTurno = 1;
-				}
-			} while (compras != 1);
+			}
+			if (!command.compare("help")) {
+				cout << endl;
+				help("helpfase1.txt");
+			}
+			if (!command.compare("sair")) {
+				endTurno = 1;
+			}
+		} while (compras != 1);
 
-
-
-
-
-
-
-
-
-	turnos++;
-	} while (endTurno!=1 && turnos<12 && NewGame.getSizeTerritorios()!=0);
-
+		turnos++;
+	} while (endTurno != 1 && turnos < 12 && NewGame.getSizeTerritorios() != 0);
 
 	cout << "\n>>> SAINDO... " << endl;
 }
 
 // Abre o ficheiro help
-void configure::help(string file){
+void configure::help(string file) {
 	ifstream fhelp(file);
 	ostringstream oss;
 	//String str;
 	if (!fhelp) {
 		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
-		return ;
+		return;
 	}
 
 	if (!fhelp) {
@@ -321,7 +309,6 @@ void configure::help(string file){
 void configure::needParam(int num, string command) {
 	if (num == 0) {
 		cout << "ERRO: O comando <" << command << "> necessita de mais parametros." << endl;
-		  
 	}
 	else if (num == 1) {
 		cout << "ERRO: Falta apenas 1 parametro no comando <" << command << ">." << endl;
@@ -331,7 +318,7 @@ void configure::needParam(int num, string command) {
 	}
 }
 
-//Recebe uma string e um numero e imprime avisos sobre parametros a mais 
+//Recebe uma string e um numero e imprime avisos sobre parametros a mais
 void configure::lessParam(int num, string command) {
 	if (num == 1) {
 		cout << "ERRO: Foi inserido 1 parametro que nao e necessario no comando <" << command << ">." << endl;
@@ -362,7 +349,7 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 		getline(iss, name, ' ');
 		getline(iss, num, ' ');
 		N = stoi(num);
-		
+
 		if (name != "territorioInicial") {
 			for (int i = 0; i < N; i++) {
 				oss << NewGame.addTerritory(name);
@@ -375,14 +362,14 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 	}
 	if (count != 0) {
 		cout << "\n>>> AVISO: nao podem ser criados <territorioInicial>" << endl;
-		cout << "\t foi ignorada a criacao de " << count-1 << " territorioInicial no ficheiro <" << ficheiro << ">." << endl;
+		cout << "\t foi ignorada a criacao de " << count - 1 << " territorioInicial no ficheiro <" << ficheiro << ">." << endl;
 	}
 
 	return NewGame;
 }
 
 //Funcao que recebe comando conquista territorio
-game configure::cmdConquista(game NewGame, string name){
+game configure::cmdConquista(game NewGame, string name) {
 	if (name == "territorioInicial") {
 		NewGame.conquistaTerritorios("territorioInicial");
 	}
@@ -393,7 +380,7 @@ game configure::cmdConquista(game NewGame, string name){
 }
 
 //Funcao que recebe comando lista algo
-string configure::cmdLista(game NewGame, string name){
+string configure::cmdLista(game NewGame, string name) {
 	ostringstream oss;
 	oss << NewGame.listaTerritorios(name);
 	return oss.str();

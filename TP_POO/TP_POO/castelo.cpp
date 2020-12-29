@@ -3,7 +3,7 @@
 //
 #include "castelo.h"
 
-castelo::castelo(const string name):territorio(name){
+castelo::castelo(const string name) :territorio(name) {
 	setName(name);
 	this->setRes(7);
 	this->setCreateGold(1); // só nos primeiros 2 turnos de cada ano (?)
@@ -12,17 +12,12 @@ castelo::castelo(const string name):territorio(name){
 }
 
 castelo::~castelo() {
-
 }
 
 void castelo::setName(string name)
 {
 	static int a = 0;
 	territorio::setName(getName() + std::to_string(a));
-	name=(name+std::to_string(a));
+	name = (name + std::to_string(a));
 	a++;
 }
-
-
-
-

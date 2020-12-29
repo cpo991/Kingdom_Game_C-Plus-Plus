@@ -8,14 +8,13 @@
 
 class planicie : public territorio {
 public:
-    //Construtor default
-    planicie(const string nome);
+	//Construtor default
+	planicie(const string nome);
 
-    //Destrutor
-    ~planicie();
+	//Destrutor
+	~planicie();
 
-    void setName(string name) override;
+	void setName(string name) override;
 };
-
 
 #endif

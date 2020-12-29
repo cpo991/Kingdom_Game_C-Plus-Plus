@@ -12,7 +12,6 @@ duna::duna(const string name) : territorio(name) {
 }
 
 duna::~duna() {
-
 }
 
 void duna::setName(string name)

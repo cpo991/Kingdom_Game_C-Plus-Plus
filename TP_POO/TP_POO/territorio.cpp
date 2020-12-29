@@ -3,7 +3,7 @@
 //
 #include "territorio.h"
 
-territorio::territorio(const string name) : name(name){
+territorio::territorio(const string name) : name(name) {
 	this->setRes(1);
 	this->setCreateGold(1);
 	this->setCreateProd(1);
@@ -23,15 +23,12 @@ territorio::~territorio()
 {
 }
 
-
 string territorio::getType(string name) const {
-
 	string type;
 	name.pop_back();//elimina ultimo caracter
 	type = name;
 	return  type;
 }
-
 
 string territorio::getName() const
 {
@@ -48,7 +45,6 @@ void territorio::setName(string name)
 		a++;
 	}
 }
-
 
 int territorio::getRes() const
 {
@@ -87,7 +83,6 @@ void territorio::setCreateGold(int gold)
 	}
 	else
 		this->createGold = gold;
-	
 }
 
 int territorio::getVictoryPoints() const
@@ -108,8 +103,8 @@ string territorio::getAsString() const
 	ostringstream oss;
 	oss << "\no Nome do Territorio: " << name
 		<< "\no Tipo de Territorio: " << this->getType(name)
-		<< "\no Resistencia de conquista: " << res 
-		<< "\no Criacao de produtos: " << createProd 
+		<< "\no Resistencia de conquista: " << res
+		<< "\no Criacao de produtos: " << createProd
 		<< "\no Criacao de ouro: " << createGold
 		<< "\no Pontos que da: " << victoryPoints << endl;
 	return oss.str();

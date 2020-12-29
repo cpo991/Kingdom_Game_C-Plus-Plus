@@ -8,14 +8,13 @@
 
 class montanha : public territorio {
 public:
-    //Construtor default
-    montanha(const string nome);
+	//Construtor default
+	montanha(const string nome);
 
-    //Destrutor
-    ~montanha();
+	//Destrutor
+	~montanha();
 
-    void setName(string name) override;
+	void setName(string name) override;
 };
-
 
 #endif

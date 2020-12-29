@@ -4,7 +4,6 @@
 #include "fortaleza.h"
 
 fortaleza::fortaleza(const string name) : territorio(name) {
-
 	this->setName(name);
 	this->setRes(8);
 	this->setCreateProd(0);
@@ -13,7 +12,6 @@ fortaleza::fortaleza(const string name) : territorio(name) {
 }
 
 fortaleza::~fortaleza() {
-
 }
 
 void fortaleza::setName(string name)
@@ -23,5 +21,3 @@ void fortaleza::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
-
-
