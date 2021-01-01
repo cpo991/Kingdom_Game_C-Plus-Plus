@@ -170,12 +170,19 @@ bool game::recolheProdGold()
 //Aumentar a força militar via compra
 const bool game::AumentaForca() {
 	imperioU.setMilitar(imperioU.getMilitar() + 1);
+	//Nao me lembro do porque de ter posto isto embaixo
 	imperioU.setArm(imperioU.getArm() - 1);
 	imperioU.setCofre(imperioU.getCofre() - 1);
 	return true;
 }
 
 //Compra Tecnologia <nome> para o império
-const void game::adicionaTecnologias(string nome) {
+const void game::AdicionaTecnologias(string nome) {
 	imperioU.compraTecnologias(nome);
 }
+//
+//bool game::existeTecnologia(const string name) {
+//
+//	a.
+//	return false;
+//}

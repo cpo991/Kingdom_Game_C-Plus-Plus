@@ -30,6 +30,7 @@ void configure::initMenu() {
 //Termina esta função quando endConfig=1 ou então certas condições do jogo atingidas
 void configure::commands() {
 	int endConfig = 0, turnos = 0, endTurno = 0, por_conquistar = 0, recolha_prod = 0, compras = 0;
+	int endFase3 = 0,endFase1=0;
 	string teste;
 	game NewGame;
 
@@ -60,7 +61,7 @@ void configure::commands() {
 				}
 				else {
 					//verificação para erro de tipo de territorio n permitido
-					int nVetor = NewGame.getSizeTerritorios();
+					const int nVetor = NewGame.getSizeTerritorios();
 					NewGame = cmdCarrega(NewGame, param1);
 					int newNVetor = NewGame.getSizeTerritorios();
 					if (nVetor == newNVetor)
@@ -179,12 +180,15 @@ void configure::commands() {
 	//Ciclo de comandos depois do jogo começar
 	help("helpfase1.txt");
 	do {
-		istringstream iss;
+		
 		cout << "\n>>>>>>>>>>>>>>> TURNO " << turnos + 1 << "<<<<<<<<<<<<<<<" << endl;
+		//FASE 1 DO TURNO 
 		do {
-			cout << "------FASE 1 ----" << endl;
-			cout << "\t Conquistar ou Passar?" << endl;
+			istringstream iss;
+			cout << "\n------FASE 1 ----" << endl;
+			cout << "Conquistar ou Passar?" << endl;
 			cout << "\nInsira um comando: ";
+			por_conquistar = 0;
 			getline(cin, phrase);
 			iss.str(phrase);
 			iss >> command;
@@ -216,12 +220,8 @@ void configure::commands() {
 				}
 			}
 			if (!command.compare("passa")) {
-				cout << "AVISO: Nao acrescentou nada ao imperio nem perdeu forca militar!" << endl;
+				cout << "\nAVISO: Nao acrescentou nada ao imperio nem perdeu forca militar!" << endl;
 				por_conquistar = 1;
-
-				/*cout << "\nAVISO: NESTA META AS RESTANTES FASES NAO SE ENCONTRAM IMPLEMENTADAS." << endl;
-				cout << "\t E PASSADO PARA O TURNO SEGUINTE." << endl;*/
-				//turnos++;
 			}
 			if (!command.compare("lista")) {
 				iss >> param1;
@@ -237,33 +237,66 @@ void configure::commands() {
 				help("helpfase1.txt");
 			}
 			if (!command.compare("sair")) {
-				endTurno = 1;
+				/*endTurno = 1;
+				endFase1 = 1;*/
+				return;
 			}
-		} while (por_conquistar != 1);
 
+			if (NewGame.getSizeTerritorios() == 0) {
+				cout << "\nAVISO: Nao ha territorios para conquistar mais!" << endl;
+				endTurno = 1;
+
+			}
+		} while (por_conquistar != 1 && endFase1!=1);
+
+
+		//FASE 2 DO TURNO
 		do {
 			cout << "\n------FASE 2 ----" << endl;
 			cout << "\n>>>> A recolher produtos e ouro!" << endl;
 			NewGame.recolheProdGold();
 			recolha_prod = 1;
 		} while (recolha_prod != 1);
-
+		
+		//FASE 3 DO TURNO
 		do {
-			cout << "------FASE 3 ----" << endl;
-			cout << "\t Aumentar a forca militar ou Adquirir tecnologia ?" << endl;
+			istringstream iss3;
+			cout << "\n------FASE 3 ----" << endl;
+			cout << "Aumentar a forca militar ou Adquirir tecnologia ?" << endl;
 			cout << "\nInsira um comando: ";
+			compras = 0;
+			phrase = command = param1 = param2 = "";
 			getline(cin, phrase);
-			iss.str(phrase);
-			iss >> command;
-			param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
-
+			iss3.str(phrase);
+			iss3 >> command;
 			if (!command.compare("maismilitar")) {
 				NewGame = cmdAumenta(NewGame);
 				compras = 1;
 			}
+			
+			if (!command.compare("adquire")) {
+				iss3 >> param1;
+				if (!param1.compare("")) {
+					needParam(1, command);
+				}
+				else {
+					iss3 >> param2;
+					if (param2.compare("")) {
+						lessParam(1, command);
+					}
+					else {
+						/*if (NewGame.existTerritory(param1) == true) {*/
+						NewGame=cmdCompra(NewGame,param1);
+
+							
+						}
+						
+					}
+				}
+
 
 			if (!command.compare("lista")) {
-				iss >> param1;
+				iss3 >> param1;
 				if (!param1.compare("")) {
 					cout << NewGame.listaTerritorios();
 				}
@@ -273,14 +306,18 @@ void configure::commands() {
 			}
 			if (!command.compare("help")) {
 				cout << endl;
-				help("helpfase1.txt");
+				help("helpfase3.txt");
 			}
 			if (!command.compare("sair")) {
-				endTurno = 1;
+				/*endTurno = 1;
+				endFase3 = 1;*/
+				return;
 			}
-		} while (compras != 1);
-
+		}while (compras != 1 && endFase3!=1);
+		
+		
 		turnos++;
+		
 	} while (endTurno != 1 && turnos < 12 && NewGame.getSizeTerritorios() != 0);
 
 	cout << "\n>>> SAINDO... " << endl;
@@ -388,5 +425,9 @@ string configure::cmdLista(game NewGame, string name) {
 
 game configure::cmdAumenta(game NewGame) {
 	NewGame.AumentaForca();
+	return NewGame;
+}
+game configure::cmdCompra(game NewGame, string name) {
+	NewGame.AdicionaTecnologias(name);
 	return NewGame;
 }

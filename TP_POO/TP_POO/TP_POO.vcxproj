@@ -54,6 +54,7 @@
   <ItemGroup>
     <Text Include="comandos1.txt" />
     <Text Include="help.txt" />
+    <Text Include="helpfase3.txt" />
     <Text Include="helpconfig.txt" />
     <Text Include="helpfase1.txt" />
     <Text Include="menu.txt" />

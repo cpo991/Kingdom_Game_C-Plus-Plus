@@ -13,6 +13,7 @@
 #include <ctime>
 #include "territorio.h"
 #include "imperio.h"
+#include "tecnologias.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ class game {
 	int sorte_last = 0;
 	vector<territorio*> territorios;
 	imperio imperioU;
+	//tecnologias* a;
 public:
 	game();
 	//bool  addTerritory(string name);
@@ -33,7 +35,8 @@ public:
 	bool existTerritory(const string name);
 	bool recolheProdGold();
 	const bool AumentaForca();
-	const void adicionaTecnologias(string nome);
+	const void AdicionaTecnologias(string nome);
+	//bool existeTecnologia(const string name);
 };
 
 #endif //TP_POO_GAME_H

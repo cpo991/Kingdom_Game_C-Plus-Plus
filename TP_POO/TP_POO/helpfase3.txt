@@ -1,10 +1,8 @@
-
 >>>>>>>>>>>>>>>> JOGO <<<<<<<<<<<<<<<<<
 
 :::::::::: LISTA DE COMANDOS ::::::::::
-::::::::::::::: FASE 1 ::::::::::::::::
-o  conquista <nome>
-o  passa
+::::::::::::::: FASE 3 ::::::::::::::::
+o  maismilitar
 o  lista <nome>
 o  help
 o  sair
