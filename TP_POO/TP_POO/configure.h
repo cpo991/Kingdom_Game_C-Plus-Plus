@@ -26,6 +26,9 @@ public:
 	string cmdLista(game NewGame, string name);
 	game cmdAumenta(game NewGame);
 	game cmdCompra(game NewGame, string name);
+	int sair();
+	game recursoAbandonado(game NewGame,int turnos);
+	game alianca(game NewGame);
 };
 
 #endif //TP_POO_CONFIGURE_H

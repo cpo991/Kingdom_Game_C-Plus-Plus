@@ -66,21 +66,27 @@ const string game::listaTerritorios() {
 	ostringstream oss;
 
 	//imperio* aux1;
-
+	oss << "\n\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
 	oss << "\n:::::: LISTAGEM DE DADOS DO JOGO ATE AO MOMENTO ::::::::" << endl;
-	oss << "\n:::::: TERRITORIOS NO MUNDO POR CONQUISTAR :::::::::" << endl;
+	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
+	oss << "\n ANO E TURNO DO JOGO " << endl;
+	oss << "_____________________________________" << endl;
+	oss << " ULTIMO FATOR SORTE: " << sorte_last << endl;
+	oss << "_____________________________________" << endl;
+	oss << " PROXIMO EVENTO:" << endl;
+	oss << "_____________________________________" << endl;
+	oss << " TOTAL PONTOS:" <<imperioU.getPontos()<<endl;
+	oss << "_____________________________________" << endl;
+	oss << " TECNOLOGIAS EXISTENTES " << imperioU.getAsStringT();
+	oss << "_____________________________________" << endl;
+	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
+	oss << "\n::::::: TERRITORIOS NO MUNDO POR CONQUISTAR ::::::::::::" << endl;
+	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
 	for (territorio* it : territorios) {
 		oss << it->getAsString() << endl;
 	}
-	oss << "\n";
+	oss << endl;
 	oss << imperioU.getAsString() << endl;
-
-	oss << "--ANO E TURNO DO JOGO--" << endl;
-	oss << "ULTIMO FATOR SORTE--" << sorte_last << endl;
-	//oss << "--TECNOLOGIAS EXISTENTES--" << endl;
-	//oss << "--PROXIMO EVENTO--" << endl;
-	//oss << "--TOTAL PONTOS--" << endl;
-
 	return oss.str();
 }
 
@@ -107,7 +113,7 @@ const string game::conquistaTerritorios(const string name)
 	srand((unsigned)time(0));
 	int sorte;
 	for (int z = 0; z < 6; z++) {
-		sorte = (rand() % 10) + 1;
+		sorte = (rand() % 6) + 1;
 	}
 
 	sorte_last = sorte;
@@ -123,14 +129,12 @@ const string game::conquistaTerritorios(const string name)
 				return oss.str();
 			}
 			else {
-				imperioU.setMilitar(imperioU.getMilitar() - 1);
-				if (imperioU.getMilitar() < 0)
-					imperioU.setMilitar((imperioU.getMilitar() < 0) ? 0 : imperioU.getMilitar());
+				imperioU.removeMilitar(1);
 				oss << "Nao conquistou e reduziu em uma unidade a forca militar" << endl;
 			}
 		}
 	}
-	oss << "\n>>> Nao conquistou  " << name << endl;
+	//oss << "\n>>> Nao conquistou  " << name << endl;
 	return oss.str();
 }
 
@@ -141,7 +145,7 @@ const string game::setTerritorioDefault(const string name)
 
 	for (territorio* it : territorios) {
 		if ((it)->getName() == name) {
-			oss << imperioU.conquistaTerritorio(it) << endl;; //copia o territorio para o imperio
+			oss << imperioU.adicionaTerritorioInicial(it) << endl;; //copia o territorio para o imperio
 			oss << removeTerritory(name); //elimina o territorio do vector do game
 			oss << imperioU.getAsString();
 			return oss.str();
@@ -151,7 +155,7 @@ const string game::setTerritorioDefault(const string name)
 }
 
 //Confirma a existencia de um territorio x no mundo
-bool game::existTerritory(const string name) {
+const bool game::existTerritory(const string name) {
 	for (territorio* it : territorios) {
 		if ((it)->getName() == name) {
 			return true;
@@ -161,18 +165,16 @@ bool game::existTerritory(const string name) {
 }
 
 //Recolhe Produtos e Ouro de territorios conquistados por turno
-bool game::recolheProdGold()
+const void game::recolheProdGold()
 {
 	imperioU.recolheProd();
-	return true;
 }
 
 //Aumentar a força militar via compra
 const bool game::AumentaForca() {
 	imperioU.setMilitar(imperioU.getMilitar() + 1);
-	//Nao me lembro do porque de ter posto isto embaixo
-	imperioU.setArm(imperioU.getArm() - 1);
-	imperioU.setCofre(imperioU.getCofre() - 1);
+	imperioU.removeProd(1);
+	imperioU.removeOuro(1);
 	return true;
 }
 
@@ -180,9 +182,44 @@ const bool game::AumentaForca() {
 const void game::AdicionaTecnologias(string nome) {
 	imperioU.compraTecnologias(nome);
 }
-//
-//bool game::existeTecnologia(const string name) {
-//
-//	a.
-//	return false;
-//}
+//Verifica se há tecnologia <nome> no império comprada
+const bool game::existeTecnologia(const string nome)
+{
+	if (imperioU.tecnologiasCompradas(nome) == true)
+		return true;
+	return false;
+}
+
+const bool game::maisOuro() {
+	if (imperioU.getArm() > 2) {
+		imperioU.setCofre(1);
+		imperioU.removeProd(2);
+		return true;
+	}
+	return false;
+}
+
+const bool game::maisProd()
+{
+	if (imperioU.getCofre() > 2) {
+		imperioU.setArm(1);
+		imperioU.removeOuro(2);
+		return true;
+	}
+	return false;
+}
+
+//trocar para string e dizer aumentou x blah 
+const void game::recursoAbandonado(int turnos) {
+	if (turnos < 6)
+		imperioU.setArm(1);
+	else
+		imperioU.setCofre(1);
+}
+
+const string game::alianca() {
+	ostringstream oss;
+	imperioU.setMilitar(1);
+	oss << "Formou uma alianca e ganhou uma unidade de forca militar" << endl;
+	return oss.str();
+}

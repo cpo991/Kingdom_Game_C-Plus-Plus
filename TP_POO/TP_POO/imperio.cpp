@@ -18,6 +18,13 @@ void imperio::setArm(int arm)
 
 		this->arm += arm;
 }
+void imperio::removeProd(int prod)
+{
+	if (arm > 0)
+		this->arm -= prod;
+	else
+		arm = 0;
+}
 
 //set/get de força militar
 int imperio::getMilitar() const
@@ -29,6 +36,12 @@ void imperio::setMilitar(int militar)
 	if (militar < MAX_MILITAR)
 		this->militar += militar;
 }
+void imperio::removeMilitar(int forca) {
+	if (militar > 0)
+		this->militar -= forca;
+	else
+		militar = 0;
+}
 
 //set/get de ouro no cofre
 int imperio::getCofre() const
@@ -39,8 +52,14 @@ void imperio::setCofre(int cofre)
 {
 	if (getCofre() < MAX_COFRE)
 		this->cofre += cofre;
+}
+
+void imperio::removeOuro(int ouro)
+{
+	if (cofre > 0)
+		this->cofre -= ouro;
 	else
-		this->cofre -=cofre;
+		cofre = 0;
 }
 
 //set/get de pontos totais
@@ -52,7 +71,19 @@ void imperio::setPontos(int pontos)
 {
 	this->pontos = pontos;
 }
+string imperio::adicionaTerritorioInicial(territorio* a) {
+	ostringstream oss;
+	if (a == nullptr) {
+		oss << "\n >>> Territorio inicial invalido!" << endl;
+		return oss.str();
+	}
 
+	territorio_imperio.push_back(a);
+	this->setArm(getArm() + a->getCreateProd());
+	this->setCofre(getCofre() + a->getCreateGold());
+	this->setPontos(getPontos() + a->getVictoryPoints());
+	return oss.str();
+}
 //Obtem territorio conquistado
 string imperio::conquistaTerritorio(territorio* a)
 {
@@ -63,9 +94,7 @@ string imperio::conquistaTerritorio(territorio* a)
 	}
 
 	territorio_imperio.push_back(a);
-	/*this->setArm(getArm() + a->getCreateProd());*/
-	/*this->setCofre(getCofre() + a->getCreateGold());
-	this->setPontos(getPontos() + a->getVictoryPoints());*/
+	this->setPontos(getPontos() + a->getVictoryPoints());
 
 	oss << "\n>>> Territorio " << a->getName() << " conquistado!" << endl;
 	return oss.str();
@@ -75,16 +104,25 @@ string imperio::conquistaTerritorio(territorio* a)
 string imperio::getAsString()
 {
 	ostringstream oss;
-	oss << ":::: O SEU IMPERIO :::::" << endl;
+	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
+	oss << "\n:::::::::::::::: O SEU IMPERIO :::::::::::::::::::::::::" << endl;
+	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::" << endl;
 	oss << "\no Produtos em armazem: " << getArm() << endl;
+	oss << "_____________________________________" << endl;
 	oss << "o Produtos no cofre: " << getCofre() << endl;
+	oss << "_____________________________________" << endl;
 	oss << "o Forca militar: " << getMilitar() << endl;
+	oss << "_____________________________________" << endl;
 	oss << "o Total de pontos: " << getPontos() << endl;
+	oss << "_____________________________________" << endl;
 	oss << "o Territorios conquistados: " << endl;
 	for (int i = 0; i < territorio_imperio.size(); i++) {
 		oss << "   o " << territorio_imperio[i]->getName() << endl;
 	}
-	oss<<this->getAsStringT()<<endl;
+	oss << "_____________________________________" << endl;
+	oss << "o Tecnologias: ";
+	oss << this->getAsStringT();
+	oss << "_____________________________________" << endl;
 	return oss.str();
 }
 
@@ -92,16 +130,41 @@ string imperio::getAsString()
 string imperio::getAsStringT()
 {
 	ostringstream oss;
-	oss<<a.getAsString()<<endl;
+	oss << a.getAsString() << endl;
 	return oss.str();
+}
+
+bool imperio::tecnologiasCompradas(string nome)
+{
+	if (nome == "drones") {
+		if (a.getDrones() == 1)
+			return true;
+	}
+	else if (nome == "misseis") {
+		if (a.getMisseis() > 0)
+			return true;
+	}
+	else if (nome == "defesas") {
+		if (a.getDefesas() > 0)
+			return true;
+	}
+	else if (nome == "bolsa") {
+		if (a.getBolsa() == 1)
+			return true;
+	}
+	else if (nome == "banco") {
+		if (a.getBanco() == 1)
+			return true;
+	}
+	return false;
 }
 
 //Recolhe produtos e ouro para cada turno
 void imperio::recolheProd()
 {
 	for (int i = 0; i < territorio_imperio.size(); i++) {
-		this->setCofre(getCofre() + territorio_imperio[i]->getCreateGold());
-		this->setArm(getArm() + territorio_imperio[i]->getCreateProd());
+		setCofre(territorio_imperio[i]->getCreateGold());
+		setArm(territorio_imperio[i]->getCreateProd());
 	}
 	if (this->getArm() == MAX_ARM)
 		cout << "\nAVISO: Produtos a serem desperdicados!" << endl;
@@ -116,7 +179,7 @@ string imperio::compraTecnologias(string nome)
 {
 	static int nrCompras = 0;
 	ostringstream oss;
-	if (nome == "Drones" && getCofre() >= 3) {
+	if (nome == "drones" && getCofre() >= 3) {
 		a.setDrones(a.getDrones() + 1);
 		pontos++;
 		MAX_MILITAR = 5;
@@ -124,30 +187,34 @@ string imperio::compraTecnologias(string nome)
 		cofre = getCofre() - 3;
 	}
 
-	if (nome == "Misseis" && getCofre() > 4) {
+	if (nome == "misseis" && getCofre() > 4) {
 		a.setMisseis(a.getMisseis() + 1);
 		pontos++;
 		nrCompras++;
+		cofre = getCofre() - 4;
 	}
 
-	if (nome == "Defesas" && this->getCofre() > 4) {
+	if (nome == "defesas" && this->getCofre() > 4) {
 		a.setDefesas(a.getDefesas() + 1);
 		pontos++;
 		nrCompras++;
+		cofre = getCofre() - 4;
 	}
 	//AUMENTAR RESISTENCIA A TERRITORIO QUE FOR INVADIDO
 
-	if (nome == "Bolsa" && getCofre() > 2) {
+	if (nome == "bolsa" && getCofre() > 2) {
 		a.setBolsa(a.getBolsa() + 1);
 		pontos++;
 		nrCompras++;
+		cofre = getCofre() - 2;
 	}
-	if (nome == "Banco" && getCofre() >= 3) {
+	if (nome == "banco" && getCofre() > 3) {
 		a.setBanco(1);
 		MAX_COFRE = 5;
 		MAX_ARM = 5;
 		pontos++;
 		nrCompras++;
+		cofre = getCofre() - 3;
 	}
 
 	if (nrCompras == 5)

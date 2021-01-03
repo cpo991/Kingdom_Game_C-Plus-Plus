@@ -69,10 +69,10 @@ void tecnologias::setBanco(int banco)
 string tecnologias::getAsString() const
 {
 	ostringstream oss;
-	oss << "\no Drones: " << getDrones()
-		<< "\no Misseis: " << getMisseis()
-		<< "\no Defesas:  " << getDefesas()
-		<< "\no Bolsa: " << getBolsa()
-		<< "\no Banco: " << getBanco() << endl;
+	oss << "\n   o Drones: " << getDrones() << endl
+		<< "   o Misseis: " << getMisseis() << endl
+		<< "   o Defesas:  " << getDefesas() << endl
+		<< "   o Bolsa: " << getBolsa() << endl
+		<< "   o Banco: " << getBanco();
 	return oss.str();
 }
