@@ -130,5 +130,8 @@
     <Text Include="helpfase3.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="data.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -39,6 +39,8 @@ public:
 	const bool maisProd();
 	const void recursoAbandonado(int turnos);
 	const string alianca();
+	void saveData(string file);
+	void loadData(string filename);
 };
 
 #endif //TP_POO_GAME_H

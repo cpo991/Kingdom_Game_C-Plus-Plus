@@ -40,7 +40,7 @@ void imperio::removeMilitar(int forca) {
 	if (militar > 0)
 		this->militar -= forca;
 	else
-		militar = 0;
+		militar = 0; //this->militar = 0;
 }
 
 //set/get de ouro no cofre

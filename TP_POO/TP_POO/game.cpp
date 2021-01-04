@@ -223,3 +223,74 @@ const string game::alianca() {
 	oss << "Formou uma alianca e ganhou uma unidade de forca militar" << endl;
 	return oss.str();
 }
+
+void game::saveData(string filename) {
+	ofstream file(filename);
+	ostringstream oss;
+	if (!file) {
+		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
+		return;
+	}
+	else {
+		for (territorio* it : territorios) {
+			file << it->getName() << endl;
+			//oss << it->getAsString() << endl;
+		}
+		file << "" << endl;
+		//imperioU.get     //get territorios do imperio
+		file << "" << endl;
+		file << imperioU.getArm() << endl;
+		file << imperioU.getCofre() << endl;
+		file << imperioU.getMilitar() << endl;
+		file << imperioU.getPontos() << endl;
+	}
+	file.close();
+}
+
+void game::loadData(string filename) {
+	ifstream file(filename);
+	ostringstream oss;
+	string line, type;
+	int aux = 0;
+	if (!file) {
+		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
+		return;
+	}
+	else {
+		for (territorio* it : territorios) {
+			removeTerritory(it->getName()); // apaga todos os territorios
+		}
+		while (getline(file, line))
+		{
+			do {
+				line.pop_back();//elimina ultimo caracter
+				type = line; // tem de se alterar a funcao setName para isto funcionar corretamente
+				addTerritory(type);
+				if (line.compare(""))
+					aux++;
+			} while (aux == 0); // ou com !
+			do {
+				//imperioU.conquistaTerritorio(line); //funcao cria em vez de conquista
+				if (line.compare(""))
+					aux++;
+			} while (aux == 1);
+			if (aux == 2) {
+				imperioU.setArm(stoi(line));
+				aux++;
+			}
+			if (aux == 3) {
+				imperioU.setCofre(stoi(line));
+				aux++;
+			}
+			if (aux == 4) {
+				imperioU.setMilitar(stoi(line));
+				aux++;
+			}
+			if (aux == 5) {
+				imperioU.setPontos(stoi(line));
+				aux++;
+			}
+		}
+	}
+	file.close();
+}

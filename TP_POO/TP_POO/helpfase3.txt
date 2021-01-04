@@ -3,6 +3,7 @@
 :::::::::: LISTA DE COMANDOS ::::::::::
 ::::::::::::::: FASE 3 ::::::::::::::::
 o  maismilitar
+o  adquire <tipo>
 o  lista <nome>
 o  help
 o  sair

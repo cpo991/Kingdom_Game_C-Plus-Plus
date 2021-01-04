@@ -48,7 +48,7 @@ void configure::commands() {
 		getline(cin, phrase);
 		iss.str(phrase);
 		iss >> command;
-		param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+		param1 = param2 = "";
 
 		//COMANDOS CARREGA, CRIA , LISTA , AVANÇA E HELP
 		if (!command.compare("carrega")) {
@@ -121,7 +121,7 @@ void configure::commands() {
 		getline(cin, phrase);
 		iss.str(phrase);
 		iss >> command;
-		param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+		param1 = param2 = "";
 
 		//COMANDOS CARREGA, CRIA , LISTA , AVANÇA E HELP
 		if (!command.compare("carrega")) {
@@ -198,7 +198,7 @@ void configure::commands() {
 			getline(cin, phrase);
 			iss.str(phrase);
 			iss >> command;
-			param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+			param1 = param2 = "";
 
 			if (!command.compare("conquista")) {
 				iss >> param1;
@@ -264,7 +264,7 @@ void configure::commands() {
 				getline(cin, phrase);
 				iss2.str(phrase);
 				iss2 >> command;
-				param1 = param2 = param3 = param4 = param5 = param6 = param7 = "";
+				param1 = param2 = "";
 
 				if (!command.compare("maisouro")) {
 					if (NewGame.maisOuro() == true)
@@ -328,11 +328,19 @@ void configure::commands() {
 					}
 				}
 			}
-
 			if (!command.compare("lista")) {
 				iss3 >> param1;
 				if (!param1.compare("")) {
 					cout << NewGame.listaTerritorios();
+				}
+				else {
+					cout << cmdLista(NewGame, param1);
+				}
+			}
+			if (!command.compare("grava")) {
+				iss3 >> param1;
+				if (!param1.compare("")) {
+					NewGame.saveData("data.txt");
 				}
 				else {
 					cout << cmdLista(NewGame, param1);
@@ -364,12 +372,6 @@ void configure::commands() {
 void configure::help(string file) {
 	ifstream fhelp(file);
 	ostringstream oss;
-	//String str;
-	if (!fhelp) {
-		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
-		return;
-	}
-
 	if (!fhelp) {
 		cout << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
 	}

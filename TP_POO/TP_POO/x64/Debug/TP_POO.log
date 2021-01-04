@@ -1,6 +1,10 @@
 ﻿  configure.cpp
-C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(66,53): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(66,53): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
-C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(68,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(465,37): warning C4390: ';': empty controlled statement found; is this the intent?
-  TP_POO.vcxproj -> C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
+C:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(66,53): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(66,53): warning C4267: 'initializing': conversion from 'size_t' to 'const int', possible loss of data
+C:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(68,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(467,37): warning C4390: ';': empty controlled statement found; is this the intent?
+  game.cpp
+  imperio.cpp
+  main.cpp
+  Generating Code...
+  TP_POO.vcxproj -> C:\Documentos_Carolina\POO_20_21\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
