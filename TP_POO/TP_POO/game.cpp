@@ -294,3 +294,30 @@ void game::loadData(string filename) {
 	}
 	file.close();
 }
+
+//Aumentar a força militar via evento de alianca diplomatica
+const bool game::AumentaForcaFase4() {
+	imperioU.setMilitar(imperioU.getMilitar() + 1);
+	return true;
+}
+
+const bool game::maisOuroFase4() {
+	imperioU.setCofre(imperioU.getCofre() + 1);
+	return true;
+}
+
+const bool game::maisProdFase4()
+{
+	imperioU.setArm(imperioU.getArm() + 1);
+	return true;
+}
+
+const string game::getLastTerritorioConquistado()
+{
+	return imperioU.getAsStringLastTerritorio();
+}
+
+const int game::getResLastTerritorioConquistado()
+{
+	return imperioU.getintResLastTerritorio();
+}

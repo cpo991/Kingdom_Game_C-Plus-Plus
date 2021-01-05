@@ -65,6 +65,10 @@ public:
 	//Adiciona tecnologias compradas ao imperio
 	string compraTecnologias(string nome);
 
+	string getAsStringLastTerritorio();
+
+	int getintResLastTerritorio();
+
 	//Devolve true se houver tecnologia x comprada
 	bool tecnologiasCompradas(string nome);
 
