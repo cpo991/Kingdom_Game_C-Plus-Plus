@@ -222,3 +222,23 @@ string imperio::compraTecnologias(string nome)
 	oss << this->getAsStringT();
 	return oss.str();
 }
+
+string imperio::getAsStringLastTerritorio()
+{
+	ostringstream oss;
+	int aux = 0;
+	for (int i = 0; i < territorio_imperio.size(); i++) {
+		aux = i;
+	}
+	return territorio_imperio[aux]->getName();
+}
+
+int imperio::getintResLastTerritorio()
+{
+	ostringstream oss;
+	int aux = 0;
+	for (int i = 0; i < territorio_imperio.size(); i++) {
+		aux = i;
+	}
+	return territorio_imperio[aux]->getRes();
+}

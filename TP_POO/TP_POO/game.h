@@ -41,6 +41,11 @@ public:
 	const string alianca();
 	void saveData(string file);
 	void loadData(string filename);
+	const bool AumentaForcaFase4();
+	const bool maisOuroFase4();
+	const bool maisProdFase4();
+	const string getLastTerritorioConquistado();
+	const int getResLastTerritorioConquistado();
 };
 
 #endif //TP_POO_GAME_H
