@@ -116,7 +116,8 @@ const string game::conquistaTerritorios(const string name)
 		sorte = (rand() % 6) + 1;
 	}
 
-	sorte_last = sorte;
+	//sorte_last = sorte;
+	sorte = 6; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< JUST FOR TESTING
 	ostringstream oss;
 
 	for (territorio* it : territorios) {
@@ -209,7 +210,7 @@ const bool game::maisProd()
 	return false;
 }
 
-//trocar para string e dizer aumentou x blah 
+//trocar para string e dizer aumentou x produtos/ouro  
 const void game::recursoAbandonado(int turnos) {
 	if (turnos < 6)
 		imperioU.setArm(1);
@@ -224,6 +225,7 @@ const string game::alianca() {
 	return oss.str();
 }
 
+//Guarda os dados do jogo num ficheiro de texto
 void game::saveData(string filename) {
 	ofstream file(filename);
 	ostringstream oss;
@@ -247,6 +249,7 @@ void game::saveData(string filename) {
 	file.close();
 }
 
+//Carrega os dados do jogo num ficheiro de texto
 void game::loadData(string filename) {
 	ifstream file(filename);
 	ostringstream oss;
@@ -301,23 +304,39 @@ const bool game::AumentaForcaFase4() {
 	return true;
 }
 
+//Aumenta o ouro em 1 unidade no evento recurso abandonado
 const bool game::maisOuroFase4() {
 	imperioU.setCofre(imperioU.getCofre() + 1);
 	return true;
 }
 
+//Aumenta o produto em 1 unidade no evento recurso abandonado
 const bool game::maisProdFase4()
 {
 	imperioU.setArm(imperioU.getArm() + 1);
 	return true;
 }
 
+//Obtem nome do ultimo territorio conquistado
 const string game::getLastTerritorioConquistado()
 {
 	return imperioU.getAsStringLastTerritorio();
 }
 
+//Obtem resistencia do ultimo territorio conquistado
 const int game::getResLastTerritorioConquistado()
 {
 	return imperioU.getintResLastTerritorio();
+}
+
+//Remove territorio do imperio com o nome que recebe
+const bool game::removeTerritoryImperio(string name)
+{
+	return imperioU.perdeTerritorio(name);
+}
+
+//Incrementa Resistencia do territorio que tem tecnologia de defesa
+const bool game::incrementaRes(string name)
+{
+	return imperioU.incRes(name);
 }

@@ -242,3 +242,29 @@ int imperio::getintResLastTerritorio()
 	}
 	return territorio_imperio[aux]->getRes();
 }
+
+bool imperio::perdeTerritorio(string name)
+{
+	ostringstream oss;
+	for (auto it = territorio_imperio.begin(); it != territorio_imperio.end(); (it++)) {
+		if ((*it)->getName() == name) {
+			territorio_imperio.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool imperio::incRes(string name)
+{
+	ostringstream oss;
+	int actualRes = 0;
+	for (auto it = territorio_imperio.begin(); it != territorio_imperio.end(); (it++)) {
+		if ((*it)->getName() == name) {
+			actualRes = (*it)->getRes();
+			(*it)->setRes(actualRes + 1);
+			return true;
+		}
+	}
+	return false;
+}

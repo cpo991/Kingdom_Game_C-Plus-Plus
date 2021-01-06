@@ -65,10 +65,6 @@ public:
 	//Adiciona tecnologias compradas ao imperio
 	string compraTecnologias(string nome);
 
-	string getAsStringLastTerritorio();
-
-	int getintResLastTerritorio();
-
 	//Devolve true se houver tecnologia x comprada
 	bool tecnologiasCompradas(string nome);
 
@@ -77,6 +73,16 @@ public:
 
 	//Obtem descrição textual apenas dos territorios no imperio
 	string getAsStringT();
+
+	//Obtem nome do ultimo territorio conquistado
+	string getAsStringLastTerritorio();
+
+	//Obtem resistencia do ultimo territorio conquistado
+	int getintResLastTerritorio();
+
+	//Remove territorio do imperio com o nome que recebe
+	bool perdeTerritorio(string name);
+	bool incRes(string name);
 };
 
 #endif //TP_POO_IMPERIO_H

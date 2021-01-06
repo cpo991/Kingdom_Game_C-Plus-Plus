@@ -294,6 +294,7 @@ void configure::commands() {
 			} while (recolha_prod != 1 && endFase2 != 1);
 
 			//FASE 3 DO TURNO
+			compras = 0;
 			do {
 				istringstream iss3;
 				cout << "\n------FASE 3 ----" << endl;
@@ -373,7 +374,7 @@ void configure::commands() {
 				string nome;
 				cout << randEvent << endl;
 				evento = 1;
-				randEvent = 2;
+				//randEvent = 2; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FOR TESTING SPECIFICS EVENTS
 				switch (randEvent)
 				{
 				case 1: // Recurso abandonado
@@ -396,16 +397,18 @@ void configure::commands() {
 						forcaInv = 2;
 						ataque = forcaInv + randSorte;
 						if (NewGame.existeTecnologia("defesas") == true) {
-							//resNome incrementa 1
+							NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 						}
-						if (nome == "territorioInicial") {
-							cout << "\n >>> AVISO: Perdeu o jogo." << endl;
+						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
+							cout << "\n >>> AVISO: Perdeu o jogo." << endl; 
 							sair();
 						}
 						if (ataque >= resNome) {
-							//remove territorio do imperio
+							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 						}
-								
+						if (ataque < resNome){
+							cout << "\n >>> AVISO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
+						}
 					}
 					if (ano == 2) {
 						forcaInv = 3;
