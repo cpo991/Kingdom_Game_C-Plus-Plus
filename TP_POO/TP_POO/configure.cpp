@@ -244,6 +244,54 @@ void configure::commands() {
 					sair();
 				}
 
+				//>>>>>>> DEBUG COMMANDS - START <<<<<<
+				if (!command.compare("toma")) {
+
+				}
+				if (!command.compare("modifica")) {
+					iss >> param1;
+					if (!param1.compare("")) {
+						needParam(2, command);
+					}
+					else {
+						iss >> param2;
+						if (!param2.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							if ((param1 == "ouro") | (param1 == "prod")) {
+								int Nparam = 0;
+								Nparam = stoi(param2);
+								if (isdigit(Nparam)) {
+
+								}
+							}
+							else
+								cout << "\n >>> AVISO: O tipo de dado <" << param1 << "> a modificar nao existe ." << endl;
+						}
+					}
+				}
+				if (!command.compare("fevento")) {
+					iss >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if ((param1 == "recurso-abandonado") || (param1 == "invasao")
+								|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
+								NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+							else
+								cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
+						}
+					}
+				}
+				//>>>>>>>> DEBUG COMMANDS - END <<<<<<
+
 				if (NewGame.getSizeTerritorios() == 0) {
 					cout << "\nAVISO: Nao ha territorios para conquistar mais!" << endl;
 					endTurno = 1;
@@ -308,7 +356,7 @@ void configure::commands() {
 					//tb podia ter ficado sem chamar funcao mas nao me apeteceu mudar agora xd
 					NewGame = cmdAumenta(NewGame);
 					compras++;
-					cout << "COMPRAS FEITAS = " << compras << endl;
+					cout << "\tCOMPRAS FEITAS = " << compras << endl;
 				}
 
 				if (!command.compare("adquire")) {
@@ -374,11 +422,10 @@ void configure::commands() {
 				string nome;
 				cout << randEvent << endl;
 				evento = 1;
-				//randEvent = 2; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< FOR TESTING SPECIFICS EVENTS
 				switch (randEvent)
 				{
 				case 1: // Recurso abandonado
-					cout << "\n >>> AVISO: Um recurso abandonado foi encontrado." << endl;
+					cout << "\n >>> AVISO DE EVENTO: Um recurso abandonado foi encontrado." << endl;
 					if (ano == 1) {
 						NewGame.maisProdFase4();
 						cout << "              + 1 unidade de produtos" << endl;
@@ -392,7 +439,7 @@ void configure::commands() {
 					randSorte = rand() % (1 - 6 + 1) + 1;
 					nome = NewGame.getLastTerritorioConquistado();
 					resNome = NewGame.getResLastTerritorioConquistado();
-					cout << "\n >>> AVISO: Invasao ao territorio "<< nome << "." << endl;
+					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio "<< nome << "." << endl;
 					if (ano == 1) {
 						forcaInv = 2;
 						ataque = forcaInv + randSorte;
@@ -400,38 +447,55 @@ void configure::commands() {
 							NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
-							cout << "\n >>> AVISO: Perdeu o jogo." << endl; 
+							cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
 							sair();
 						}
 						if (ataque >= resNome) {
 							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 						}
 						if (ataque < resNome){
-							cout << "\n >>> AVISO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
+							cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
 						}
 					}
 					if (ano == 2) {
 						forcaInv = 3;
+						ataque = forcaInv + randSorte;
+						if (NewGame.existeTecnologia("defesas") == true) {
+							NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+						}
+						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
+							cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
+							sair();
+						}
+						if (ataque >= resNome) {
+							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+						}
+						if (ataque < resNome) {
+							cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
+						}
 					}
 					evento = 1;
 					break;
 				case 3: // Aliança diplomática
-					cout << "\n >>> AVISO: Foi assinada uma alianca com um outro imperio do qual tambem não existe nenhum registo." << endl;
+					cout << "\n >>> AVISO DE EVENTO: Foi assinada uma alianca com um outro imperio do qual tambem não existe nenhum registo." << endl;
 					cout << "              + 1 unidade de forca militar" << endl;
 					NewGame.AumentaForcaFase4();
 					evento = 1;
 					break;
 				case 4: // Sem evento
-					cout << "\n >>> AVISO: Nada ocorreu, todos podem dormir descansados" << endl;
+					cout << "\n >>> AVISO DE EVENTO: Nada ocorreu, todos podem dormir descansados" << endl;
 					evento = 1;
 					break;
 				}
 			} while (evento != 1);
 			turnos++;
-		} while (endTurno != 1 && turnos < 12 && NewGame.getSizeTerritorios() != 0);
+		} while (endTurno != 1 && turnos < 6 && NewGame.getSizeTerritorios() != 0);
 		ano++;
 	} while (ano != 2);
 	
+	//FUNCAO PARA FAZER E MOSTRAR PONTUAÇÕES FINAIS (METER TB NA FASE4)
+
+	sair();
 }
 
 // Abre o ficheiro help
@@ -557,4 +621,78 @@ int configure::sair() {
 
 	exit(EXIT_SUCCESS); //inacabado
 	//chamar destrutores etc
+}
+
+//Funcao para comandos debug
+game configure::cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno) {
+	int randSorte = 0, resNome = 0, forcaInv = 0, ataque = 0;
+	string nome;
+	if (command == "toma") {
+
+	}
+	if (command == "modifica") {
+
+	}
+	if (command == "fevento") {
+		if (param1 == "recurso-abandonado") {
+			cout << "\n >>> AVISO: Um recurso abandonado foi encontrado." << endl;
+			if (ano == 1) {
+				NewGame.maisProdFase4();
+				cout << "              + 1 unidade de produtos" << endl;
+			}
+			if (ano == 2) {
+				NewGame.maisOuroFase4();
+				cout << "              + 1 unidade de ouro" << endl;
+			}
+		}
+		if (param1 == "invasao") {
+			randSorte = rand() % (1 - 6 + 1) + 1;
+			nome = NewGame.getLastTerritorioConquistado();
+			resNome = NewGame.getResLastTerritorioConquistado();
+			cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << "." << endl;
+			if (ano == 1) {
+				forcaInv = 2;
+				ataque = forcaInv + randSorte;
+				if (NewGame.existeTecnologia("defesas") == true) {
+					NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+				}
+				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
+					cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
+					sair();
+				}
+				if (ataque >= resNome) {
+					NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+				}
+				if (ataque < resNome) {
+					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
+				}
+			}
+			if (ano == 2) {
+				forcaInv = 3;
+				ataque = forcaInv + randSorte;
+				if (NewGame.existeTecnologia("defesas") == true) {
+					NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+				}
+				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
+					cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
+					sair();
+				}
+				if (ataque >= resNome) {
+					NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+				}
+				if (ataque < resNome) {
+					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
+				}
+			}
+		}
+		if (param1 == "alianca-diplomatica") {
+			cout << "\n >>> AVISO DE EVENTO: Foi assinada uma alianca com um outro imperio do qual tambem não existe nenhum registo." << endl;
+			cout << "              + 1 unidade de forca militar" << endl;
+			NewGame.AumentaForcaFase4();
+		}
+		if (param1 == "sem-evento") {
+			cout << "\n >>> AVISO DE EVENTO: Nada ocorreu, todos podem dormir descansados" << endl;
+		}
+	}
+	return NewGame;
 }

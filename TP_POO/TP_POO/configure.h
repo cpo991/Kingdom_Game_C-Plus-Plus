@@ -27,6 +27,7 @@ public:
 	game cmdAumenta(game NewGame);
 	game cmdCompra(game NewGame, string name);
 	int sair();
+	game cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno);
 	game recursoAbandonado(game NewGame,int turnos);
 	game alianca(game NewGame);
 };
