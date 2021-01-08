@@ -340,3 +340,18 @@ const bool game::incrementaRes(string name)
 {
 	return imperioU.incRes(name);
 }
+
+//Adiciona um Territorio x do NewGame ao imperio sem fator sorte
+const string game::tomaTerritorio(const string name)
+{
+	ostringstream oss;
+	for (territorio* it : territorios) {
+		if ((it)->getName() == name) {
+			oss << imperioU.conquistaTerritorio(it) << endl;; //copia o territorio para o imperio
+			oss << removeTerritory(name); //elimina o territorio do vector do game
+			oss << imperioU.getAsString();
+			return oss.str();
+		}
+	}
+	return oss.str();
+}

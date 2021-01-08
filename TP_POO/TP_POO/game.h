@@ -96,6 +96,9 @@ public:
 
 	//Incrementa Resistencia do territorio que tem tecnologia de defesa
 	const bool incrementaRes(string name);
+
+	//Adiciona um Territorio x do NewGame ao imperio sem fator sorte
+	const string tomaTerritorio(const string name);
 };
 
 #endif //TP_POO_GAME_H
