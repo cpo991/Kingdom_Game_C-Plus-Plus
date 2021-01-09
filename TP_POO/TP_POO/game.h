@@ -24,6 +24,7 @@ class game {
 public:
 	game();
 
+	~game();
 	// Adiciona territorio à lista de territorios por conquistar
 	const string addTerritory(string nome);
 
@@ -107,6 +108,8 @@ public:
 
 	//Adquire tecnologia fase 4 sem custos
 	const int getTomaTecnologia(string nome);
+	const int getPontos();
+	const int contaTecnologias();
 };
 
 #endif //TP_POO_GAME_H

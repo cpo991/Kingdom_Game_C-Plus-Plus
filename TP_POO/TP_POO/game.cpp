@@ -15,6 +15,9 @@
 game::game() {
 }
 
+game::~game() {
+
+}
 const string game::addTerritory(string nome) {
 	ostringstream oss;
 
@@ -369,4 +372,12 @@ const int game::getCompraTecnologia(string nome)
 const int game::getTomaTecnologia(string nome)
 {
 	return imperioU.tomaTecnologia(nome);
+}
+
+const int game::getPontos() {
+	return imperioU.getPontos();
+}
+
+const int game::contaTecnologias() {
+	return imperioU.contaTecnologias();
 }

@@ -359,3 +359,10 @@ int imperio::tomaTecnologia(string nome) {
 	}
 	return 0;
 }
+
+int imperio::contaTecnologias()
+{
+	int total = 0;
+	total = a.getDrones() + a.getMisseis() + a.getDefesas() + a.getBolsa() + a.getBanco();
+	return total;
+}

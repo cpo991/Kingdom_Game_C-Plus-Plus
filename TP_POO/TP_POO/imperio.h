@@ -87,6 +87,7 @@ public:
 	//Adiciona tecnologia <nome> ao império
 	int compraTecnologia(string nome);
 	int tomaTecnologia(string nome);
+	int contaTecnologias();
 };
 
 #endif //TP_POO_IMPERIO_H

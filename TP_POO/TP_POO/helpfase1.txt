@@ -6,7 +6,6 @@ o  conquista <nome>
 o  passa
 o  lista <nome>
 o  help
-o  sair
 :::::::::::::::: DEBUG ::::::::::::::::
 o  toma <terr|tec> <nome>
 o  modifica <our|prod> N

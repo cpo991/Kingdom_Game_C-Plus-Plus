@@ -7,7 +7,6 @@ o  maisprod
 o  avanca
 o  lista <nome>
 o  help
-o  sair
 :::::::::::::::: DEBUG ::::::::::::::::
 o  toma <terr|tec> <nome>
 o  modifica <our|prod> N

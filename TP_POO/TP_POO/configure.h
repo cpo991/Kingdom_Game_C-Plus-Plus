@@ -27,6 +27,7 @@ public:
 	game  cmdConquista(game NewGame, string name);
 	string cmdLista(game NewGame, string name);
 	game cmdAumenta(game NewGame);
+	game fimJogo(game NewGame);
 	//game cmdCompra(game NewGame, string name);
 	int sair();
 	game cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno);

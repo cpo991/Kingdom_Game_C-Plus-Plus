@@ -240,10 +240,6 @@ void configure::commands() {
 					cout << endl;
 					help("helpfase1.txt");
 				}
-				if (!command.compare("sair")) {
-					sair();
-				}
-
 				//>>>>>>> DEBUG COMMANDS - START <<<<<<
 				if (!command.compare("toma")) {
 					iss >> param1;
@@ -398,9 +394,6 @@ void configure::commands() {
 								cout << endl;
 								help("helpfase2.txt");
 							}
-						}
-						if (!command.compare("sair")) {
-							sair();
 						}
 						if (!command.compare("lista")) {
 							iss2 >> param1;
@@ -586,9 +579,6 @@ void configure::commands() {
 					compras = 2;
 					endFase3 = 1;
 				}
-				if (!command.compare("sair")) {
-					sair();
-				}
 				//>>>>>>> DEBUG COMMANDS - START <<<<<<
 				if (!command.compare("toma")) {
 					iss3 >> param1;
@@ -711,7 +701,7 @@ void configure::commands() {
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 							cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-							sair();
+							NewGame = fimJogo(NewGame);
 						}
 						if (ataque >= resNome) {
 							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
@@ -728,7 +718,7 @@ void configure::commands() {
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 							cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-							sair();
+							NewGame = fimJogo(NewGame);
 						}
 						if (ataque >= resNome) {
 							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
@@ -758,7 +748,7 @@ void configure::commands() {
 	
 	//FUNCAO PARA FAZER E MOSTRAR PONTUAÇÕES FINAIS (METER TB NA FASE4)
 
-	sair();
+	NewGame = fimJogo(NewGame);
 }
 
 // Abre o ficheiro help
@@ -877,13 +867,32 @@ game configure::alianca(game NewGame) {
 	NewGame.alianca();
 	return NewGame;
 }*/
-
+game configure::fimJogo(game NewGame) {
+	int bonus1 = 0, bonus2 = 0, total = 0;
+	cout << "\n\n\n>>> FIM DO JOGO " << endl;
+	cout << ">>> Pontuacao: " << NewGame.getPontos() << endl;
+	if (NewGame.contaTecnologias() >= 5) {
+		cout << ">>> Bonus cientifico: +1" << endl;
+		bonus1 = 1;
+	}
+	else
+		cout << ">>> Bonus cientifico: +0" << endl;
+	if (NewGame.getSizeTerritorios() == 0) {
+		cout << ">>> Bonus imperador supremo: +3" << endl;
+		bonus2 = 3;
+	}
+	else
+		cout << ">>> Bonus imperador supremo: +0" << endl;
+	total = bonus1 + bonus2 + NewGame.getPontos();
+	cout << ">>> PONTUACAO FINAL: " << total << endl;
+	sair();
+	return NewGame;
+}
 //Comando para sair e chamar destrutores acabar
 int configure::sair() {
+	
 	cout << "\n>>> SAINDO DO KINGDOM... " << endl;
-
 	exit(EXIT_SUCCESS); //inacabado
-	//chamar destrutores etc
 }
 
 //Funcao para comandos debug
@@ -928,7 +937,7 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 				}
 				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 					cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-					sair();
+					NewGame = fimJogo(NewGame);
 				}
 				if (ataque >= resNome) {
 					NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
@@ -945,7 +954,7 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 				}
 				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 					cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-					sair();
+					NewGame = fimJogo(NewGame);
 				}
 				if (ataque >= resNome) {
 					NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
