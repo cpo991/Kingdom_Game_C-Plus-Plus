@@ -186,8 +186,8 @@ void configure::commands() {
 	//Ciclo de comandos depois do jogo começar
 	int ano = 1;
 	do {
+		turnos = 0;
 		do {
-			int compras = 0, compra_tecnologia = 0;
 			cout << "\n>>>>>>>>>>>>>>> ANO " << ano << "<<<<<<<<<<<<<<<" << endl;
 			cout << ">>>>>>>>>>>>>>> TURNO " << turnos + 1 << "<<<<<<<<<<<<<<<" << endl;
 			//FASE 1 DO TURNO
@@ -267,7 +267,7 @@ void configure::commands() {
 								}
 								if (param1 == "tec") {
 									exist = NewGame.existeTecnologia(param2);
-									if(exist)
+									if(!exist)
 										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
@@ -334,49 +334,172 @@ void configure::commands() {
 
 			//FASE 2 DO TURNO
 			do {
-				istringstream iss2;
-
 				cout << "\n------FASE 2 ----" << endl;
 				cout << "\n>>>> A recolher produtos e ouro!" << endl;
 				NewGame.recolheProdGold();
 
 				if (NewGame.existeTecnologia("bolsa") == true) {
-					cout << "\n>>> AVISO: E POSSIVEL FAZER TROCAS DE PRODUTOS/OURO " << endl;
-					cout << "\nPretende avancar ou fazer trocas?" << endl;
-					cout << "\nInsira um comando: ";
 					endFase2 = 0;
-					getline(cin, phrase);
-					iss2.str(phrase);
-					iss2 >> command;
-					param1 = param2 = "";
+					do {
+						istringstream iss2;
+						cout << "\n>>> AVISO: E POSSIVEL FAZER TROCAS DE PRODUTOS/OURO " << endl;
+						cout << "\nPretende avancar ou fazer trocas?" << endl;
+						cout << "\nInsira um comando: ";
+						getline(cin, phrase);
+						iss2.str(phrase);
+						iss2 >> command;
+						param1 = "";
 
-					if (!command.compare("maisouro")) {
-						if (NewGame.maisOuro() == true)
-							cout << "Trocou uma unidade de ouro por duas de produtos!" << endl;
-						else
-							cout << "Nao tem produtos suficientes para trocar!" << endl;
-						endFase2 = 1;
-						recolha_prod = 1;
-					}
-					if (!command.compare("maisprod")) {
-						if (NewGame.maisProd() == true)
-							cout << "Trocou duas unidades de ouro por uma de produtos!" << endl;
-						else
-							cout << "Nao tem ouro suficiente para trocar!" << endl;
-						endFase2 = 1;
-						recolha_prod = 1;
-					}
-					if (!command.compare("avanca")) {
-						cout << "\n>>> AVISO: AVANCARA PARA A PROXIMA FASE\n\n" << endl;
-						endFase2 = 1;
-						recolha_prod = 1;
-					}
+						if (!command.compare("maisouro")) {
+							iss2 >> param1;
+							if (param1.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (NewGame.maisOuro() == true)
+									cout << "Trocou uma unidade de ouro por duas de produtos!" << endl;
+								else
+									cout << "Nao tem produtos suficientes para trocar!" << endl;
+								endFase2 = 1;
+								recolha_prod = 1;
+							}
+						}
+						if (!command.compare("maisprod")) {
+							iss2 >> param1;
+							if (param1.compare("")) {
+								lessParam(1, command);
+							} 
+							else{
+								if (NewGame.maisProd() == true)
+									cout << "Trocou duas unidades de ouro por uma de produtos!" << endl;
+								else
+									cout << "Nao tem ouro suficiente para trocar!" << endl;
+								endFase2 = 1;
+								recolha_prod = 1;
+							}
+						}
+						if (!command.compare("avanca")) {
+							iss2 >> param1;
+							if (param1.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								cout << "\n>>> AVISO: AVANCAR PARA A PROXIMA FASE\n\n" << endl;
+								endFase2 = 1;
+								recolha_prod = 1;
+							}
+						}
+						if (!command.compare("help")) {
+							iss2 >> param1;
+							if (param1.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								cout << endl;
+								help("helpfase2.txt");
+							}
+						}
+						if (!command.compare("sair")) {
+							sair();
+						}
+						if (!command.compare("lista")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								cout << NewGame.listaTerritorios();
+							}
+							else {
+								cout << cmdLista(NewGame, param1);
+							}
+						}
+						//>>>>>>> DEBUG COMMANDS - START <<<<<<
+						if (!command.compare("toma")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								needParam(2, command);
+							}
+							else {
+								iss2 >> param2;
+								if (!param2.compare("")) {
+									needParam(1, command);
+								}
+								else {
+									if ((param1 == "terr") | (param1 == "tec")) {
+										bool exist = false;
+										if (param1 == "terr") {
+											exist = NewGame.existTerritory(param2);
+											if (exist)
+												NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											else
+												cout << "\n >>> AVISO: O territorio <" << param2 << "> a assaltar nao existe ou ja faz parte do imperio." << endl;
+										}
+										if (param1 == "tec") {
+											exist = NewGame.existeTecnologia(param2);
+											if (!exist) // se não tiver tecnologia ganha-a
+												NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											else
+												cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
+										}
+									}
+									else
+										cout << "\n >>> AVISO: O tipo de parametro <" << param1 << "> a assaltar nao existe." << endl;
+								}
+							}
+						}
+						if (!command.compare("modifica")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								needParam(2, command);
+							}
+							else {
+								iss2 >> param2;
+								if (!param2.compare("")) {
+									needParam(1, command);
+								}
+								else {
+									if ((param1 == "ouro") | (param1 == "prod")) {
+										int NDigit = 0;
+										for (int i = 0; i < param2.length(); i++) {
+											if (!isdigit(param2[i]))
+												NDigit++;
+										}
+										if (NDigit == 0)
+											NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										else
+											cout << "\n >>> AVISO: Nao introduziu um inteiro como quantidade a modificar." << endl;
+									}
+									else
+										cout << "\n >>> AVISO: O tipo de dado <" << param1 << "> a modificar nao existe." << endl;
+								}
+							}
+						}
+						if (!command.compare("fevento")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								needParam(1, command);
+							}
+							else {
+								iss2 >> param2;
+								if (param2.compare("")) {
+									lessParam(1, command);
+								}
+								else {
+									if ((param1 == "recurso-abandonado") || (param1 == "invasao")
+										|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
+										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+									else
+										cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
+								}
+							}
+						}
+						//>>>>>>>> DEBUG COMMANDS - END <<<<<<
+					} while (endFase2 != 1);
 				}
 				recolha_prod = 1;
 			} while (recolha_prod != 1 && endFase2 != 1);
 
 			//FASE 3 DO TURNO
-			compras = 0;
+			int compras = 0, compra_tecnologia = 0; 
+			endFase3 = 0;
 			do {
 				istringstream iss3;
 				cout << "\n------FASE 3 ----" << endl;
@@ -388,9 +511,15 @@ void configure::commands() {
 				iss3 >> command;
 				if (!command.compare("maismilitar")) {
 					//tb podia ter ficado sem chamar funcao mas nao me apeteceu mudar agora xd
-					NewGame = cmdAumenta(NewGame);
-					compras++;
-					cout << "\tCOMPRAS FEITAS = " << compras << endl;
+					iss3 >> param1;
+					if (param1.compare("")) {
+						lessParam(1, command);
+					}
+					else {
+						NewGame = cmdAumenta(NewGame);
+						compras++;
+						cout << "\tCOMPRAS FEITAS = " << compras << endl;
+					}
 				}
 
 				if (!command.compare("adquire")) {
@@ -404,12 +533,29 @@ void configure::commands() {
 							lessParam(1, command);
 						}
 						else {
-							/*if (NewGame.existeTecnologia(param1) == true) {*/
-							if (compra_tecnologia < 1) {
-								NewGame = cmdCompra(NewGame, param1);
-								compra_tecnologia++;
+							if ((param1 == "drones") || (param1 == "misseis") || (param1 == "defesas") ||
+								(param1 == "bolsa") || (param1 == "banco")) {
+								if (compra_tecnologia < 1) {
+									int result = 0;
+									result = NewGame.getCompraTecnologia(param1);
+									if (result == 999) {
+										cout << "\n>>> AVISO: A tecnologia <" << param1 << "> foi adquirida com sucesso." << endl;
+										compra_tecnologia++;
+										compras++;
+										cout << "\tCOMPRAS FEITAS = " << compras << endl;
+									}
+									else if(result == 0)
+										cout << "\n>>> AVISO: Erro na coompra da tecnologia <" << param1 << ">" << endl;
+									else {
+										cout << "\n>>> AVISO: A tecnologia <" << param1 << "> nao foi adquirida com sucesso." << endl;
+										cout << ">>> AVISO: Falta <" <<result<< "> de ouro no cofre para a adquirir." << endl;
+									}	
+								}
+								else
+									cout << "\n>>> AVISO: Ja nao pode adquirir mais tecnologias." << endl;
 							}
-							compras++;
+							else
+								cout << "\n>>> AVISO: A tecnologia <"<< param1 <<"> nao existe." << endl;
 						}
 					}
 				}
@@ -530,13 +676,14 @@ void configure::commands() {
 
 			//FASE 4 DO TURNO 
 			int evento = 0;
+			int randEvent = 0;
 			do {
 				cout << "\n------FASE 4 ----" << endl;
-				int forcaInv = 0, randSorte = 0, resNome = 0, ataque = 0;
-				int randEvent = rand() % (1 - 4 + 1) + 1;
+				int forcaInv = 0, randSorte = 0, resNome = 0, ataque = 0, asd = 0;
+				unsigned seed = time_t(0);
+				srand(seed);
+				randEvent = NewGame.random(1, 4);
 				string nome;
-				cout << randEvent << endl;
-				evento = 1;
 				switch (randEvent)
 				{
 				case 1: // Recurso abandonado
@@ -549,9 +696,10 @@ void configure::commands() {
 						NewGame.maisOuroFase4();
 						cout << "              + 1 unidade de ouro" << endl;
 					}
+					evento = 1;
 					break;
 				case 2: // Invasão
-					randSorte = rand() % (1 - 6 + 1) + 1;
+					randSorte = NewGame.random(1, 6);
 					nome = NewGame.getLastTerritorioConquistado();
 					resNome = NewGame.getResLastTerritorioConquistado();
 					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio "<< nome << "." << endl;
@@ -606,7 +754,7 @@ void configure::commands() {
 			turnos++;
 		} while (endTurno != 1 && turnos < 6 && NewGame.getSizeTerritorios() != 0);
 		ano++;
-	} while (ano != 2);
+	} while (ano != 3);
 	
 	//FUNCAO PARA FAZER E MOSTRAR PONTUAÇÕES FINAIS (METER TB NA FASE4)
 
@@ -715,7 +863,7 @@ game configure::cmdAumenta(game NewGame) {
 }
 
 //Funcao que recebe comando compra tecnologia
-game configure::cmdCompra(game NewGame, string name) {
+/*game configure::cmdCompra(game NewGame, string name) {
 	NewGame.AdicionaTecnologias(name);
 	return NewGame;
 }
@@ -728,7 +876,7 @@ game configure::recursoAbandonado(game NewGame,int turnos) {
 game configure::alianca(game NewGame) {
 	NewGame.alianca();
 	return NewGame;
-}
+}*/
 
 //Comando para sair e chamar destrutores acabar
 int configure::sair() {
@@ -740,7 +888,7 @@ int configure::sair() {
 
 //Funcao para comandos debug
 game configure::cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno) {
-	int randSorte = 0, resNome = 0, forcaInv = 0, ataque = 0;
+	int randSorte = 0, resNome = 0, forcaInv = 0, ataque = 0, asd = 0;
 	string nome;
 	if (command == "toma") {
 		if (param1 == "terr") {
@@ -748,8 +896,7 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 			cout << "\n >>> AVISO: O territorio <"<< param2 <<"> foi conquistado." << endl;
 		}
 		if (param1 == "tec") {
-			//Tem de ser feito um Adiciona tecnologias sem perda de produtos nem compras
-			//NewGame.AdicionaTecnologias(param2); 
+			NewGame.getTomaTecnologia(param2);
 			cout << "\n >>> AVISO: A tecnologia <" << param2 << "> foi adquirida." << endl;
 		}
 	}

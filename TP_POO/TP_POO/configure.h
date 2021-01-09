@@ -7,6 +7,7 @@
 #include "game.h"
 #include <fstream>
 #include <string>
+#include <ctime>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ public:
 	configure(game& g);
 	void initMenu();
 	void commands();
+	//int random(int low, int high);
 	void help(string file);
 	void needParam(int num, string command);
 	void lessParam(int num, string command);
@@ -25,11 +27,11 @@ public:
 	game  cmdConquista(game NewGame, string name);
 	string cmdLista(game NewGame, string name);
 	game cmdAumenta(game NewGame);
-	game cmdCompra(game NewGame, string name);
+	//game cmdCompra(game NewGame, string name);
 	int sair();
 	game cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno);
-	game recursoAbandonado(game NewGame,int turnos);
-	game alianca(game NewGame);
+	//game recursoAbandonado(game NewGame,int turnos);
+	//game alianca(game NewGame);
 };
 
 #endif //TP_POO_CONFIGURE_H

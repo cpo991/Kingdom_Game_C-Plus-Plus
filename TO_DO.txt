@@ -1,7 +1,10 @@
 grava
 ativa
 apaga
-comandos debug: - toma / - modifica
+comandos debug:- modifica
 função que apresenta os dados finais de jogo para colocar - fim do jogo - fase 4 perde o jogo - comando debug perde o jogo
 acabar função sair
 mudar os valores dos territorios consoante o ano em que estão
+
+- força militar qd tem drones fica com mais do que o maximo
+-penso que tem bug quando conquista territorio perde os produtos que tinha e ouro

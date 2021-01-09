@@ -1,0 +1,15 @@
+>>>>>>>>>>>>>>>> JOGO <<<<<<<<<<<<<<<<<
+
+:::::::::: LISTA DE COMANDOS ::::::::::
+::::::::::::::: FASE 2 ::::::::::::::::
+o  maisouro
+o  maisprod
+o  avanca
+o  lista <nome>
+o  help
+o  sair
+:::::::::::::::: DEBUG ::::::::::::::::
+o  toma <terr|tec> <nome>
+o  modifica <our|prod> N
+o  fevento <nome-evento>
+:::::::::::::::::::::::::::::::::::::::

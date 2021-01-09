@@ -107,18 +107,21 @@ const string game::listaTerritorios(string name) {
 //Obter quantidade de territorios no mundo por conquistar
 const size_t game::getSizeTerritorios() { return territorios.size(); }
 
+//Obter um numero random entre min e max
+int game::random(int low, int high) {
+	if (low > high) return high;
+	return low + (std::rand() % (high - low + 1));
+}
+
 //Adiciona um Territorio x do NewGame ao imperio
 const string game::conquistaTerritorios(const string name)
 {
-	srand((unsigned)time(0));
-	int sorte;
-	for (int z = 0; z < 6; z++) {
-		sorte = (rand() % 6) + 1;
-	}
-
-	//sorte_last = sorte;
-	sorte = 6; // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< JUST FOR TESTING
 	ostringstream oss;
+	int sorte = 0, asd = 0;
+	unsigned seed = time_t(0);
+	srand(seed);
+	
+	sorte = random(1, 6);
 
 	for (territorio* it : territorios) {
 		if ((it)->getName() == name) {
@@ -135,7 +138,6 @@ const string game::conquistaTerritorios(const string name)
 			}
 		}
 	}
-	//oss << "\n>>> Nao conquistou  " << name << endl;
 	return oss.str();
 }
 
@@ -180,9 +182,10 @@ const bool game::AumentaForca() {
 }
 
 //Compra Tecnologia <nome> para o império
-const void game::AdicionaTecnologias(string nome) {
+/*const void game::AdicionaTecnologias(string nome) {
 	imperioU.compraTecnologias(nome);
-}
+}*/
+
 //Verifica se há tecnologia <nome> no império comprada
 const bool game::existeTecnologia(const string nome)
 {
@@ -211,7 +214,7 @@ const bool game::maisProd()
 }
 
 //trocar para string e dizer aumentou x produtos/ouro  
-const void game::recursoAbandonado(int turnos) {
+/*const void game::recursoAbandonado(int turnos) {
 	if (turnos < 6)
 		imperioU.setArm(1);
 	else
@@ -223,7 +226,7 @@ const string game::alianca() {
 	imperioU.setMilitar(1);
 	oss << "Formou uma alianca e ganhou uma unidade de forca militar" << endl;
 	return oss.str();
-}
+}*/
 
 //Guarda os dados do jogo num ficheiro de texto
 void game::saveData(string filename) {
@@ -354,4 +357,16 @@ const string game::tomaTerritorio(const string name)
 		}
 	}
 	return oss.str();
+}
+
+//Compra tecnologia
+const int game::getCompraTecnologia(string nome)
+{
+	return imperioU.compraTecnologia(nome);
+}
+
+//Adquire tecnologia fase 4 sem custos
+const int game::getTomaTecnologia(string nome)
+{
+	return imperioU.tomaTecnologia(nome);
 }

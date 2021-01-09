@@ -19,7 +19,7 @@ using namespace std;
 
 class imperio
 {
-	int arm = 0, militar = 0, cofre = 0, pontos = 0;
+	int arm = 0, militar = 0, cofre = 4, pontos = 0;
 	vector <territorio*> territorio_imperio;
 	tecnologias a;
 
@@ -63,7 +63,7 @@ public:
 	void recolheProd();
 
 	//Adiciona tecnologias compradas ao imperio
-	string compraTecnologias(string nome);
+	//string compraTecnologias(string nome);
 
 	//Devolve true se houver tecnologia x comprada
 	bool tecnologiasCompradas(string nome);
@@ -83,6 +83,10 @@ public:
 	//Remove territorio do imperio com o nome que recebe
 	bool perdeTerritorio(string name);
 	bool incRes(string name);
+
+	//Adiciona tecnologia <nome> ao império
+	int compraTecnologia(string nome);
+	int tomaTecnologia(string nome);
 };
 
 #endif //TP_POO_IMPERIO_H

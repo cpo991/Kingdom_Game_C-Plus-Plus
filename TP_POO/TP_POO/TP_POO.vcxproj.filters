@@ -115,9 +115,6 @@
     <Text Include="menu.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="help.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
     <Text Include="comandos1.txt">
       <Filter>Resource Files</Filter>
     </Text>
@@ -131,6 +128,9 @@
       <Filter>Resource Files</Filter>
     </Text>
     <Text Include="data.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="helpfase2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

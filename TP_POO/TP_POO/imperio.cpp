@@ -175,7 +175,7 @@ void imperio::recolheProd()
 }
 
 //Adiciona tecnologia <nome> ao império
-string imperio::compraTecnologias(string nome)
+/*string imperio::compraTecnologias(string nome)
 {
 	static int nrCompras = 0;
 	ostringstream oss;
@@ -221,7 +221,7 @@ string imperio::compraTecnologias(string nome)
 		setPontos(getPontos() + 1);
 	oss << this->getAsStringT();
 	return oss.str();
-}
+}*/
 
 string imperio::getAsStringLastTerritorio()
 {
@@ -267,4 +267,95 @@ bool imperio::incRes(string name)
 		}
 	}
 	return false;
+}
+
+//Adiciona tecnologia <nome> ao império
+int imperio::compraTecnologia(string nome) {
+	static int nrCompras = 0;
+	ostringstream oss;
+	if (nome == "drones") {
+		if (getCofre() >= 3) {
+			a.setDrones(a.getDrones() + 1);
+			pontos++;
+			MAX_MILITAR = 5;
+			cofre = getCofre() - 3;
+			return 999;
+		}
+		else return (3-getCofre());
+	}
+	if (nome == "misseis") {
+		if (getCofre() >= 4) {
+			a.setMisseis(a.getMisseis() + 1);
+			pontos++;
+			cofre = getCofre() - 4;
+			return 999;
+		}
+		else return getCofre();
+	}
+	if (nome == "defesas") {
+		if (getCofre() >= 4) {
+			a.setDefesas(a.getDefesas() + 1);
+			pontos++;
+			cofre = getCofre() - 4;
+			return 999;
+		}
+		else return (4 - getCofre());
+		
+	}
+	if (nome == "bolsa") {
+		if (getCofre() >= 2) {
+			a.setBolsa(a.getBolsa() + 1);
+			pontos++;
+			cofre = getCofre() - 2;
+			return 999;
+		}
+		else return (2 - getCofre());
+	}
+	if (nome == "banco") {
+		if (getCofre() >= 3) {
+			a.setBanco(1);
+			MAX_COFRE = 5;
+			MAX_ARM = 5;
+			pontos++;
+			cofre = getCofre() - 3;
+			return 999;
+		}
+		else return (3 - getCofre());
+	}
+	return 0;
+}
+
+//Adiciona tecnologia <nome> ao império Fase 4
+int imperio::tomaTecnologia(string nome) {
+	static int nrCompras = 0;
+	ostringstream oss;
+	if (nome == "drones") {
+		a.setDrones(a.getDrones() + 1);
+		pontos++;
+		MAX_MILITAR = 5;
+		return 1;
+	}
+	if (nome == "misseis") {
+		a.setMisseis(a.getMisseis() + 1);
+		pontos++;
+		return 1;
+	}
+	if (nome == "defesas") {
+		a.setDefesas(a.getDefesas() + 1);
+		pontos++;
+		return 1;
+	}
+	if (nome == "bolsa") {
+		a.setBolsa(a.getBolsa() + 1);
+		pontos++;
+		return 1;
+	}
+	if (nome == "banco") {
+		a.setBanco(1);
+		MAX_COFRE = 5;
+		MAX_ARM = 5;
+		pontos++;
+		return 1;
+	}
+	return 0;
 }

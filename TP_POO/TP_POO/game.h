@@ -39,6 +39,8 @@ public:
 	//Obter quantidade de territorios no mundo por conquistar
 	const size_t getSizeTerritorios();
 
+	int random(int low, int high);
+
 	//Adiciona um Territorio x do NewGame ao imperio
 	const string conquistaTerritorios(string name);
 
@@ -55,7 +57,7 @@ public:
 	const bool AumentaForca();
 
 	//Compra Tecnologia <nome> para o império
-	const void AdicionaTecnologias(string nome);
+	//const void AdicionaTecnologias(string nome);
 
 	//Verifica se há tecnologia <nome> no império comprada
 	const bool existeTecnologia(const string name);
@@ -66,9 +68,9 @@ public:
 	const bool maisProd();
 
 	//trocar para string e dizer aumentou x produtos/ouro 
-	const void recursoAbandonado(int turnos);
+	//const void recursoAbandonado(int turnos);
 	
-	const string alianca();
+	//const string alianca();
 
 	//Guarda os dados do jogo num ficheiro de texto
 	void saveData(string file);
@@ -99,6 +101,12 @@ public:
 
 	//Adiciona um Territorio x do NewGame ao imperio sem fator sorte
 	const string tomaTerritorio(const string name);
+
+	//Compra tecnologia
+	const int getCompraTecnologia(string nome);
+
+	//Adquire tecnologia fase 4 sem custos
+	const int getTomaTecnologia(string nome);
 };
 
 #endif //TP_POO_GAME_H
