@@ -306,21 +306,33 @@ void game::loadData(string filename) {
 
 //Aumentar a força militar via evento de alianca diplomatica
 const bool game::AumentaForcaFase4() {
-	imperioU.setMilitar(imperioU.getMilitar() + 1);
-	return true;
+	if (imperioU.getMilitar() + 1 <= imperioU.getMaxMilitar()) {
+		imperioU.setMilitar(imperioU.getMilitar() + 1);
+		return true;
+	}
+	else
+		return false;
 }
 
 //Aumenta o ouro em 1 unidade no evento recurso abandonado
 const bool game::maisOuroFase4() {
-	imperioU.setCofre(imperioU.getCofre() + 1);
-	return true;
+	if (imperioU.getCofre() + 1 <= imperioU.getMaxCofre()) {
+		imperioU.setCofre2(imperioU.getCofre() + 1);
+		return true;
+	}
+	else
+		return false;
 }
 
 //Aumenta o produto em 1 unidade no evento recurso abandonado
 const bool game::maisProdFase4()
 {
-	imperioU.setArm(imperioU.getArm() + 1);
-	return true;
+	if (imperioU.getArm() + 1 <= imperioU.getMaxArm()) {
+		imperioU.setArm2(imperioU.getArm() + 1);
+		return true;
+	}
+	else
+		return false;
 }
 
 //Obtem nome do ultimo territorio conquistado
@@ -380,4 +392,26 @@ const int game::getPontos() {
 
 const int game::contaTecnologias() {
 	return imperioU.contaTecnologias();
+}
+
+const bool game::modificaOuro(int num) {
+	if (imperioU.getMaxCofre() < num) {
+		imperioU.setCofre2(imperioU.getMaxCofre());
+		return false;
+	}
+	else {
+		imperioU.setCofre2(num);
+		return true;
+	}
+}
+
+const bool game::modificaProd(int num) {
+	if (imperioU.getMaxArm() < num) {
+		imperioU.setArm2(imperioU.getMaxCofre());
+		return false;
+	}
+	else {
+		imperioU.setArm2(num);
+		return true;
+	}
 }

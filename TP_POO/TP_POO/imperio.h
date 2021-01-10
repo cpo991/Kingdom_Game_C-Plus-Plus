@@ -19,7 +19,7 @@ using namespace std;
 
 class imperio
 {
-	int arm = 0, militar = 0, cofre = 4, pontos = 0;
+	int arm = 0, militar = 0, cofre = 0, pontos = 0;
 	vector <territorio*> territorio_imperio;
 	tecnologias a;
 
@@ -34,9 +34,16 @@ public:
 	//destrutor
 	~imperio();
 
+	int getMaxMilitar() const;
+
+	int getMaxCofre() const;
+
+	int getMaxArm() const;
+
 	//set/get de produtos no armazem
 	int getArm() const;
 	void setArm(int arm);
+	void setArm2(int num);
 	void removeProd(int prod);
 
 	//set/get de força militar
@@ -47,6 +54,7 @@ public:
 	//set/get de ouro no cofre
 	int getCofre() const;
 	void setCofre(int cofre);
+	void setCofre2(int num);
 	void removeOuro(int ouro);
 
 	//set/get de pontos totais

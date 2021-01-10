@@ -8,6 +8,6 @@ o  lista <nome>
 o  help
 :::::::::::::::: DEBUG ::::::::::::::::
 o  toma <terr|tec> <nome>
-o  modifica <our|prod> N
+o  modifica <ouro|prod> N
 o  fevento <nome-evento>
 :::::::::::::::::::::::::::::::::::::::

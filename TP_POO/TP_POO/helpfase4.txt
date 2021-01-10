@@ -1,9 +1,7 @@
 >>>>>>>>>>>>>>>> JOGO <<<<<<<<<<<<<<<<<
 
 :::::::::: LISTA DE COMANDOS ::::::::::
-::::::::::::::: FASE 2 ::::::::::::::::
-o  maisouro
-o  maisprod
+::::::::::::::: FASE 4 ::::::::::::::::
 o  avanca
 o  lista <nome>
 o  help

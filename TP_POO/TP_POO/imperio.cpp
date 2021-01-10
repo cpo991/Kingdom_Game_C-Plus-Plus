@@ -7,6 +7,19 @@ imperio::~imperio()
 {
 }
 
+int imperio::getMaxMilitar() const {
+	return MAX_MILITAR;
+}
+
+int imperio::getMaxCofre()const {
+	return MAX_COFRE;
+}
+
+int imperio::getMaxArm()const {
+	return MAX_ARM;
+}
+
+
 //set/get de produtos no armazem
 int imperio::getArm() const
 {
@@ -18,6 +31,11 @@ void imperio::setArm(int arm)
 
 		this->arm += arm;
 }
+
+void imperio::setArm2(int num) {
+	this->arm = num;
+}
+
 void imperio::removeProd(int prod)
 {
 	if (arm > 0)
@@ -33,8 +51,14 @@ int imperio::getMilitar() const
 }
 void imperio::setMilitar(int militar)
 {
-	if (militar < MAX_MILITAR)
+	if ((this->militar + militar) >= MAX_MILITAR) {
+		this->militar = MAX_MILITAR;
+	}
+	else {
 		this->militar += militar;
+	}
+	//if (militar < MAX_MILITAR)
+		
 }
 void imperio::removeMilitar(int forca) {
 	if (militar > 0)
@@ -48,10 +72,15 @@ int imperio::getCofre() const
 {
 	return cofre;
 }
+
 void imperio::setCofre(int cofre)
 {
 	if (getCofre() < MAX_COFRE)
 		this->cofre += cofre;
+}
+
+void imperio::setCofre2(int num) {
+	this->cofre = num;
 }
 
 void imperio::removeOuro(int ouro)

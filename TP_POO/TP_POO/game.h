@@ -110,6 +110,8 @@ public:
 	const int getTomaTecnologia(string nome);
 	const int getPontos();
 	const int contaTecnologias();
+	const bool modificaOuro(int num);
+	const bool modificaProd(int num);
 };
 
 #endif //TP_POO_GAME_H
