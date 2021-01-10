@@ -21,3 +21,7 @@ void mina::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
+
+void mina::setCreateGold(int gold) {
+	this->setCreateGold(gold);
+}

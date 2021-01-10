@@ -96,6 +96,7 @@ public:
 	int compraTecnologia(string nome);
 	int tomaTecnologia(string nome);
 	int contaTecnologias();
+	bool altera(int ano, int turno);
 };
 
 #endif //TP_POO_IMPERIO_H

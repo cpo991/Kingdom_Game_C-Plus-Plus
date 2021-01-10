@@ -124,6 +124,8 @@ string imperio::conquistaTerritorio(territorio* a)
 
 	territorio_imperio.push_back(a);
 	this->setPontos(getPontos() + a->getVictoryPoints());
+	this->setArm2(getArm());
+	this->setCofre2(getCofre());
 
 	oss << "\n>>> Territorio " << a->getName() << " conquistado!" << endl;
 	return oss.str();
@@ -394,4 +396,11 @@ int imperio::contaTecnologias()
 	int total = 0;
 	total = a.getDrones() + a.getMisseis() + a.getDefesas() + a.getBolsa() + a.getBanco();
 	return total;
+}
+
+bool imperio::altera(int ano, int turno) {
+
+	for (int i = 0; i < territorio_imperio.size(); i++) {
+		territorio_imperio[i]->getName();
+	}
 }

@@ -21,3 +21,7 @@ void castelo::setName(string name)
 	name = (name + std::to_string(a));
 	a++;
 }
+
+void castelo::setCreateGold(int gold) {
+	this->setCreateGold(gold);
+}
