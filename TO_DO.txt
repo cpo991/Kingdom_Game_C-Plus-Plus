@@ -1,12 +1,10 @@
 grava
 ativa
 apaga
-Função para mudar os valores dos territorios consoante o ano em que estão
 Destrutores
 
 BUGS:
 - quando se usa varias vezes um comando debug por exemplo de arranjar tecnologia n aceita comandos da fase 1 depois
-- penso que tem bug quando conquista territorio perde os produtos que tinha e ouro
 
 toma tec 
 - "Uma tecnologia disponível passa a pertencer ao Jogador? E se o jogador já a tiver obtido, esta passa novamente a estar disponível? Ou é suposto fazer desaparecer a tecnologia?"

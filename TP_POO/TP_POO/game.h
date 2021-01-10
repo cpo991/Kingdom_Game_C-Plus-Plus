@@ -112,6 +112,9 @@ public:
 	const int contaTecnologias();
 	const bool modificaOuro(int num);
 	const bool modificaProd(int num);
+
+	void altera(int ano, int turno);
+
 };
 
 #endif //TP_POO_GAME_H

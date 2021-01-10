@@ -188,6 +188,7 @@ void configure::commands() {
 	do {
 		turnos = 0;
 		do {
+			NewGame.altera(ano, turnos);
 			cout << "\n>>>>>>>>>>>>>>> ANO " << ano << "<<<<<<<<<<<<<<<" << endl;
 			cout << ">>>>>>>>>>>>>>> TURNO " << turnos + 1 << "<<<<<<<<<<<<<<<" << endl;
 			//FASE 1 DO TURNO

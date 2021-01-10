@@ -14,7 +14,7 @@ public:
 	//Destrutor
 	~castelo();
 	void setName(string name) override;
-	void setCreateGold(int gold);
+	//void setCreateGold(int gold);
 };
 
 #endif

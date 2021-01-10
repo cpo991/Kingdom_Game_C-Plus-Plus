@@ -22,6 +22,6 @@ void mina::setName(string name)
 	a++;
 }
 
-void mina::setCreateGold(int gold) {
+/*void mina::setCreateGold(int gold) {
 	this->setCreateGold(gold);
-}
+}*/

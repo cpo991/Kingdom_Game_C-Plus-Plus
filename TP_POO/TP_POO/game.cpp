@@ -415,3 +415,7 @@ const bool game::modificaProd(int num) {
 		return true;
 	}
 }
+
+void game::altera(int ano, int turno) {
+	return imperioU.altera(ano, turno+1);
+}

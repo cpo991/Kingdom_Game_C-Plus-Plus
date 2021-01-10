@@ -398,9 +398,42 @@ int imperio::contaTecnologias()
 	return total;
 }
 
-bool imperio::altera(int ano, int turno) {
-
-	for (int i = 0; i < territorio_imperio.size(); i++) {
-		territorio_imperio[i]->getName();
+void imperio::altera(int ano, int turno) {
+	string name;
+	//Castelo passa a produzir 1
+	if ((ano == 1 && (turno <= 2 && turno >=1 )) || (ano == 2 && (turno <= 2 && turno >= 1))) {
+		for (int i = 0; i < territorio_imperio.size(); i++) {
+			name = territorio_imperio[i]->getName();
+			if (territorio_imperio[i]->getType(name) == "castelo") {
+				territorio_imperio[i]->setCreateGold(1);
+			}
+		}
+	}
+	//Castelo passa a produzir 0
+	if ((ano == 1 && (turno <= 6 && turno >= 3)) || (ano == 2 && (turno <= 6 && turno >= 3))) {
+		for (int i = 0; i < territorio_imperio.size(); i++) {
+			name = territorio_imperio[i]->getName();
+			if (territorio_imperio[i]->getType(name) == "castelo") {
+				territorio_imperio[i]->setCreateGold(0);
+			}
+		}
+	}
+	//Mina passa a produzir 1
+	if ((ano == 1 && (turno <= 3 && turno >= 1)) || (ano == 2 && (turno <= 3 && turno >= 1))) {
+		for (int i = 0; i < territorio_imperio.size(); i++) {
+			name = territorio_imperio[i]->getName();
+			if (territorio_imperio[i]->getType(name) == "mina") {
+				territorio_imperio[i]->setCreateGold(1);
+			}
+		}
+	}
+	//Mina passa a produzir 2
+	if (ano == 1 && (turno <= 6 && turno >= 4) || (ano == 2 && (turno <= 6 && turno >= 4))) {
+		for (int i = 0; i < territorio_imperio.size(); i++) {
+			name = territorio_imperio[i]->getName();
+			if (territorio_imperio[i]->getType(name) == "mina") {
+				territorio_imperio[i]->setCreateGold(2);
+			}
+		}
 	}
 }

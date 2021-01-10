@@ -22,6 +22,6 @@ void castelo::setName(string name)
 	a++;
 }
 
-void castelo::setCreateGold(int gold) {
+/*void castelo::setCreateGold(int gold) {
 	this->setCreateGold(gold);
-}
+}*/
