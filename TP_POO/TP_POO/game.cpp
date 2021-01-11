@@ -12,20 +12,22 @@
 #include "planicie.h"
 #include "refugioPiratas.h"
 
+//Construtor
 game::game() {
+	territorios.push_back(new territorioInicial("territorioInicial"));
+	setTerritorioDefault("territorioInicial");
 }
 
+//Destrutor
 game::~game() {
-
+	/*for (territorio* t : territorios)
+		delete t; //rebenta com o carrega mas n rebenta com o cria*/
 }
+
+// Adiciona territorio à lista de territorios por conquistar
 const string game::addTerritory(string nome) {
 	ostringstream oss;
-
-	if (nome == "territorioInicial") {
-		territorios.push_back(new territorioInicial(nome));
-		setTerritorioDefault(nome);
-	}
-	else if (nome == "castelo") {
+	if (nome == "castelo") {
 		territorios.push_back(new castelo(nome));
 	}
 	else if (nome == "duna") {
@@ -68,7 +70,6 @@ bool game::removeTerritory(const string name) {
 const string game::listaTerritorios() {
 	ostringstream oss;
 
-	//imperio* aux1;
 	oss << "\n\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
 	oss << "\n:::::: LISTAGEM DE DADOS DO JOGO ATE AO MOMENTO ::::::::" << endl;
 	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
@@ -184,11 +185,6 @@ const bool game::AumentaForca() {
 	return true;
 }
 
-//Compra Tecnologia <nome> para o império
-/*const void game::AdicionaTecnologias(string nome) {
-	imperioU.compraTecnologias(nome);
-}*/
-
 //Verifica se há tecnologia <nome> no império comprada
 const bool game::existeTecnologia(const string nome)
 {
@@ -197,6 +193,7 @@ const bool game::existeTecnologia(const string nome)
 	return false;
 }
 
+//Troca 2 unidades de prod por 1 de ouro
 const bool game::maisOuro() {
 	if (imperioU.getArm() > 2) {
 		imperioU.setCofre(1);
@@ -206,6 +203,7 @@ const bool game::maisOuro() {
 	return false;
 }
 
+//Troca 2 unidades de ouro por 1 de prod
 const bool game::maisProd()
 {
 	if (imperioU.getCofre() > 2) {
@@ -215,21 +213,6 @@ const bool game::maisProd()
 	}
 	return false;
 }
-
-//trocar para string e dizer aumentou x produtos/ouro  
-/*const void game::recursoAbandonado(int turnos) {
-	if (turnos < 6)
-		imperioU.setArm(1);
-	else
-		imperioU.setCofre(1);
-}
-
-const string game::alianca() {
-	ostringstream oss;
-	imperioU.setMilitar(1);
-	oss << "Formou uma alianca e ganhou uma unidade de forca militar" << endl;
-	return oss.str();
-}*/
 
 //Guarda os dados do jogo num ficheiro de texto
 void game::saveData(string filename) {
@@ -386,14 +369,17 @@ const int game::getTomaTecnologia(string nome)
 	return imperioU.tomaTecnologia(nome);
 }
 
+//Retorna os pontos do imperio
 const int game::getPontos() {
 	return imperioU.getPontos();
 }
 
+//Retorna o numero de tecnologias adquiridas
 const int game::contaTecnologias() {
 	return imperioU.contaTecnologias();
 }
 
+//Modifica num de ouro 
 const bool game::modificaOuro(int num) {
 	if (imperioU.getMaxCofre() < num) {
 		imperioU.setCofre2(imperioU.getMaxCofre());
@@ -405,6 +391,7 @@ const bool game::modificaOuro(int num) {
 	}
 }
 
+//Modifica num de prod
 const bool game::modificaProd(int num) {
 	if (imperioU.getMaxArm() < num) {
 		imperioU.setArm2(imperioU.getMaxCofre());
@@ -416,6 +403,7 @@ const bool game::modificaProd(int num) {
 	}
 }
 
+//Altera a quantidade de ouro produzida pelo castelo e mina
 void game::altera(int ano, int turno) {
 	return imperioU.altera(ano, turno+1);
 }

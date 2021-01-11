@@ -7,24 +7,28 @@ imperio::~imperio()
 {
 }
 
+//Retorna o valor do MAX_MILITAR
 int imperio::getMaxMilitar() const {
 	return MAX_MILITAR;
 }
 
+//Retorna o valor do MAX_COFRE
 int imperio::getMaxCofre()const {
 	return MAX_COFRE;
 }
 
+//Retorna o valor do MAX_ARM
 int imperio::getMaxArm()const {
 	return MAX_ARM;
 }
 
-
-//set/get de produtos no armazem
+//Retorna o numero de produtos no armazem
 int imperio::getArm() const
 {
 	return arm;
 }
+
+//Incrementa o numero de produtos no armazem
 void imperio::setArm(int arm)
 {
 	if (getArm() < MAX_ARM)
@@ -32,10 +36,12 @@ void imperio::setArm(int arm)
 		this->arm += arm;
 }
 
+//Altera o numero de produtos no armazem
 void imperio::setArm2(int num) {
 	this->arm = num;
 }
 
+//Decrementa o numero de produtos no armazem
 void imperio::removeProd(int prod)
 {
 	if (arm > 0)
@@ -44,45 +50,49 @@ void imperio::removeProd(int prod)
 		arm = 0;
 }
 
-//set/get de força militar
+//Retorna o numero de forca militar
 int imperio::getMilitar() const
 {
 	return militar;
 }
+
+//Incrementa o numero de forca militar
 void imperio::setMilitar(int militar)
 {
 	if ((this->militar + militar) >= MAX_MILITAR) {
 		this->militar = MAX_MILITAR;
 	}
-	else {
+	else
 		this->militar += militar;
-	}
-	//if (militar < MAX_MILITAR)
-		
 }
+
+//Decrementa o numero de forca militar
 void imperio::removeMilitar(int forca) {
 	if (militar > 0)
 		this->militar -= forca;
 	else
-		militar = 0; //this->militar = 0;
+		this->militar = 0;
 }
 
-//set/get de ouro no cofre
+//Retorna o numero de ouro no cofre
 int imperio::getCofre() const
 {
 	return cofre;
 }
 
+//Incrementa o numero de ouro no cofre
 void imperio::setCofre(int cofre)
 {
 	if (getCofre() < MAX_COFRE)
 		this->cofre += cofre;
 }
 
+//Altera o numero de ouro no cofre
 void imperio::setCofre2(int num) {
 	this->cofre = num;
 }
 
+//Decrementa o numero de ouro no cofre
 void imperio::removeOuro(int ouro)
 {
 	if (cofre > 0)
@@ -91,15 +101,19 @@ void imperio::removeOuro(int ouro)
 		cofre = 0;
 }
 
-//set/get de pontos totais
+//Retorna o numero de pontos totais
 int imperio::getPontos() const
 {
 	return pontos;
 }
+
+//Retorna o numero de pontos totais
 void imperio::setPontos(int pontos)
 {
 	this->pontos = pontos;
 }
+
+//Cria o territorioInicial no imperio
 string imperio::adicionaTerritorioInicial(territorio* a) {
 	ostringstream oss;
 	if (a == nullptr) {
@@ -113,6 +127,7 @@ string imperio::adicionaTerritorioInicial(territorio* a) {
 	this->setPontos(getPontos() + a->getVictoryPoints());
 	return oss.str();
 }
+
 //Obtem territorio conquistado
 string imperio::conquistaTerritorio(territorio* a)
 {
@@ -165,6 +180,7 @@ string imperio::getAsStringT()
 	return oss.str();
 }
 
+//Devolve true se houver tecnologia x comprada
 bool imperio::tecnologiasCompradas(string nome)
 {
 	if (nome == "drones") {
@@ -205,55 +221,7 @@ void imperio::recolheProd()
 		cout << "\nAVISO: Nao ha capacidade para aumentar a forca militar" << endl;
 }
 
-//Adiciona tecnologia <nome> ao império
-/*string imperio::compraTecnologias(string nome)
-{
-	static int nrCompras = 0;
-	ostringstream oss;
-	if (nome == "drones" && getCofre() >= 3) {
-		a.setDrones(a.getDrones() + 1);
-		pontos++;
-		MAX_MILITAR = 5;
-		nrCompras++;
-		cofre = getCofre() - 3;
-	}
-
-	if (nome == "misseis" && getCofre() > 4) {
-		a.setMisseis(a.getMisseis() + 1);
-		pontos++;
-		nrCompras++;
-		cofre = getCofre() - 4;
-	}
-
-	if (nome == "defesas" && this->getCofre() > 4) {
-		a.setDefesas(a.getDefesas() + 1);
-		pontos++;
-		nrCompras++;
-		cofre = getCofre() - 4;
-	}
-	//AUMENTAR RESISTENCIA A TERRITORIO QUE FOR INVADIDO
-
-	if (nome == "bolsa" && getCofre() > 2) {
-		a.setBolsa(a.getBolsa() + 1);
-		pontos++;
-		nrCompras++;
-		cofre = getCofre() - 2;
-	}
-	if (nome == "banco" && getCofre() > 3) {
-		a.setBanco(1);
-		MAX_COFRE = 5;
-		MAX_ARM = 5;
-		pontos++;
-		nrCompras++;
-		cofre = getCofre() - 3;
-	}
-
-	if (nrCompras == 5)
-		setPontos(getPontos() + 1);
-	oss << this->getAsStringT();
-	return oss.str();
-}*/
-
+//Obtem nome do ultimo territorio conquistado
 string imperio::getAsStringLastTerritorio()
 {
 	ostringstream oss;
@@ -264,6 +232,7 @@ string imperio::getAsStringLastTerritorio()
 	return territorio_imperio[aux]->getName();
 }
 
+//Obtem resistencia do ultimo territorio conquistado
 int imperio::getintResLastTerritorio()
 {
 	ostringstream oss;
@@ -274,6 +243,7 @@ int imperio::getintResLastTerritorio()
 	return territorio_imperio[aux]->getRes();
 }
 
+//Remove territorio do imperio com o nome que recebe
 bool imperio::perdeTerritorio(string name)
 {
 	ostringstream oss;
@@ -286,6 +256,7 @@ bool imperio::perdeTerritorio(string name)
 	return false;
 }
 
+//Incrementa a resistencia do territorio
 bool imperio::incRes(string name)
 {
 	ostringstream oss;
@@ -356,7 +327,7 @@ int imperio::compraTecnologia(string nome) {
 	return 0;
 }
 
-//Adiciona tecnologia <nome> ao império Fase 4
+//Adquire tecnologia fase 4 sem custos
 int imperio::tomaTecnologia(string nome) {
 	static int nrCompras = 0;
 	ostringstream oss;
@@ -391,6 +362,7 @@ int imperio::tomaTecnologia(string nome) {
 	return 0;
 }
 
+//Retorna o numero de tecnologias adquiridas
 int imperio::contaTecnologias()
 {
 	int total = 0;
@@ -398,6 +370,7 @@ int imperio::contaTecnologias()
 	return total;
 }
 
+//Altera a quantidade de ouro produzida pelo castelo e mina
 void imperio::altera(int ano, int turno) {
 	string name;
 	//Castelo passa a produzir 1

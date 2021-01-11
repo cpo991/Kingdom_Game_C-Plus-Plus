@@ -33,11 +33,6 @@ void configure::commands() {
 	int endFase3 = 0, endFase1 = 0, endFase2 = 0;
 	string teste;
 	game NewGame;
-
-	//Adiciona o territorio inicial ao império
-	NewGame.addTerritory("territorioInicial");
-	NewGame = cmdConquista(NewGame, "territorioInicial");
-
 	// ::::::::::::::::FASE DE CONFIGURACAO :::::::::::::::::::::::
 
 	help("helpconfig.txt");
@@ -253,8 +248,84 @@ void configure::commands() {
 					help("helpfase1.txt");
 				}
 				if (!command.compare("avanca")) {
-					cout << "\n>>> AVISO: A AVANCAR PARA FASE 2...\n\n" << endl;
-					endFase1 = 1;
+					if (comandoCP == 0) {
+						cout << "\nAVISO: O comando passa ou conquista ainda nao foi introduzido neste turno." << endl;
+					}
+					else {
+						cout << "\n>>> AVISO: A AVANCAR PARA FASE 2...\n\n" << endl;
+						endFase1 = 1;
+					}
+				}
+				if (!command.compare("grava")) {
+					iss >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if (existNomeSave(param1) == false) { 
+								addSave(param1, NewGame, ano, turnos);
+								cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
+								cout << getAsStringSave() << endl;
+							}
+							else { //nao pode criar
+								cout << ">>> AVISO: O nome <" << param1 << "> que tentou atribuir ao save ja existe." << endl;
+							}
+						}
+					}
+				}
+				if (!command.compare("apaga")) {
+					iss >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if (existNomeSave(param1) == true) {
+								removeSave(param1);
+								cout << ">>> AVISO: O save <"<<param1<<"> foi apagado com sucesso." << endl;
+								cout << getAsStringSave() << endl;
+							}
+							else { //nao existe pra apagar
+								cout << ">>> AVISO: O nome <" << param1 << "> que tentou apagar nao existe." << endl;
+								cout << getAsStringSave() << endl;
+							}
+						}
+					}
+				}
+				if (!command.compare("ativa")) {
+					iss >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if (existNomeSave(param1) == true) {
+								//ativa
+								NewGame = ativaSave(param1, NewGame);
+								ano = ativaAno(param1);
+								turnos = ativaTurno(param1);
+								cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
+								cout << "\n\n\n>>> AVISO: A RETOMAR JOGO COM OS DADOS GUARDADOS" << endl;
+							}
+							else { //nao existe pra ativar
+								cout << ">>> AVISO: O nome <" << param1 << "> que tentou carregar nao existe." << endl;
+								cout << getAsStringSave() << endl;
+							}
+						}
+					}
 				}
 				//>>>>>>> DEBUG COMMANDS - START <<<<<<
 				if (!command.compare("toma")) {
@@ -1101,21 +1172,7 @@ game configure::cmdAumenta(game NewGame) {
 	return NewGame;
 }
 
-//Funcao que recebe comando compra tecnologia
-/*game configure::cmdCompra(game NewGame, string name) {
-	NewGame.AdicionaTecnologias(name);
-	return NewGame;
-}
-
-//Funcoes para os eventos
-game configure::recursoAbandonado(game NewGame,int turnos) {
-	NewGame.recursoAbandonado(turnos);
-	return NewGame;
-}
-game configure::alianca(game NewGame) {
-	NewGame.alianca();
-	return NewGame;
-}*/
+//Funcao que apresenta dados do fim de jogo
 game configure::fimJogo(game NewGame) {
 	int bonus1 = 0, bonus2 = 0, total = 0;
 	cout << "\n\n\n>>> FIM DO JOGO " << endl;
@@ -1137,7 +1194,8 @@ game configure::fimJogo(game NewGame) {
 	sair();
 	return NewGame;
 }
-//Comando para sair e chamar destrutores acabar
+
+//Comando para sair
 int configure::sair() {
 	
 	cout << "\n>>> SAINDO DO KINGDOM... " << endl;
@@ -1239,4 +1297,81 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 		}
 	}
 	return NewGame;
+}
+
+//Adiciona um Save
+const string configure::addSave(string nomeSave, game gameSave, int ano, int turno) {
+	ostringstream oss;
+	saves.push_back(new save(nomeSave, gameSave, ano, turno));
+	return oss.str();
+}
+
+//Apaga um Save
+bool configure::removeSave(const string name) {
+	ostringstream oss;
+	for (auto it = saves.begin(); it != saves.end(); (it++)) {
+		if ((*it)->getNomeSave() == name) {
+			delete (*it);
+			saves.erase(it);
+			return true;
+		}
+	}
+	return false;
+}
+
+//Ativa um save
+game configure::ativaSave(const string name, game NewGame) {
+	for (auto it = saves.begin(); it != saves.end(); (it++)) {
+		if ((*it)->getNomeSave() == name) {
+			NewGame = (*it)->getGameSave();
+			return NewGame;
+		}
+	}
+	return NewGame;
+}
+
+//Ativa ano
+int configure::ativaAno(const string name) {
+	int ano = 0;
+	for (auto it = saves.begin(); it != saves.end(); (it++)) {
+		if ((*it)->getNomeSave() == name) {
+			ano = (*it)->getAnoSave();
+			return ano;
+		}
+	}
+}
+
+//Ativa turno
+int configure::ativaTurno(const string name) {
+	int turno = 0;
+	for (auto it = saves.begin(); it != saves.end(); (it++)) {
+		if ((*it)->getNomeSave() == name) {
+			turno = (*it)->getTurnoSave();
+			return turno;
+		}
+	}
+}
+
+//Verifica se existe um save com o nome indicado
+const bool configure::existNomeSave(string name) {
+	for (auto it = saves.begin(); it != saves.end(); (it++)) {
+		if ((*it)->getNomeSave() == name) {
+			return true;
+		}
+	}
+	return false;
+}
+
+//Lista os saves feitos no jogo
+string configure::getAsStringSave()
+{
+	ostringstream oss;
+	oss << "\n_____________________________________" << endl;
+	oss << ">>>>>>> SaveGames existentes: " << endl;
+	for (int i = 0; i < saves.size(); i++) {
+		int aux = i+1;
+		oss << "   "<<aux<<". " << saves[i]->getNomeSave() << endl;
+	}
+	oss << "_____________________________________" << endl;
+	return oss.str();
 }

@@ -1,11 +1,11 @@
-grava
-ativa
-apaga
 Destrutores
 
 BUGS:
 - quando se usa varias vezes um comando debug por exemplo de arranjar tecnologia n aceita comandos da fase 1 depois
 
 toma tec 
+Prof escreveu no forum:
 - "Uma tecnologia disponível passa a pertencer ao Jogador? E se o jogador já a tiver obtido, esta passa novamente a estar disponível? Ou é suposto fazer desaparecer a tecnologia?"
 Uma tecnologia disponível passa a pertencer ao Jogador. Se o jogador já a tiver comprado, não tem qualquer efeito.
+
+Então pode-se comprar varias vezes uma tecnologia ou nao?

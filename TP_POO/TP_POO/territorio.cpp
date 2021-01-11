@@ -3,6 +3,7 @@
 //
 #include "territorio.h"
 
+//Construtor default
 territorio::territorio(const string name) : name(name) {
 	this->setRes(1);
 	this->setCreateGold(1);
@@ -10,6 +11,7 @@ territorio::territorio(const string name) : name(name) {
 	this->setVictoryPoints(1);
 }
 
+//Construtor por cópia
 territorio::territorio(const territorio& territori)
 {
 	this->setName(territori.getName());
@@ -19,10 +21,12 @@ territorio::territorio(const territorio& territori)
 	this->setVictoryPoints(territori.getVictoryPoints());
 }
 
+//Destrutor
 territorio::~territorio()
 {
 }
 
+//Tipo de território
 string territorio::getType(string name) const {
 	string type;
 	name.pop_back();//elimina ultimo caracter
@@ -30,10 +34,13 @@ string territorio::getType(string name) const {
 	return  type;
 }
 
+//Retorna o nome do territorio
 string territorio::getName() const
 {
 	return name;
 }
+
+//Altera o nome do territorio
 void territorio::setName(string name)
 {
 	if (name == "territorioInicial") {
@@ -46,10 +53,13 @@ void territorio::setName(string name)
 	}
 }
 
+//Retorna o valor da resistencia do territorio
 int territorio::getRes() const
 {
 	return res;
 }
+
+//Altera o valor da resistencia do territorio
 void territorio::setRes(int res)
 {
 	if (getType(this->name) == "territorioInicial") {
@@ -59,10 +69,13 @@ void territorio::setRes(int res)
 		this->res = res;
 }
 
+//Retorna o valor da criacao de produtos no territorio
 int territorio::getCreateProd() const
 {
 	return createProd;
 }
+
+//Altera o valor da criacao de produtos no territorio
 void territorio::setCreateProd(int prod)
 {
 	if (getType(this->name) == "territorioInicial") {
@@ -72,10 +85,13 @@ void territorio::setCreateProd(int prod)
 		this->createProd = prod;
 }
 
+//Retorna o valor da criacao de ouro no territorio
 int territorio::getCreateGold() const
 {
 	return createGold;
 }
+
+//Altera o valor da criacao de ouro no territorio
 void territorio::setCreateGold(int gold)
 {
 	if (getType(this->name) == "territorioInicial") {
@@ -85,10 +101,13 @@ void territorio::setCreateGold(int gold)
 		this->createGold = gold;
 }
 
+//Retorna o valor da pontuacao no territorio
 int territorio::getVictoryPoints() const
 {
 	return victoryPoints;
 }
+
+//Altera o valor da pontuacao no territorio
 void territorio::setVictoryPoints(int victoryPoints)
 {
 	if (getType(this->name) == "territorioInicial") {
@@ -98,6 +117,7 @@ void territorio::setVictoryPoints(int victoryPoints)
 		this->victoryPoints = victoryPoints;
 }
 
+//Descrição Textual do território
 string territorio::getAsString() const
 {
 	ostringstream oss;

@@ -3,6 +3,7 @@
 //
 #include "tecnologias.h"
 
+//Construtor
 tecnologias::tecnologias()
 {
 	this->setBanco(0);
@@ -12,60 +13,72 @@ tecnologias::tecnologias()
 	this->setMisseis(0);
 }
 
+//Destrutor
 tecnologias::~tecnologias()
 {
 }
 
+//Retorna o numero de drones
 int tecnologias::getDrones() const
 {
 	return drones;
 }
 
+//Altera o numero de drones
 void tecnologias::setDrones(int drones)
 {
 	this->drones = drones;
 }
 
+//Retorna o numero de misseis
 int tecnologias::getMisseis() const
 {
 	return misseis;
 }
 
+//Altera o numero de misseis
 void tecnologias::setMisseis(int misseis)
 {
 	this->misseis = misseis;
 }
 
+//Retorna o numero de defesas
 int tecnologias::getDefesas() const
 {
 	return defesas;
 }
 
+//Altera o numero de defesas
 void tecnologias::setDefesas(int defesas)
 {
 	this->defesas = defesas;
 }
 
+//Retorna o numero de bolsa
 int tecnologias::getBolsa() const
 {
 	return bolsa;
 }
 
+//Altera o numero de bolsa
 void tecnologias::setBolsa(int bolsa)
 {
 	this->bolsa = bolsa;
 }
 
+//Retorna o numero de banco
 int tecnologias::getBanco() const
 {
 	return banco;
 }
 
+//Altera o numero de banco
 void tecnologias::setBanco(int banco)
 {
 	this->banco = banco;
 }
 
+//Imprime a informacao sobre as tecnologias adquiridas
 string tecnologias::getAsString() const
 {
 	ostringstream oss;

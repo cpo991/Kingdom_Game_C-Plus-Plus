@@ -22,9 +22,12 @@ class game {
 	vector<territorio*> territorios;
 	imperio imperioU;
 public:
+	//Construtor
 	game();
 
+	//Destrutor
 	~game();
+
 	// Adiciona territorio à lista de territorios por conquistar
 	const string addTerritory(string nome);
 
@@ -63,15 +66,11 @@ public:
 	//Verifica se há tecnologia <nome> no império comprada
 	const bool existeTecnologia(const string name);
 
-
+	//Troca 2 unidades de prod por 1 de ouro
 	const bool maisOuro();
 
+	//Troca 2 unidades de ouro por 1 de prod
 	const bool maisProd();
-
-	//trocar para string e dizer aumentou x produtos/ouro 
-	//const void recursoAbandonado(int turnos);
-	
-	//const string alianca();
 
 	//Guarda os dados do jogo num ficheiro de texto
 	void saveData(string file);
@@ -108,11 +107,20 @@ public:
 
 	//Adquire tecnologia fase 4 sem custos
 	const int getTomaTecnologia(string nome);
-	const int getPontos();
-	const int contaTecnologias();
-	const bool modificaOuro(int num);
-	const bool modificaProd(int num);
 
+	//Retorna os pontos do imperio
+	const int getPontos();
+
+	//Retorna o numero de tecnologias adquiridas
+	const int contaTecnologias();
+
+	//Modifica num de ouro 
+	const bool modificaOuro(int num);
+
+	//Modifica num de prod
+	const bool modificaProd(int num);
+	
+	//Altera a quantidade de ouro produzida pelo castelo e mina
 	void altera(int ano, int turno);
 
 };

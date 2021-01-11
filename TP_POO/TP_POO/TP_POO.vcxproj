@@ -31,6 +31,7 @@
     <ClCompile Include="pescaria.cpp" />
     <ClCompile Include="planicie.cpp" />
     <ClCompile Include="refugioPiratas.cpp" />
+    <ClCompile Include="save.cpp" />
     <ClCompile Include="tecnologias.cpp" />
     <ClCompile Include="territorio.cpp" />
     <ClCompile Include="territorioInicial.cpp" />
@@ -47,6 +48,7 @@
     <ClInclude Include="pescaria.h" />
     <ClInclude Include="planicie.h" />
     <ClInclude Include="refugioPiratas.h" />
+    <ClInclude Include="save.h" />
     <ClInclude Include="tecnologias.h" />
     <ClInclude Include="territorio.h" />
     <ClInclude Include="territorioInicial.h" />

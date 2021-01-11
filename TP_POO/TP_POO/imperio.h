@@ -34,31 +34,52 @@ public:
 	//destrutor
 	~imperio();
 
+	//Retorna o valor do MAX_MILITAR
 	int getMaxMilitar() const;
 
+	//Retorna o valor do MAX_COFRE
 	int getMaxCofre() const;
 
+	//Retorna o valor do MAX_ARM
 	int getMaxArm() const;
 
-	//set/get de produtos no armazem
+	//Retorna o numero de produtos no armazem
 	int getArm() const;
+
+	//Incrementa o numero de produtos no armazem
 	void setArm(int arm);
+
+	//Altera o numero de produtos no armazem
 	void setArm2(int num);
+
+	//Decrementa o numero de produtos no armazem
 	void removeProd(int prod);
 
-	//set/get de força militar
+	//Retorna o numero de forca militar
 	int getMilitar() const;
+
+	//Incrementa o numero de forca militar
 	void setMilitar(int militar);
+
+	//Decrementa o numero de forca militar
 	void removeMilitar(int forca);
 
-	//set/get de ouro no cofre
+	//Retorna o numero de ouro no cofre
 	int getCofre() const;
+
+	//Incrementa o numero de ouro no cofre
 	void setCofre(int cofre);
+
+	//Altera o numero de ouro no cofre
 	void setCofre2(int num);
+
+	//Decrementa o numero de ouro no cofre
 	void removeOuro(int ouro);
 
-	//set/get de pontos totais
+	//Retorna o numero de pontos totais
 	int getPontos() const;
+
+	//Retorna o numero de pontos totais
 	void setPontos(int pontos);
 
 	//Cria o territorioInicial no imperio
@@ -67,11 +88,8 @@ public:
 	//Obtem territorio conquistado
 	string conquistaTerritorio(territorio* a);
 
-	//Recolhe produtos e ouro
+	//Recolhe produtos e ouro para cada turno
 	void recolheProd();
-
-	//Adiciona tecnologias compradas ao imperio
-	//string compraTecnologias(string nome);
 
 	//Devolve true se houver tecnologia x comprada
 	bool tecnologiasCompradas(string nome);
@@ -90,12 +108,20 @@ public:
 
 	//Remove territorio do imperio com o nome que recebe
 	bool perdeTerritorio(string name);
+
+	//Incrementa a resistencia do territorio
 	bool incRes(string name);
 
 	//Adiciona tecnologia <nome> ao império
 	int compraTecnologia(string nome);
+
+	//Adquire tecnologia fase 4 sem custos
 	int tomaTecnologia(string nome);
+
+	//Retorna o numero de tecnologias adquiridas
 	int contaTecnologias();
+
+	//Altera a quantidade de ouro produzida pelo castelo e mina
 	void altera(int ano, int turno);
 };
 

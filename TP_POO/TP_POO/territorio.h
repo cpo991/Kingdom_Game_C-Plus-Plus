@@ -29,28 +29,38 @@ public:
 	//Tipo de território
 	string getType(string name) const;
 
-	//Nome do território
+	//Retorna o nome do territorio
 	string getName() const;
+
+	//Altera o nome do territorio
 	virtual void setName(string name);
 
-	//Resistencia do território
+	//Retorna o valor da resistencia do territorio
 	int getRes() const;
+
+	//Altera o valor da resistencia do territorio
 	void setRes(int res);
 
-	//Produção de produtos do território
+	//Retorna o valor da criacao de produtos no territorio
 	int getCreateProd() const;
+
+	//Altera o valor da criacao de produtos no territorio
 	void setCreateProd(int createProd);
 
-	//Produção de ouro do território
+	//Retorna o valor da criacao de ouro no territorio
 	int getCreateGold() const;
+
+	//Altera o valor da criacao de ouro no territorio
 	void setCreateGold(int createGold);
 
-	//Pontos de conquista do território
+	//Retorna o valor da pontuacao no territorio
 	int getVictoryPoints() const;
+
+	//Altera o valor da pontuacao no territorio
 	void setVictoryPoints(int victoryPoints);
 
 	//Descrição Textual do território
 	string getAsString() const;
 };
 
-#endif //TP_POO_CONFIGURE_H
+#endif //TP_POO_TERRITORIO_H

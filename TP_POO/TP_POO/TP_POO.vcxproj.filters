@@ -66,6 +66,9 @@
     <ClCompile Include="refugioPiratas.cpp">
       <Filter>Source Files\territorios</Filter>
     </ClCompile>
+    <ClCompile Include="save.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configure.h">
@@ -109,6 +112,9 @@
     </ClInclude>
     <ClInclude Include="pescaria.h">
       <Filter>Header Files\territorios</Filter>
+    </ClInclude>
+    <ClInclude Include="save.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
