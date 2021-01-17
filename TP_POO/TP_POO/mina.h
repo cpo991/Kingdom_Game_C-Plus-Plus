@@ -7,12 +7,14 @@
 #include "territorio.h"
 
 class mina : public territorio {
+	static int id;
 public:
 	//Construtor default
 	mina(const string nome);
 
 	//Destrutor
-	~mina();
+	 ~mina();
+	//virtual ~mina();
 	void setName(string name) override;
 	//void setCreateGold(int gold);
 };

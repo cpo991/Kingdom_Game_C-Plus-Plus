@@ -281,7 +281,7 @@ int imperio::compraTecnologia(string nome) {
 			pontos++;
 			MAX_MILITAR = 5;
 			cofre = getCofre() - 3;
-			return 999;
+			return 1;
 		}
 		else return (3-getCofre());
 	}
@@ -290,7 +290,7 @@ int imperio::compraTecnologia(string nome) {
 			a.setMisseis(a.getMisseis() + 1);
 			pontos++;
 			cofre = getCofre() - 4;
-			return 999;
+			return 1;
 		}
 		else return getCofre();
 	}
@@ -299,7 +299,7 @@ int imperio::compraTecnologia(string nome) {
 			a.setDefesas(a.getDefesas() + 1);
 			pontos++;
 			cofre = getCofre() - 4;
-			return 999;
+			return 1;
 		}
 		else return (4 - getCofre());
 		
@@ -309,7 +309,7 @@ int imperio::compraTecnologia(string nome) {
 			a.setBolsa(a.getBolsa() + 1);
 			pontos++;
 			cofre = getCofre() - 2;
-			return 999;
+			return 1;
 		}
 		else return (2 - getCofre());
 	}
@@ -320,7 +320,7 @@ int imperio::compraTecnologia(string nome) {
 			MAX_ARM = 5;
 			pontos++;
 			cofre = getCofre() - 3;
-			return 999;
+			return 1;
 		}
 		else return (3 - getCofre());
 	}

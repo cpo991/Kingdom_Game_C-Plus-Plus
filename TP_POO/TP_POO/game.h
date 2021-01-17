@@ -3,7 +3,7 @@
 //
 #ifndef TP_POO_GAME_H
 #define TP_POO_GAME_H
-
+//class territorio;
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -25,17 +25,16 @@ public:
 	//Construtor
 	game();
 
-	//Destrutor
-	~game();
-
 	// Adiciona territorio à lista de territorios por conquistar
-	const string addTerritory(string nome);
+	const void addTerritory(string nome);
 
 	// Remove territorio à lista de territorios por conquistar
 	bool  removeTerritory(string name);
 
+	const string listaTerritorios(int ano, int turno);
+
 	//Obter descrição textual do NewGame
-	const string listaTerritorios();
+	//const string listaTerritorios();
 
 	//Obter descrição textual de Territorio x
 	const string listaTerritorios(string name);
@@ -122,6 +121,11 @@ public:
 	
 	//Altera a quantidade de ouro produzida pelo castelo e mina
 	void altera(int ano, int turno);
+
+	////Destrutor
+	~game();
+
+	int sorteiaEvento();
 
 };
 

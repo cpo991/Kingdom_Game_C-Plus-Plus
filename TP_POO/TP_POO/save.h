@@ -17,8 +17,8 @@ public:
 	//Construtor
 	save(string nomeSave, game gameSave, int ano, int turno);
 	
-	//Destrutor
-	~save();
+	////Destrutor
+	//~save();
 
 	//Retorna o nome do save
 	const string getNomeSave();

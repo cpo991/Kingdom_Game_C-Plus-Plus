@@ -7,13 +7,14 @@
 #include "territorio.h"
 
 class planicie : public territorio {
+	static int id;
 public:
 	//Construtor default
 	planicie(const string nome);
 
 	//Destrutor
 	~planicie();
-
+	//virtual ~planicie();
 	void setName(string name) override;
 };
 

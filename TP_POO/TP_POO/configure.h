@@ -19,6 +19,7 @@ class configure {
 public:
 	//Construtor
 	configure(game& g);
+	~configure();
 
 	// Abre o ficheiro menu.txt e imprime
 	void initMenu();

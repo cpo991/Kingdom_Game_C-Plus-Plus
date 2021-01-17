@@ -2,13 +2,8 @@
 //  Created by Carolina Oliveira & Isabel Castro on 19/12/2020
 //
 #include "fortaleza.h"
-
-fortaleza::fortaleza(const string name) : territorio(name) {
-	this->setName(name);
-	this->setRes(8);
-	this->setCreateProd(0);
-	this->setCreateGold(0);
-	this->setVictoryPoints(1);
+int fortaleza::id = 1;
+fortaleza::fortaleza(const string name) :territorio(name + to_string(id++), 8, 0, 0, 1) {
 }
 
 fortaleza::~fortaleza() {

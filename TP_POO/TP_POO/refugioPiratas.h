@@ -7,12 +7,14 @@
 #include "territorio.h"
 
 class refugioPiratas : public territorio {
+	static int id;
 public:
 	//Construtor default
 	refugioPiratas(const string nome);
 
 	//Destrutor
-	~refugioPiratas();
+	/*virtual ~refugioPiratas();*/
+	 ~refugioPiratas();
 	void setName(string name) override;
 };
 

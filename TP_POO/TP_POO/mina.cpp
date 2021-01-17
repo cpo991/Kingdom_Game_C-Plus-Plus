@@ -2,13 +2,8 @@
 //  Created by Carolina Oliveira & Isabel Castro on 19/12/2020
 //
 #include "mina.h"
-
-mina::mina(const string name) : territorio(name) {
-	this->setName(name);
-	this->setRes(5);
-	this->setCreateProd(0);
-	this->setCreateGold(1); // só nos primeiros 3 turnos de cada ano (?) passa para 2 nos seguundos 3 turnos do ano
-	this->setVictoryPoints(1);
+int mina::id = 1;
+mina::mina(const string name) :territorio(name+to_string(id++),5, 0,1, 1) {
 }
 
 mina::~mina() {

@@ -7,11 +7,13 @@
 #include "territorio.h"
 
 class montanha : public territorio {
+	static int id;
 public:
 	//Construtor default
 	montanha(const string nome);
 
 	//Destrutor
+	//virtual ~montanha();
 	~montanha();
 
 	void setName(string name) override;

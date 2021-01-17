@@ -18,6 +18,7 @@ class territorio {
 
 public:
 	//Construtor default
+	territorio(const string name,int res,int createProd,int createGold,int victoryPoints);
 	territorio(const string name);
 
 	//Construtor por cópia
@@ -25,6 +26,9 @@ public:
 
 	//Destrutor
 	~territorio();
+	/*virtual territorio* duplica()const = 0;*/
+
+	
 
 	//Tipo de território
 	string getType(string name) const;

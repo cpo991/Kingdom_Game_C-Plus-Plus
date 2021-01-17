@@ -7,12 +7,14 @@
 #include "territorio.h"
 
 class duna : public territorio {
+	static int id;
 public:
 	//Construtor default
 	duna(const string nome);
 
 	//Destrutor
-	~duna();
+	//virtual ~duna();
+	 ~duna();
 	void setName(string name) override;
 };
 

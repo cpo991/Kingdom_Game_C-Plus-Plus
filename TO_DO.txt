@@ -9,3 +9,7 @@ Prof escreveu no forum:
 Uma tecnologia disponível passa a pertencer ao Jogador. Se o jogador já a tiver comprado, não tem qualquer efeito.
 
 Então pode-se comprar varias vezes uma tecnologia ou nao?
+
+nome começa em 1
+cria territorioInicial 4
+

@@ -18,15 +18,10 @@ game::game() {
 	setTerritorioDefault("territorioInicial");
 }
 
-//Destrutor
-game::~game() {
-	/*for (territorio* t : territorios)
-		delete t; //rebenta com o carrega mas n rebenta com o cria*/
-}
 
 // Adiciona territorio à lista de territorios por conquistar
-const string game::addTerritory(string nome) {
-	ostringstream oss;
+const void game::addTerritory(string nome) {
+	
 	if (nome == "castelo") {
 		territorios.push_back(new castelo(nome));
 	}
@@ -51,7 +46,7 @@ const string game::addTerritory(string nome) {
 	else if (nome == "refugioPiratas") {
 		territorios.push_back(new refugioPiratas(nome));
 	}
-	return oss.str();
+	
 }
 
 //Remove territorio ao NewGame(mundo)
@@ -67,17 +62,33 @@ bool game::removeTerritory(const string name) {
 }
 
 //Obter descrição textual do NewGame
-const string game::listaTerritorios() {
+const string game::listaTerritorios(int ano,int turno) {
 	ostringstream oss;
 
 	oss << "\n\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
 	oss << "\n:::::: LISTAGEM DE DADOS DO JOGO ATE AO MOMENTO ::::::::" << endl;
 	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
-	oss << "\n ANO E TURNO DO JOGO " << endl;
+	oss << "\n ANO " <<ano<<" TURNO "<<turno+1<< endl;
 	oss << "_____________________________________" << endl;
-	oss << " ULTIMO FATOR SORTE: " << sorte_last << endl;
-	oss << "_____________________________________" << endl;
-	oss << " PROXIMO EVENTO:" << endl;
+	switch (sorteiaEvento()) {
+	case 1:
+		oss << " PROXIMO EVENTO: recurso abandonado" << endl;
+		oss << "_____________________________________" << endl;
+		break;
+	case 2:
+		oss << " PROXIMO EVENTO: invasão" << endl;
+		oss << "_____________________________________" << endl;
+		break;
+	case 3:
+		oss << " PROXIMO EVENTO: aliança diplomática" << endl;
+		oss << "_____________________________________" << endl;
+		break;
+	case 4:
+		oss << " PROXIMO EVENTO: sem evento" << endl;
+		oss << "_____________________________________" << endl;
+		break;
+	}
+	oss << " ULTIMO FATOR SORTE: " << sorteiaEvento() << endl;
 	oss << "_____________________________________" << endl;
 	oss << " TOTAL PONTOS:" <<imperioU.getPontos()<<endl;
 	oss << "_____________________________________" << endl;
@@ -406,4 +417,14 @@ const bool game::modificaProd(int num) {
 //Altera a quantidade de ouro produzida pelo castelo e mina
 void game::altera(int ano, int turno) {
 	return imperioU.altera(ano, turno+1);
+}
+
+
+//Destrutor
+game::~game() {
+//
+	/*for (auto it = territorios.begin(); it < territorios.end(); it++)
+		delete(*it);*/
+	territorios.clear(); //assim não rebenta mas está mal?
+// //rebenta com o carrega mas n rebenta com o cria*/
 }

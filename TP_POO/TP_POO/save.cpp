@@ -11,11 +11,6 @@ save::save(string nomeSave, game gameSave, int ano, int turno) {
 	this->turno = turno;
 }
 
-//Destrutor
-save::~save() {
-
-}
-
 //Retorna o nome do save
 const string save::getNomeSave() {
 	return nomeSave;
