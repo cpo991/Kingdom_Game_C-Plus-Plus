@@ -507,6 +507,77 @@ void configure::commands() {
 								cout << cmdLista(NewGame, param1);
 							}
 						}
+						if (!command.compare("grava")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								needParam(1, command);
+							}
+							else {
+								iss2 >> param2;
+								if (param2.compare("")) {
+									lessParam(1, command);
+								}
+								else {
+									if (existNomeSave(param1) == false) {
+										addSave(param1, NewGame, ano, turnos);
+										cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
+										cout << getAsStringSave() << endl;
+									}
+									else { //nao pode criar
+										cout << ">>> AVISO: O nome <" << param1 << "> que tentou atribuir ao save ja existe." << endl;
+									}
+								}
+							}
+						}
+						if (!command.compare("apaga")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								needParam(1, command);
+							}
+							else {
+								iss2 >> param2;
+								if (param2.compare("")) {
+									lessParam(1, command);
+								}
+								else {
+									if (existNomeSave(param1) == true) {
+										removeSave(param1);
+										cout << ">>> AVISO: O save <" << param1 << "> foi apagado com sucesso." << endl;
+										cout << getAsStringSave() << endl;
+									}
+									else { //nao existe pra apagar
+										cout << ">>> AVISO: O nome <" << param1 << "> que tentou apagar nao existe." << endl;
+										cout << getAsStringSave() << endl;
+									}
+								}
+							}
+						}
+						if (!command.compare("ativa")) {
+							iss2 >> param1;
+							if (!param1.compare("")) {
+								needParam(1, command);
+							}
+							else {
+								iss2 >> param2;
+								if (param2.compare("")) {
+									lessParam(1, command);
+								}
+								else {
+									if (existNomeSave(param1) == true) {
+										//ativa
+										NewGame = ativaSave(param1, NewGame);
+										ano = ativaAno(param1);
+										turnos = ativaTurno(param1);
+										cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
+										cout << "\n\n\n>>> AVISO: A RETOMAR JOGO COM OS DADOS GUARDADOS" << endl;
+									}
+									else { //nao existe pra ativar
+										cout << ">>> AVISO: O nome <" << param1 << "> que tentou carregar nao existe." << endl;
+										cout << getAsStringSave() << endl;
+									}
+								}
+							}
+						}
 						//>>>>>>> DEBUG COMMANDS - START <<<<<<
 						if (!command.compare("toma")) {
 							iss2 >> param1;
@@ -627,8 +698,76 @@ void configure::commands() {
 							cout << cmdLista(NewGame, param1);
 						}
 					}
-					if (!command.compare("sair")) {
-						sair();
+					if (!command.compare("grava")) {
+						iss2b >> param1;
+						if (!param1.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							iss2b >> param2;
+							if (param2.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (existNomeSave(param1) == false) {
+									addSave(param1, NewGame, ano, turnos);
+									cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
+									cout << getAsStringSave() << endl;
+								}
+								else { //nao pode criar
+									cout << ">>> AVISO: O nome <" << param1 << "> que tentou atribuir ao save ja existe." << endl;
+								}
+							}
+						}
+					}
+					if (!command.compare("apaga")) {
+						iss2b >> param1;
+						if (!param1.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							iss2b >> param2;
+							if (param2.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (existNomeSave(param1) == true) {
+									removeSave(param1);
+									cout << ">>> AVISO: O save <" << param1 << "> foi apagado com sucesso." << endl;
+									cout << getAsStringSave() << endl;
+								}
+								else { //nao existe pra apagar
+									cout << ">>> AVISO: O nome <" << param1 << "> que tentou apagar nao existe." << endl;
+									cout << getAsStringSave() << endl;
+								}
+							}
+						}
+					}
+					if (!command.compare("ativa")) {
+						iss2b >> param1;
+						if (!param1.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							iss2b >> param2;
+							if (param2.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (existNomeSave(param1) == true) {
+									//ativa
+									NewGame = ativaSave(param1, NewGame);
+									ano = ativaAno(param1);
+									turnos = ativaTurno(param1);
+									cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
+									cout << "\n\n\n>>> AVISO: A RETOMAR JOGO COM OS DADOS GUARDADOS" << endl;
+								}
+								else { //nao existe pra ativar
+									cout << ">>> AVISO: O nome <" << param1 << "> que tentou carregar nao existe." << endl;
+									cout << getAsStringSave() << endl;
+								}
+							}
+						}
 					}
 					//>>>>>>> DEBUG COMMANDS - START <<<<<<
 					if (!command.compare("toma")) {
@@ -778,6 +917,77 @@ void configure::commands() {
 							}
 							else
 								cout << "\n>>> AVISO: A tecnologia <" << param1 << "> nao existe." << endl;
+						}
+					}
+				}
+				if (!command.compare("grava")) {
+					iss3 >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss3 >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if (existNomeSave(param1) == false) {
+								addSave(param1, NewGame, ano, turnos);
+								cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
+								cout << getAsStringSave() << endl;
+							}
+							else { //nao pode criar
+								cout << ">>> AVISO: O nome <" << param1 << "> que tentou atribuir ao save ja existe." << endl;
+							}
+						}
+					}
+				}
+				if (!command.compare("apaga")) {
+					iss3 >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss3 >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if (existNomeSave(param1) == true) {
+								removeSave(param1);
+								cout << ">>> AVISO: O save <" << param1 << "> foi apagado com sucesso." << endl;
+								cout << getAsStringSave() << endl;
+							}
+							else { //nao existe pra apagar
+								cout << ">>> AVISO: O nome <" << param1 << "> que tentou apagar nao existe." << endl;
+								cout << getAsStringSave() << endl;
+							}
+						}
+					}
+				}
+				if (!command.compare("ativa")) {
+					iss3 >> param1;
+					if (!param1.compare("")) {
+						needParam(1, command);
+					}
+					else {
+						iss3 >> param2;
+						if (param2.compare("")) {
+							lessParam(1, command);
+						}
+						else {
+							if (existNomeSave(param1) == true) {
+								//ativa
+								NewGame = ativaSave(param1, NewGame);
+								ano = ativaAno(param1);
+								turnos = ativaTurno(param1);
+								cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
+								cout << "\n\n\n>>> AVISO: A RETOMAR JOGO COM OS DADOS GUARDADOS" << endl;
+							}
+							else { //nao existe pra ativar
+								cout << ">>> AVISO: O nome <" << param1 << "> que tentou carregar nao existe." << endl;
+								cout << getAsStringSave() << endl;
+							}
 						}
 					}
 				}
@@ -996,6 +1206,77 @@ void configure::commands() {
 					if (!command.compare("help")) {
 						cout << endl;
 						help("helpfase4.txt");
+					}
+					if (!command.compare("grava")) {
+						iss4 >> param1;
+						if (!param1.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							iss4 >> param2;
+							if (param2.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (existNomeSave(param1) == false) {
+									addSave(param1, NewGame, ano, turnos);
+									cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
+									cout << getAsStringSave() << endl;
+								}
+								else { //nao pode criar
+									cout << ">>> AVISO: O nome <" << param1 << "> que tentou atribuir ao save ja existe." << endl;
+								}
+							}
+						}
+					}
+					if (!command.compare("apaga")) {
+						iss4 >> param1;
+						if (!param1.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							iss4 >> param2;
+							if (param2.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (existNomeSave(param1) == true) {
+									removeSave(param1);
+									cout << ">>> AVISO: O save <" << param1 << "> foi apagado com sucesso." << endl;
+									cout << getAsStringSave() << endl;
+								}
+								else { //nao existe pra apagar
+									cout << ">>> AVISO: O nome <" << param1 << "> que tentou apagar nao existe." << endl;
+									cout << getAsStringSave() << endl;
+								}
+							}
+						}
+					}
+					if (!command.compare("ativa")) {
+						iss4 >> param1;
+						if (!param1.compare("")) {
+							needParam(1, command);
+						}
+						else {
+							iss4 >> param2;
+							if (param2.compare("")) {
+								lessParam(1, command);
+							}
+							else {
+								if (existNomeSave(param1) == true) {
+									//ativa
+									NewGame = ativaSave(param1, NewGame);
+									ano = ativaAno(param1);
+									turnos = ativaTurno(param1);
+									cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
+									cout << "\n\n\n>>> AVISO: A RETOMAR JOGO COM OS DADOS GUARDADOS" << endl;
+								}
+								else { //nao existe pra ativar
+									cout << ">>> AVISO: O nome <" << param1 << "> que tentou carregar nao existe." << endl;
+									cout << getAsStringSave() << endl;
+								}
+							}
+						}
 					}
 					if (!command.compare("avanca")) {
 						cout << "\n>>> AVISO: A AVANCAR PARA O TURNO SEGUINTE...\n\n" << endl;
