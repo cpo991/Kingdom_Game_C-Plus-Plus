@@ -4,12 +4,7 @@
 #include "save.h"
 
 //Construtor
-save::save(string nomeSave, game gameSave, int ano, int turno) {
-	this->nomeSave = nomeSave;
-	this->gameSave = gameSave;
-	this->ano = ano;
-	this->turno = turno;
-}
+save::save(string nomeSave, game gameSave, int ano, int turno) {};
 
 //Retorna o nome do save
 const string save::getNomeSave() {

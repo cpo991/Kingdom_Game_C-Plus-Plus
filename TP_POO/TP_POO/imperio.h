@@ -123,6 +123,9 @@ public:
 
 	//Altera a quantidade de ouro produzida pelo castelo e mina
 	void altera(int ano, int turno);
+
+	//devolve o numero de territorios conquistados
+	int territoriosConquistados();
 };
 
 #endif //TP_POO_IMPERIO_H

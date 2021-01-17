@@ -9,14 +9,11 @@
 class castelo : public territorio {
 	static int id;
 public:
-	//Construtor default
-	castelo(const string nome);
-
-	//Destrutor
-	//virtual ~castelo();
-	~castelo();
-	void setName(string name) override;
-	//void setCreateGold(int gold);
+	castelo(const string name);
+	virtual void alteraProd(int turno) {
+		if (turno <2)
+			setCreateProd(3);
+	}
 };
 
 #endif

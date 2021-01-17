@@ -9,14 +9,14 @@
 class pescaria : public territorio {
 	static int id;
 public:
-	//Construtor default
-	pescaria(const string nome);
 
-	//Destrutor
-	 ~pescaria();
-	//virtual ~pescaria();
-
-	void setName(string name) override;
+	virtual void alteraProd(int turno,int ano) {
+		if (ano==1)
+			setCreateProd(3);
+		if (ano == 2)
+			setCreateProd(4);
+	}
+	pescaria(const string name);
 };
 
 #endif

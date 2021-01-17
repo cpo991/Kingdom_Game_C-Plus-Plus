@@ -6,22 +6,3 @@
 territorioInicial::territorioInicial(const string name) : territorio(name, 9, 1, 1, 0) {
 }
 
-territorioInicial::~territorioInicial()
-{
-}
-
-//territorioInicial::territorioInicial(const string name) : territorio(name) {
-//	this->setRes(9);
-//	this->setCreateGold(1);
-//	this->setCreateProd(1);
-//	this->setVictoryPoints(0);
-//}
-
-
-//void territorioInicial::setName(string name)
-//{
-//	static int a = 0;
-//	territorio::setName(getName() + std::to_string(a));
-//	name = (name + std::to_string(a));
-//	a++;
-//}

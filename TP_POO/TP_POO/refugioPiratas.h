@@ -9,13 +9,7 @@
 class refugioPiratas : public territorio {
 	static int id;
 public:
-	//Construtor default
-	refugioPiratas(const string nome);
-
-	//Destrutor
-	/*virtual ~refugioPiratas();*/
-	 ~refugioPiratas();
-	void setName(string name) override;
+	refugioPiratas(const string name);
 };
 
 #endif

@@ -6,3 +6,4 @@ cria montanha 3
 cria planicie 2
 cria refugioPiratas 1
 cria pescaria 2
+cria ilha 1

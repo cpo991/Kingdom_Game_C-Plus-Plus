@@ -7,13 +7,4 @@ refugioPiratas::refugioPiratas(const string name) :territorio(name+to_string(id+
 
 }
 
-refugioPiratas::~refugioPiratas() {
-}
 
-void refugioPiratas::setName(string name)
-{
-	static int a = 0;
-	territorio::setName(getName() + std::to_string(a));
-	name = (name + std::to_string(a));
-	a++;
-}

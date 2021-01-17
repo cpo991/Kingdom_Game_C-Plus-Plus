@@ -1,11 +1,9 @@
 ﻿  configure.cpp
-<<<<<<< HEAD
-C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(1231,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(1511,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  game.cpp
+  imperio.cpp
+C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\TP_POO\imperio.cpp(375,34): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   main.cpp
   save.cpp
   Generating Code...
   TP_POO.vcxproj -> C:\Users\isabe\Documents\GitHub\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
-=======
-C:\Users\CAROL\Desktop\POO\TP_POO_20_21\TP_POO\TP_POO\configure.cpp(1511,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  TP_POO.vcxproj -> C:\Users\CAROL\Desktop\POO\TP_POO_20_21\TP_POO\x64\Debug\TP_POO.exe
->>>>>>> main

@@ -18,6 +18,11 @@ game::game() {
 	setTerritorioDefault("territorioInicial");
 }
 
+int game::territoriosConquistados()
+{
+	return imperioU.territoriosConquistados();
+}
+
 
 // Adiciona territorio à lista de territorios por conquistar
 const void game::addTerritory(string nome) {
@@ -62,7 +67,7 @@ bool game::removeTerritory(const string name) {
 }
 
 //Obter descrição textual do NewGame
-const string game::listaTerritorios(int ano,int turno) {
+const string game::listaTerritorios(int ano,int turno,int random) {
 	ostringstream oss;
 
 	oss << "\n\n::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
@@ -70,17 +75,17 @@ const string game::listaTerritorios(int ano,int turno) {
 	oss << "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"<<endl;
 	oss << "\n ANO " <<ano<<" TURNO "<<turno+1<< endl;
 	oss << "_____________________________________" << endl;
-	switch (sorteiaEvento()) {
+	switch (random) {
 	case 1:
 		oss << " PROXIMO EVENTO: recurso abandonado" << endl;
 		oss << "_____________________________________" << endl;
 		break;
 	case 2:
-		oss << " PROXIMO EVENTO: invasão" << endl;
+		oss << " PROXIMO EVENTO: invasao" << endl;
 		oss << "_____________________________________" << endl;
 		break;
 	case 3:
-		oss << " PROXIMO EVENTO: aliança diplomática" << endl;
+		oss << " PROXIMO EVENTO: aliança diplomatica" << endl;
 		oss << "_____________________________________" << endl;
 		break;
 	case 4:
@@ -88,7 +93,7 @@ const string game::listaTerritorios(int ano,int turno) {
 		oss << "_____________________________________" << endl;
 		break;
 	}
-	oss << " ULTIMO FATOR SORTE: " << sorteiaEvento() << endl;
+	oss << " ULTIMO FATOR SORTE: " << sorte_last << endl;
 	oss << "_____________________________________" << endl;
 	oss << " TOTAL PONTOS:" <<imperioU.getPontos()<<endl;
 	oss << "_____________________________________" << endl;
@@ -153,6 +158,7 @@ const string game::conquistaTerritorios(const string name)
 			}
 		}
 	}
+	sorte_last = sorte;
 	return oss.str();
 }
 
@@ -416,15 +422,18 @@ const bool game::modificaProd(int num) {
 
 //Altera a quantidade de ouro produzida pelo castelo e mina
 void game::altera(int ano, int turno) {
-	return imperioU.altera(ano, turno+1);
+	for (territorio* it : territorios) {
+		it->alteraProd(turno,ano);
+	}
+
+
 }
 
 
 //Destrutor
 game::~game() {
-//
-	for (auto it = territorios.begin(); it < territorios.end(); it++)
+
+	for (auto it = territorios.begin(); it < territorios.end(); it++) {
 		delete(*it);
-	//territorios.clear(); //assim não rebenta mas está mal?
-// //rebenta com o carrega mas n rebenta com o cria*/
+	}
 }

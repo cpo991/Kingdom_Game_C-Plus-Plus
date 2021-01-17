@@ -9,14 +9,12 @@
 class montanha : public territorio {
 	static int id;
 public:
-	//Construtor default
-	montanha(const string nome);
 
-	//Destrutor
-	//virtual ~montanha();
-	~montanha();
-
-	void setName(string name) override;
+	virtual void alteraProd(int turno,int ano) {
+		if (turno > 2)
+			setCreateProd(1);
+	}
+	montanha(const string name);
 };
 
 #endif

@@ -15,7 +15,7 @@ class save {
 	
 public:
 	//Construtor
-	save(string nomeSave, game gameSave, int ano, int turno);
+	save(string nomeSave, game gameSave, int ano, int turno) :nomeSave(nomeSave), gameSave(gameSave), ano(ano), turno(turno) {};
 	
 	////Destrutor
 	//~save();

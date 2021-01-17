@@ -9,16 +9,18 @@
 #include <fstream>
 #include <string>
 #include <ctime>
+#include <time.h>
 
 using namespace std;
 
 class configure {
-	game* newGame;
+	game newGame;
 	string phrase, command, param1, param2, param3, param4, param5, param6, param7;
 	vector <save*> saves;
 public:
 	//Construtor
-	configure(game& g);
+	//configure(game& g);
+	configure() {}
 	~configure();
 
 	// Abre o ficheiro menu.txt e imprime
@@ -38,25 +40,23 @@ public:
 	void lessParam(int num, string command);
 
 	//Funcao que recebe comando carrega ficheiro
-	game cmdCarrega(game NewGame, string ficheiro);
+	bool cmdCarrega(string ficheiro);
 
-	//Funcao que recebe comando conquista territorio
-	game  cmdConquista(game NewGame, string name);
+	////Funcao que recebe comando conquista territorio
+	bool  cmdConquista( string name);
 
 	//Funcao que recebe comando lista algo
-	string cmdLista(game NewGame, string name);
+	string cmdLista(string name);
 
-	//Funcao que recebe comando maismilitar
-	game cmdAumenta(game NewGame);
 
 	//Funcao que apresenta dados do fim de jogo
-	game fimJogo(game NewGame);
+	void fimJogo();
 
 	//Comando para sair
 	int sair();
 
 	//Funcao para comandos debug
-	game cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno);
+	void cmdDebug( string command, string param1, string param2, int ano, int turno);
 
 	//Adiciona um Save
 	const string addSave(string nomeSave, game gameSave, int ano, int turno);
@@ -65,7 +65,7 @@ public:
 	bool removeSave(const string name);
 
 	//Ativa um Save
-	game ativaSave(const string name, game NewGame);
+	void ativaSave(const string name);
 	//Ativa o ano
 	int ativaAno(const string name);
 	//Ativa turno

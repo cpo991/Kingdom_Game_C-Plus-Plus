@@ -11,10 +11,6 @@ public:
 	//Construtor default
 	territorioInicial(const string nome);
 
-	////Destrutor
-	virtual ~territorioInicial();
-
-	//void setName(string name) override;
 };
 
 #endif

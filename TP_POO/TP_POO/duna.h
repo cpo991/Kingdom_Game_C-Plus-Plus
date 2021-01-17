@@ -9,13 +9,10 @@
 class duna : public territorio {
 	static int id;
 public:
-	//Construtor default
-	duna(const string nome);
+	
 
-	//Destrutor
-	//virtual ~duna();
-	 //~duna();
-	void setName(string name) override;
+	duna(const string name);
+
 };
 
 #endif

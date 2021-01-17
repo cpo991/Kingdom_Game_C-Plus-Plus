@@ -65,6 +65,8 @@ public:
 
 	//Descrição Textual do território
 	string getAsString() const;
+
+	virtual void alteraProd(int turno,int ano) {}
 };
 
 #endif //TP_POO_TERRITORIO_H

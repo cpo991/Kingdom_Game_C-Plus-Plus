@@ -8,13 +8,3 @@ duna::duna(const string name) :territorio(name+to_string(id++), 4, 0, 1, 1) {
 	
 }
 
-//duna::~duna() {
-//}
-
-void duna::setName(string name)
-{
-	static int a = 1;
-	territorio::setName(getName() + std::to_string(a));
-	name = (name + std::to_string(a));
-	a++;
-}

@@ -25,13 +25,15 @@ public:
 	//Construtor
 	game();
 
+	 int territoriosConquistados();
+
 	// Adiciona territorio à lista de territorios por conquistar
 	const void addTerritory(string nome);
 
 	// Remove territorio à lista de territorios por conquistar
 	bool  removeTerritory(string name);
 
-	const string listaTerritorios(int ano, int turno);
+	const string listaTerritorios(int ano, int turno,int random);
 
 	//Obter descrição textual do NewGame
 	//const string listaTerritorios();

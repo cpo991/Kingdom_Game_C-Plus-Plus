@@ -9,14 +9,15 @@
 class mina : public territorio {
 	static int id;
 public:
-	//Construtor default
-	mina(const string nome);
 
-	//Destrutor
-	 ~mina();
-	//virtual ~mina();
-	void setName(string name) override;
-	//void setCreateGold(int gold);
+
+	virtual void alteraProd(int turno,int ano) {
+		if (turno <3 && ano==1)
+			setCreateGold(1);
+		if (turno > 3 && ano==1)
+			setCreateGold(2);
+	}
+	mina(const string name);
 };
 
 #endif

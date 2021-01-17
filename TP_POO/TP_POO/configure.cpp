@@ -3,13 +3,12 @@
 //
 #include "configure.h"
 
-configure::configure(game& g) {
-	newGame = &g;
-}
+//configure::configure(game& g) {
+//	newGame = &g;
+//}
 
 configure::~configure()
 {
-	delete newGame;
 }
 
 // Abre o ficheiro menu.txt e imprime
@@ -36,8 +35,10 @@ void configure::initMenu() {
 void configure::commands() {
 	int endConfig = 0, turnos = 0, endTurno = 0, recolha_prod = 0;
 	int endFase3 = 0, endFase1 = 0, endFase2 = 0, ano = 1;
+	int evento = 0;
+	int randEvent = 0;
 	string teste;
-	game NewGame;
+	//game newGame;
 	// ::::::::::::::::FASE DE CONFIGURACAO :::::::::::::::::::::::
 
 	help("helpconfig.txt");
@@ -63,11 +64,12 @@ void configure::commands() {
 				}
 				else {
 					//verificação para erro de tipo de territorio n permitido
-					const size_t nVetor = NewGame.getSizeTerritorios();
-					NewGame = cmdCarrega(NewGame, param1);
-					const size_t nVetor1 = NewGame.getSizeTerritorios();
+					const size_t nVetor = newGame.getSizeTerritorios();
+					
+					cmdCarrega(param1);
+					const size_t nVetor1 = newGame.getSizeTerritorios();
 
-					size_t newNVetor = NewGame.getSizeTerritorios();
+					size_t newNVetor = newGame.getSizeTerritorios();
 					if (nVetor == newNVetor)
 						cout << "ERROR: O ficheiro <" << param1 << "> esta vazio ou nao existe." << endl;
 				}
@@ -85,11 +87,11 @@ void configure::commands() {
 			else {
 				if (param1 != "territorioInicial") {
 					int num = stoi(param2); //2
-					size_t nVetor = NewGame.getSizeTerritorios();
+					size_t nVetor =  newGame.getSizeTerritorios();
 					for (int i = 0; i < num; i++) {
-						NewGame.addTerritory(param1); //cria x territorios de nome y
+						newGame.addTerritory(param1); //cria x territorios de nome y
 					}
-					size_t newNVetor = NewGame.getSizeTerritorios();
+					size_t newNVetor = newGame.getSizeTerritorios();
 					if (nVetor == newNVetor)
 						cout << "ERRO: O tipo de territorio <" << param1 << "> nao e permitido." << endl;
 				}
@@ -101,10 +103,10 @@ void configure::commands() {
 		if (!command.compare("lista")) {
 			iss >> param1;
 			if (!param1.compare("")) { // lista --> imprime descrição geral do jogo
-				cout << NewGame.listaTerritorios(ano, turnos);
+				cout << newGame.listaTerritorios(ano, turnos,0);
 			}
 			else {
-				cout << cmdLista(NewGame, param1); // lista x --> imprime descrição de um territorio
+				cout << cmdLista(param1); // lista x --> imprime descrição de um territorio
 			}
 		}
 		if (!command.compare("avanca")) {
@@ -117,7 +119,7 @@ void configure::commands() {
 		if (!command.compare("sair")) {
 			sair();
 		}
-	} while (NewGame.getSizeTerritorios() == 0);
+	} while (newGame.getSizeTerritorios() == 0);
 
 	//Ciclo de comandos antes do jogo começar enquanto carrega mais que um territorio
 	do {
@@ -140,7 +142,7 @@ void configure::commands() {
 					lessParam(1, command);
 				}
 				else {
-					NewGame = cmdCarrega(NewGame, param1);
+					 cmdCarrega(param1);
 				}
 			}
 		}
@@ -157,7 +159,7 @@ void configure::commands() {
 				if (param1 != "territorioInicial") {
 					int num = stoi(param2); //2
 					for (int i = 0; i < num; i++) {
-						NewGame.addTerritory(param1);
+						newGame.addTerritory(param1);
 					}
 				}
 				else {
@@ -168,10 +170,10 @@ void configure::commands() {
 		if (!command.compare("lista")) {
 			iss >> param1;
 			if (!param1.compare("")) {
-				cout << NewGame.listaTerritorios(ano, turnos);
+				cout << newGame.listaTerritorios(ano, turnos,randEvent);
 			}
 			else {
-				cout << cmdLista(NewGame, param1);
+				cout << cmdLista( param1);
 			}
 		}
 		if (!command.compare("avanca")) {
@@ -196,7 +198,8 @@ void configure::commands() {
 	do {
 		turnos = 0;
 		do {
-			NewGame.altera(ano, turnos);
+			newGame.altera(ano, turnos);
+			randEvent = newGame.sorteiaEvento();
 			cout << "\n>>>>>>>>>>>>>>> ANO " << ano << "<<<<<<<<<<<<<<<" << endl;
 			cout << ">>>>>>>>>>>>>>>  TURNO " << turnos + 1 << "<<<<<<<<<<<<<<<" << endl;
 			//FASE 1 DO TURNO
@@ -227,8 +230,12 @@ void configure::commands() {
 								cout << "\nAVISO: O comando passa ou conquista ja foi introduzido neste turno." << endl;
 							}
 							else {
-								if (NewGame.existTerritory(param1) == true) {
-									NewGame = cmdConquista(NewGame, param1);
+								if (newGame.existeTecnologia("misseis") == true && newGame.territoriosConquistados()>5) {
+									cmdConquista(param1);
+									comandoCP = 1;
+								}
+								if (newGame.existTerritory(param1) == true) {
+									cmdConquista(param1);
 									comandoCP = 1;
 								}
 								else {
@@ -250,10 +257,10 @@ void configure::commands() {
 				if (!command.compare("lista")) {
 					iss >> param1;
 					if (!param1.compare("")) {
-						cout << NewGame.listaTerritorios(ano, turnos);
+						cout << newGame.listaTerritorios(ano, turnos,randEvent);
 					}
 					else {
-						cout << cmdLista(NewGame, param1);
+						cout << cmdLista( param1);
 					}
 				}
 				if (!command.compare("sair")) {
@@ -284,7 +291,7 @@ void configure::commands() {
 						}
 						else {
 							if (existNomeSave(param1) == false) {
-								addSave(param1, NewGame, ano, turnos);
+								addSave(param1, newGame, ano, turnos);
 								cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 								cout << getAsStringSave() << endl;
 							}
@@ -330,7 +337,7 @@ void configure::commands() {
 						else {
 							if (existNomeSave(param1) == true) {
 								//ativa
-								NewGame = ativaSave(param1, NewGame);
+								ativaSave(param1);
 								ano = ativaAno(param1);
 								turnos = ativaTurno(param1);
 								cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
@@ -358,16 +365,16 @@ void configure::commands() {
 							if ((param1 == "terr") || (param1 == "tec")) {
 								bool exist = false;
 								if (param1 == "terr") {
-									exist = NewGame.existTerritory(param2);
+									exist = newGame.existTerritory(param2);
 									if (exist)
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug(command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: O territorio <" << param2 << "> a assaltar nao existe." << endl;
 								}
 								if (param1 == "tec") {
-									exist = NewGame.existeTecnologia(param2);
+									exist = newGame.existeTecnologia(param2);
 									if (!exist)
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug( command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
 								}
@@ -395,7 +402,7 @@ void configure::commands() {
 										NDigit++;
 								}
 								if (NDigit == 0)
-									NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+									 cmdDebug(command, param1, param2, ano, turnos);
 								else
 									cout << "\n >>> AVISO: Nao introduziu um inteiro como quantidade a modificar." << endl;
 							}
@@ -417,7 +424,7 @@ void configure::commands() {
 						else {
 							if ((param1 == "recurso-abandonado") || (param1 == "invasao")
 								|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
-								NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+								 cmdDebug(command, param1, param2, ano, turnos);
 							else
 								cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
 						}
@@ -425,7 +432,7 @@ void configure::commands() {
 				}
 				//>>>>>>>> DEBUG COMMANDS - END <<<<<<
 
-				if (NewGame.getSizeTerritorios() == 0) {
+				if (newGame.getSizeTerritorios() == 0) {
 					cout << "\nAVISO: Nao ha territorios para conquistar mais!" << endl;
 					endTurno = 1;
 				}
@@ -435,9 +442,9 @@ void configure::commands() {
 			do {
 				cout << "\n------FASE 2 ----" << endl;
 				cout << "\n>>>> A recolher produtos e ouro!" << endl;
-				NewGame.recolheProdGold();
+				newGame.recolheProdGold();
 
-				if (NewGame.existeTecnologia("bolsa") == true) {
+				if (newGame.existeTecnologia("bolsa") == true) {
 					endFase2 = 0;
 					do {
 						istringstream iss2;
@@ -455,7 +462,7 @@ void configure::commands() {
 								lessParam(1, command);
 							}
 							else {
-								if (NewGame.maisOuro() == true)
+								if (newGame.maisOuro() == true)
 									cout << "Trocou uma unidade de ouro por duas de produtos!" << endl;
 								else
 									cout << "Nao tem produtos suficientes para trocar!" << endl;
@@ -469,7 +476,7 @@ void configure::commands() {
 								lessParam(1, command);
 							}
 							else {
-								if (NewGame.maisProd() == true)
+								if (newGame.maisProd() == true)
 									cout << "Trocou duas unidades de ouro por uma de produtos!" << endl;
 								else
 									cout << "Nao tem ouro suficiente para trocar!" << endl;
@@ -501,10 +508,10 @@ void configure::commands() {
 						if (!command.compare("lista")) {
 							iss2 >> param1;
 							if (!param1.compare("")) {
-								cout << NewGame.listaTerritorios(ano, turnos);
+								cout << newGame.listaTerritorios(ano, turnos,randEvent);
 							}
 							else {
-								cout << cmdLista(NewGame, param1);
+								cout << cmdLista(param1);
 							}
 						}
 						if (!command.compare("grava")) {
@@ -519,7 +526,7 @@ void configure::commands() {
 								}
 								else {
 									if (existNomeSave(param1) == false) {
-										addSave(param1, NewGame, ano, turnos);
+										addSave(param1, newGame, ano, turnos);
 										cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 										cout << getAsStringSave() << endl;
 									}
@@ -565,7 +572,7 @@ void configure::commands() {
 								else {
 									if (existNomeSave(param1) == true) {
 										//ativa
-										NewGame = ativaSave(param1, NewGame);
+										 ativaSave(param1);
 										ano = ativaAno(param1);
 										turnos = ativaTurno(param1);
 										cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
@@ -593,16 +600,16 @@ void configure::commands() {
 									if ((param1 == "terr") || (param1 == "tec")) {
 										bool exist = false;
 										if (param1 == "terr") {
-											exist = NewGame.existTerritory(param2);
+											exist = newGame.existTerritory(param2);
 											if (exist)
-												NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+												cmdDebug( command, param1, param2, ano, turnos);
 											else
 												cout << "\n >>> AVISO: O territorio <" << param2 << "> a assaltar nao existe ou ja faz parte do imperio." << endl;
 										}
 										if (param1 == "tec") {
-											exist = NewGame.existeTecnologia(param2);
+											exist = newGame.existeTecnologia(param2);
 											if (!exist) // se não tiver tecnologia ganha-a
-												NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+												cmdDebug(command, param1, param2, ano, turnos);
 											else
 												cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
 										}
@@ -630,7 +637,7 @@ void configure::commands() {
 												NDigit++;
 										}
 										if (NDigit == 0)
-											NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											cmdDebug(command, param1, param2, ano, turnos);
 										else
 											cout << "\n >>> AVISO: Nao introduziu um inteiro como quantidade a modificar." << endl;
 									}
@@ -652,7 +659,7 @@ void configure::commands() {
 								else {
 									if ((param1 == "recurso-abandonado") || (param1 == "invasao")
 										|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug(command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
 								}
@@ -692,10 +699,10 @@ void configure::commands() {
 					if (!command.compare("lista")) {
 						iss2b >> param1;
 						if (!param1.compare("")) {
-							cout << NewGame.listaTerritorios(ano, turnos);
+							cout << newGame.listaTerritorios(ano, turnos,randEvent);
 						}
 						else {
-							cout << cmdLista(NewGame, param1);
+							cout << cmdLista(param1);
 						}
 					}
 					if (!command.compare("grava")) {
@@ -710,7 +717,7 @@ void configure::commands() {
 							}
 							else {
 								if (existNomeSave(param1) == false) {
-									addSave(param1, NewGame, ano, turnos);
+									addSave(param1, newGame, ano, turnos);
 									cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 									cout << getAsStringSave() << endl;
 								}
@@ -756,7 +763,7 @@ void configure::commands() {
 							else {
 								if (existNomeSave(param1) == true) {
 									//ativa
-									NewGame = ativaSave(param1, NewGame);
+									ativaSave(param1);
 									ano = ativaAno(param1);
 									turnos = ativaTurno(param1);
 									cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
@@ -784,16 +791,16 @@ void configure::commands() {
 								if ((param1 == "terr") || (param1 == "tec")) {
 									bool exist = false;
 									if (param1 == "terr") {
-										exist = NewGame.existTerritory(param2);
+										exist = newGame.existTerritory(param2);
 										if (exist)
-											NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											cmdDebug(command, param1, param2, ano, turnos);
 										else
 											cout << "\n >>> AVISO: O territorio <" << param2 << "> a assaltar nao existe ou ja faz parte do imperio." << endl;
 									}
 									if (param1 == "tec") {
-										exist = NewGame.existeTecnologia(param2);
+										exist = newGame.existeTecnologia(param2);
 										if (!exist) // se não tiver tecnologia ganha-a
-											NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											cmdDebug(command, param1, param2, ano, turnos);
 										else
 											cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
 									}
@@ -821,7 +828,7 @@ void configure::commands() {
 											NDigit++;
 									}
 									if (NDigit == 0)
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug(command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: Nao introduziu um inteiro como quantidade a modificar." << endl;
 								}
@@ -843,7 +850,7 @@ void configure::commands() {
 							else {
 								if ((param1 == "recurso-abandonado") || (param1 == "invasao")
 									|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
-									NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+									cmdDebug(command, param1, param2, ano, turnos);
 								else
 									cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
 							}
@@ -867,14 +874,13 @@ void configure::commands() {
 				iss3.str(phrase);
 				iss3 >> command;
 				if (!command.compare("maismilitar")) {
-					//tb podia ter ficado sem chamar funcao mas nao me apeteceu mudar agora xd
 					iss3 >> param1;
 					if (param1.compare("")) {
 						lessParam(1, command);
 					}
 					else {
 						if (compra_militar < 1) {
-							NewGame = cmdAumenta(NewGame);
+							newGame.AumentaForca();
 							compras++;
 							compra_militar++;
 							cout << "\tCOMPRAS FEITAS = " << compras << endl;
@@ -898,7 +904,7 @@ void configure::commands() {
 								(param1 == "bolsa") || (param1 == "banco")) {
 								if (compra_tecnologia < 1) {
 									int result = 0;
-									result = NewGame.getCompraTecnologia(param1);
+									result = newGame.getCompraTecnologia(param1);
 									if (result == 1) {
 										cout << "\n>>> AVISO: A tecnologia <" << param1 << "> foi adquirida com sucesso." << endl;
 										compra_tecnologia++;
@@ -932,7 +938,7 @@ void configure::commands() {
 						}
 						else {
 							if (existNomeSave(param1) == false) {
-								addSave(param1, NewGame, ano, turnos);
+								addSave(param1, newGame, ano, turnos);
 								cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 								cout << getAsStringSave() << endl;
 							}
@@ -978,7 +984,7 @@ void configure::commands() {
 						else {
 							if (existNomeSave(param1) == true) {
 								//ativa
-								NewGame = ativaSave(param1, NewGame);
+								 ativaSave(param1);
 								ano = ativaAno(param1);
 								turnos = ativaTurno(param1);
 								cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
@@ -994,19 +1000,19 @@ void configure::commands() {
 				if (!command.compare("lista")) {
 					iss3 >> param1;
 					if (!param1.compare("")) {
-						cout << NewGame.listaTerritorios(ano, turnos);
+						cout << newGame.listaTerritorios(ano, turnos,randEvent);
 					}
 					else {
-						cout << cmdLista(NewGame, param1);
+						cout << cmdLista(param1);
 					}
 				}
 				if (!command.compare("grava")) { // teste falta outro parametro
 					iss3 >> param1;
 					if (!param1.compare("")) {
-						NewGame.saveData("data.txt");
+						newGame.saveData("data.txt");
 					}
 					else {
-						cout << cmdLista(NewGame, param1);
+						cout << cmdLista( param1);
 					}
 				}
 				if (!command.compare("help")) {
@@ -1036,16 +1042,16 @@ void configure::commands() {
 							if ((param1 == "terr") || (param1 == "tec")) {
 								bool exist = false;
 								if (param1 == "terr") {
-									exist = NewGame.existTerritory(param2);
+									exist = newGame.existTerritory(param2);
 									if (exist)
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug(command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: O territorio <" << param2 << "> a assaltar nao existe ou ja faz parte do imperio." << endl;
 								}
 								if (param1 == "tec") {
-									exist = NewGame.existeTecnologia(param2);
+									exist = newGame.existeTecnologia(param2);
 									if (!exist) // se não tiver tecnologia ganha-a
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug(command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
 								}
@@ -1073,7 +1079,7 @@ void configure::commands() {
 										NDigit++;
 								}
 								if (NDigit == 0)
-									NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+									cmdDebug(command, param1, param2, ano, turnos);
 								else
 									cout << "\n >>> AVISO: Nao introduziu um inteiro como quantidade a modificar." << endl;
 							}
@@ -1095,7 +1101,7 @@ void configure::commands() {
 						else {
 							if ((param1 == "recurso-abandonado") || (param1 == "invasao")
 								|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
-								NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+								cmdDebug(command, param1, param2, ano, turnos);
 							else
 								cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
 						}
@@ -1107,27 +1113,26 @@ void configure::commands() {
 			} while (compras != 2 && endFase3 != 1);
 
 			//FASE 4 DO TURNO
-			int evento = 0;
-			int randEvent = 0;
+			
 			do {
 				cout << "\n------FASE 4 ----" << endl;
 				int forcaInv = 0, randSorte = 0, resNome = 0, ataque = 0;
 				unsigned seed = time_t(0);
 				srand(seed);
-				randEvent = NewGame.sorteiaEvento();
+				
 				string nome;
 				switch (randEvent)
 				{
 				case 1: // Recurso abandonado
 					cout << "\n >>> AVISO DE EVENTO: Um recurso abandonado foi encontrado." << endl;
 					if (ano == 1) {
-						if (NewGame.maisProdFase4() == true)
+						if (newGame.maisProdFase4() == true)
 							cout << "              + 1 unidade de produtos" << endl;
 						else
 							cout << "\n >>> AVISO DE EVENTO: 1 unidade de produtos desperdiçada pois o armazem atingiu a capacidade maxima." << endl;
 					}
 					if (ano == 2) {
-						if (NewGame.maisOuroFase4() == true)
+						if (newGame.maisOuroFase4() == true)
 							cout << "              + 1 unidade de ouro" << endl;
 						else
 							cout << "\n >>> AVISO DE EVENTO: 1 unidade de ouro desperdiçada pois o cofre atingiu a capacidade maxima." << endl;
@@ -1135,22 +1140,22 @@ void configure::commands() {
 					evento = 1;
 					break;
 				case 2: // Invasão
-					randSorte = NewGame.random(1, 6);
-					nome = NewGame.getLastTerritorioConquistado();
-					resNome = NewGame.getResLastTerritorioConquistado();
+					randSorte = newGame.random(1, 6);
+					nome = newGame.getLastTerritorioConquistado();
+					resNome = newGame.getResLastTerritorioConquistado();
 					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << "." << endl;
 					if (ano == 1) {
 						forcaInv = 2;
 						ataque = forcaInv + randSorte;
-						if (NewGame.existeTecnologia("defesas") == true) {
-							NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+						if (newGame.existeTecnologia("defesas") == true) {
+							newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 							cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-							NewGame = fimJogo(NewGame);
+							fimJogo();
 						}
 						if (ataque >= resNome) {
-							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+							newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 						}
 						if (ataque < resNome) {
 							cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
@@ -1159,15 +1164,15 @@ void configure::commands() {
 					if (ano == 2) {
 						forcaInv = 3;
 						ataque = forcaInv + randSorte;
-						if (NewGame.existeTecnologia("defesas") == true) {
-							NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+						if (newGame.existeTecnologia("defesas") == true) {
+							newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 							cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-							NewGame = fimJogo(NewGame);
+							fimJogo();
 						}
 						if (ataque >= resNome) {
-							NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+							newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 						}
 						if (ataque < resNome) {
 							cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
@@ -1178,7 +1183,7 @@ void configure::commands() {
 				case 3: // Aliança diplomática
 					cout << "\n >>> AVISO DE EVENTO: Foi assinada uma alianca com um outro imperio do qual tambem nao existe nenhum registo." << endl;
 					cout << "              + 1 unidade de forca militar" << endl;
-					NewGame.AumentaForcaFase4();
+					newGame.AumentaForcaFase4();
 					evento = 1;
 					break;
 				case 4: // Sem evento
@@ -1197,10 +1202,11 @@ void configure::commands() {
 					if (!command.compare("lista")) {
 						iss4 >> param1;
 						if (!param1.compare("")) {
-							cout << NewGame.listaTerritorios(ano, turnos);
+							cout << newGame.listaTerritorios(ano, turnos,randEvent);
 						}
 						else {
-							cout << cmdLista(NewGame, param1);
+							cout << cmdLista(param1);
+							cout << newGame.listaTerritorios(param1);
 						}
 					}
 					if (!command.compare("help")) {
@@ -1219,7 +1225,7 @@ void configure::commands() {
 							}
 							else {
 								if (existNomeSave(param1) == false) {
-									addSave(param1, NewGame, ano, turnos);
+									addSave(param1, newGame, ano, turnos);
 									cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 									cout << getAsStringSave() << endl;
 								}
@@ -1265,7 +1271,7 @@ void configure::commands() {
 							else {
 								if (existNomeSave(param1) == true) {
 									//ativa
-									NewGame = ativaSave(param1, NewGame);
+									cmdDebug(command, param1, param2, ano, turnos);
 									ano = ativaAno(param1);
 									turnos = ativaTurno(param1);
 									cout << ">>> AVISO: O save <" << param1 << "> foi carregado com sucesso." << endl;
@@ -1300,16 +1306,16 @@ void configure::commands() {
 								if ((param1 == "terr") || (param1 == "tec")) {
 									bool exist = false;
 									if (param1 == "terr") {
-										exist = NewGame.existTerritory(param2);
+										exist = newGame.existTerritory(param2);
 										if (exist)
-											NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											cmdDebug(command, param1, param2, ano, turnos);
 										else
 											cout << "\n >>> AVISO: O territorio <" << param2 << "> a assaltar nao existe ou ja faz parte do imperio." << endl;
 									}
 									if (param1 == "tec") {
-										exist = NewGame.existeTecnologia(param2);
+										exist = newGame.existeTecnologia(param2);
 										if (!exist) // se não tiver tecnologia ganha-a
-											NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+											cmdDebug(command, param1, param2, ano, turnos);
 										else
 											cout << "\n >>> AVISO: A tecnologia <" << param2 << "> a assaltar nao existe." << endl;
 									}
@@ -1337,7 +1343,7 @@ void configure::commands() {
 											NDigit++;
 									}
 									if (NDigit == 0)
-										NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+										cmdDebug(command, param1, param2, ano, turnos);
 									else
 										cout << "\n >>> AVISO: Nao introduziu um inteiro como quantidade a modificar." << endl;
 								}
@@ -1359,7 +1365,7 @@ void configure::commands() {
 							else {
 								if ((param1 == "recurso-abandonado") || (param1 == "invasao")
 									|| (param1 == "alianca-diplomatica") || (param1 == "sem-evento"))
-									NewGame = cmdDebug(NewGame, command, param1, param2, ano, turnos);
+									cmdDebug(command, param1, param2, ano, turnos);
 								else
 									cout << "\n >>> AVISO: O evento <" << param1 << "> nao existe." << endl;
 							}
@@ -1368,13 +1374,13 @@ void configure::commands() {
 				} while (endFase4 != 1);
 			} while (evento != 1);
 			turnos++;
-		} while (endTurno != 1 && turnos < 6 && NewGame.getSizeTerritorios() != 0);
+		} while (endTurno != 1 && turnos < 6 && newGame.getSizeTerritorios() != 0);
 		ano++;
 	} while (ano != 3);
 
 	//FUNCAO PARA FAZER E MOSTRAR PONTUAÇÕES FINAIS (METER TB NA FASE4)
 
-	NewGame = fimJogo(NewGame);
+	fimJogo();
 }
 
 // Abre o ficheiro help
@@ -1414,15 +1420,14 @@ void configure::lessParam(int num, string command) {
 }
 
 //Funcao que recebe comando carrega ficheiro
-game configure::cmdCarrega(game NewGame, string ficheiro) {
+bool configure::cmdCarrega(string ficheiro) {
 	string str;
-	ostringstream oss;
 	ifstream fCarrega(ficheiro);
 	int count = 0;
 
 	if (!fCarrega) {
-		oss << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
-		return NewGame;
+		cout << "ERRO: Nao conseguiu abrir o ficheiro" << endl;
+		return false;
 	}
 
 	while (getline(fCarrega, str)) {
@@ -1437,7 +1442,7 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 
 		if (name != "territorioInicial") {
 			for (int i = 0; i < N; i++) {
-				NewGame.addTerritory(name);
+				newGame.addTerritory(name);
 				
 			}
 		}
@@ -1451,92 +1456,86 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 		cout << "foi ignorada a criacao de " << count - 1 << " territorioInicial no ficheiro <" << ficheiro << ">." << endl;
 	}
 
-	return NewGame;
+	return true;
 }
 
 //Funcao que recebe comando conquista territorio
-game configure::cmdConquista(game NewGame, string name) {
+bool configure::cmdConquista( string name) {
 	if (name == "territorioInicial") {
-		NewGame.conquistaTerritorios("territorioInicial");
+		newGame.conquistaTerritorios("territorioInicial");
+		return true;
 	}
 	else {
-		cout << NewGame.conquistaTerritorios(name);
+		cout << newGame.conquistaTerritorios(name);
+		return true;
 	}
-	return NewGame;
+	return false;
 }
 
 //Funcao que recebe comando lista algo
-string configure::cmdLista(game NewGame, string name) {
+string configure::cmdLista( string name) {
 	ostringstream oss;
-	oss << NewGame.listaTerritorios(name);
+	oss <<newGame.listaTerritorios(name);
 	return oss.str();
 }
 
-//Funcao que recebe comando maismilitar
-game configure::cmdAumenta(game NewGame) {
-	if (NewGame.AumentaForca() == true)
-		return NewGame;
-	return NewGame;
-}
-
 //Funcao que apresenta dados do fim de jogo
-game configure::fimJogo(game NewGame) {
+void configure::fimJogo() {
 	int bonus1 = 0, bonus2 = 0, total = 0;
 	cout << "\n\n\n>>> FIM DO JOGO " << endl;
-	cout << ">>> Pontuacao: " << NewGame.getPontos() << endl;
-	if (NewGame.contaTecnologias() >= 5) {
+	cout << ">>> Pontuacao: " << newGame.getPontos() << endl;
+	if (newGame.contaTecnologias() >= 5) {
 		cout << ">>> Bonus cientifico: +1" << endl;
 		bonus1 = 1;
 	}
 	else
 		cout << ">>> Bonus cientifico: +0" << endl;
-	if (NewGame.getSizeTerritorios() == 0) {
+	if (newGame.getSizeTerritorios() == 0) {
 		cout << ">>> Bonus imperador supremo: +3" << endl;
 		bonus2 = 3;
 	}
 	else
 		cout << ">>> Bonus imperador supremo: +0" << endl;
-	total = bonus1 + bonus2 + NewGame.getPontos();
+	total = bonus1 + bonus2 + newGame.getPontos();
 	cout << ">>> PONTUACAO FINAL: " << total << endl;
 	sair();
-	return NewGame;
 }
 
-//Comando para sair
+////Comando para sair
 int configure::sair() {
 	cout << "\n>>> SAINDO DO KINGDOM... " << endl;
 	exit(EXIT_SUCCESS);
 }
 int game::sorteiaEvento() {
 	int random;
-	srand(time(NULL));
+	srand(time(0));
 	random = rand() % 4;
 	return random;
 }
 //Funcao para comandos debug
-game configure::cmdDebug(game NewGame, string command, string param1, string param2, int ano, int turno) {
+void configure::cmdDebug( string command, string param1, string param2, int ano, int turno) {
 	int randSorte = 0, resNome = 0, forcaInv = 0, ataque = 0, num = 0;
 	string nome;
 	if (command == "toma") {
 		if (param1 == "terr") {
-			NewGame.tomaTerritorio(param2);  //verificar se esta a fazer a recolha certa
+			newGame.tomaTerritorio(param2);  //verificar se esta a fazer a recolha certa
 			cout << "\n >>> AVISO: O territorio <" << param2 << "> foi conquistado." << endl;
 		}
 		if (param1 == "tec") {
-			NewGame.getTomaTecnologia(param2);
+			newGame.getTomaTecnologia(param2);
 			cout << "\n >>> AVISO: A tecnologia <" << param2 << "> foi adquirida." << endl;
 		}
 	}
 	if (command == "modifica") {
 		num = stoi(param2);
 		if (param1 == "ouro") {
-			if (NewGame.modificaOuro(num) == true)
+			if (newGame.modificaOuro(num) == true)
 				cout << "\n >>> AVISO: Ouro no cofre alterado para " << num << " com sucesso." << endl;
 			else
 				cout << "\n >>> AVISO: O cofre atingiu o limite de ouro e o restante foi desperdicado." << endl;
 		}
 		if (param1 == "prod") {
-			if (NewGame.modificaProd(num) == true)
+			if (newGame.modificaProd(num) == true)
 				cout << "\n >>> AVISO: Produtos no cofre alterado para " << num << " com sucesso." << endl;
 			else
 				cout << "\n >>> AVISO: O armazem atingiu o limite de produtos e o restante foi desperdicado." << endl;
@@ -1546,13 +1545,13 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 		if (param1 == "recurso-abandonado") {
 			cout << "\n >>> AVISO DE EVENTO: Um recurso abandonado foi encontrado." << endl;
 			if (ano == 1) {
-				if (NewGame.maisProdFase4() == true)
+				if (newGame.maisProdFase4() == true)
 					cout << "              + 1 unidade de produtos" << endl;
 				else
 					cout << "\n >>> AVISO DE EVENTO: 1 unidade de produtos desperdiçada pois o armazem atingiu a capacidade maxima." << endl;
 			}
 			if (ano == 2) {
-				if (NewGame.maisOuroFase4() == true)
+				if (newGame.maisOuroFase4() == true)
 					cout << "              + 1 unidade de ouro" << endl;
 				else
 					cout << "\n >>> AVISO DE EVENTO: 1 unidade de ouro desperdiçada pois o cofre atingiu a capacidade maxima." << endl;
@@ -1560,21 +1559,21 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 		}
 		if (param1 == "invasao") {
 			randSorte = rand() % (1 - 6 + 1) + 1;
-			nome = NewGame.getLastTerritorioConquistado();
-			resNome = NewGame.getResLastTerritorioConquistado();
+			nome = newGame.getLastTerritorioConquistado();
+			resNome = newGame.getResLastTerritorioConquistado();
 			cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << "." << endl;
 			if (ano == 1) {
 				forcaInv = 2;
 				ataque = forcaInv + randSorte;
-				if (NewGame.existeTecnologia("defesas") == true) {
-					NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+				if (newGame.existeTecnologia("defesas") == true) {
+					newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 				}
 				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 					cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-					NewGame = fimJogo(NewGame);
+					 fimJogo();
 				}
 				if (ataque >= resNome) {
-					NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+					newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 				}
 				if (ataque < resNome) {
 					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
@@ -1583,15 +1582,15 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 			if (ano == 2) {
 				forcaInv = 3;
 				ataque = forcaInv + randSorte;
-				if (NewGame.existeTecnologia("defesas") == true) {
-					NewGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
+				if (newGame.existeTecnologia("defesas") == true) {
+					newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 				}
 				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
 					cout << "\n >>> AVISO DE EVENTO: Perdeu o jogo pois o imperio era apenas constituido pelo territorioInicial." << endl;
-					NewGame = fimJogo(NewGame);
+					fimJogo();
 				}
 				if (ataque >= resNome) {
-					NewGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
+					newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 				}
 				if (ataque < resNome) {
 					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " falhou." << endl; // territorio ganha invasao
@@ -1599,15 +1598,14 @@ game configure::cmdDebug(game NewGame, string command, string param1, string par
 			}
 		}
 		if (param1 == "alianca-diplomatica") {
-			cout << "\n >>> AVISO DE EVENTO: Foi assinada uma alianca com um outro imperio do qual tambem não existe nenhum registo." << endl;
+			cout << "\n >>> AVISO DE EVENTO: Foi assinada uma alianca com um outro imperio do qual tambem nao existe nenhum registo." << endl;
 			cout << "              + 1 unidade de forca militar" << endl;
-			NewGame.AumentaForcaFase4();
+			newGame.AumentaForcaFase4();
 		}
 		if (param1 == "sem-evento") {
 			cout << "\n >>> AVISO DE EVENTO: Nada ocorreu, todos podem dormir descansados" << endl;
 		}
 	}
-	return NewGame;
 }
 
 //Adiciona um Save
@@ -1631,14 +1629,13 @@ bool configure::removeSave(const string name) {
 }
 
 //Ativa um save
-game configure::ativaSave(const string name, game NewGame) {
+void configure::ativaSave(const string name) {
 	for (auto it = saves.begin(); it != saves.end(); (it++)) {
 		if ((*it)->getNomeSave() == name) {
-			NewGame = (*it)->getGameSave();
-			return NewGame;
+			newGame = (*it)->getGameSave();
+			
 		}
 	}
-	return NewGame;
 }
 
 //Ativa ano
