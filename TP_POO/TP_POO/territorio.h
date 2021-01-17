@@ -19,13 +19,13 @@ class territorio {
 public:
 	//Construtor default
 	territorio(const string name,int res,int createProd,int createGold,int victoryPoints);
-	territorio(const string name);
+	//territorio(const string name);
 
 	//Construtor por cópia
 	territorio(const territorio& territori);
 
 	//Destrutor
-	~territorio();
+	virtual ~territorio();
 	/*virtual territorio* duplica()const = 0;*/
 
 	

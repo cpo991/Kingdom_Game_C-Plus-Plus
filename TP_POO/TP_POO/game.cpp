@@ -423,8 +423,8 @@ void game::altera(int ano, int turno) {
 //Destrutor
 game::~game() {
 //
-	/*for (auto it = territorios.begin(); it < territorios.end(); it++)
-		delete(*it);*/
-	territorios.clear(); //assim não rebenta mas está mal?
+	for (auto it = territorios.begin(); it < territorios.end(); it++)
+		delete(*it);
+	//territorios.clear(); //assim não rebenta mas está mal?
 // //rebenta com o carrega mas n rebenta com o cria*/
 }

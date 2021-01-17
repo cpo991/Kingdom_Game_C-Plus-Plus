@@ -1157,6 +1157,7 @@ game configure::cmdCarrega(game NewGame, string ficheiro) {
 		if (name != "territorioInicial") {
 			for (int i = 0; i < N; i++) {
 				NewGame.addTerritory(name);
+				
 			}
 		}
 		else {

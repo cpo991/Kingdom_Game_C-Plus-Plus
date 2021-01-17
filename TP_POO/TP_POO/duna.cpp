@@ -8,8 +8,8 @@ duna::duna(const string name) :territorio(name+to_string(id++), 4, 0, 1, 1) {
 	
 }
 
-duna::~duna() {
-}
+//duna::~duna() {
+//}
 
 void duna::setName(string name)
 {

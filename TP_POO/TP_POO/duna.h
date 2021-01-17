@@ -14,7 +14,7 @@ public:
 
 	//Destrutor
 	//virtual ~duna();
-	 ~duna();
+	 //~duna();
 	void setName(string name) override;
 };
 
