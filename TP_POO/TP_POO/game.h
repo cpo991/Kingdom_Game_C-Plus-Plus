@@ -21,9 +21,18 @@ class game {
 	int sorte_last = 0;
 	vector<territorio*> territorios;
 	imperio imperioU;
+	//int ano, turno;
+	//string nome;
 public:
 	//Construtor
 	game();
+
+	/*int getAno();
+	int getTurno();
+	const string getnome();
+	void setAno(int ano);
+	void setTurno(int turno);
+	void setnome(string nome);*/
 
 	 int territoriosConquistados();
 

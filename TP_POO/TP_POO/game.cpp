@@ -17,6 +17,36 @@ game::game() {
 	territorios.push_back(new territorioInicial("territorioInicial"));
 	setTerritorioDefault("territorioInicial");
 }
+/*
+int game::getAno()
+{
+	return ano;
+}
+
+int game::getTurno()
+{
+	return turno;
+}
+
+const string game::getnome()
+{
+	return nome;
+}
+
+void game::setAno(int ano)
+{
+	this->ano = ano;
+}
+
+void game::setTurno(int turno)
+{
+	this->turno = turno;
+}
+
+void game::setnome(string nome)
+{
+	this->nome = nome;
+}*/
 
 int game::territoriosConquistados()
 {

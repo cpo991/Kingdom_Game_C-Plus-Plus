@@ -288,7 +288,7 @@ void configure::commands() {
 						}
 						else {
 							if (existNomeSave(param1) == false) {
-								addSave(param1, newGame, ano, turnos);
+								addSave(param1, &newGame, ano, turnos);
 								cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 								cout << getAsStringSave() << endl;
 							}
@@ -524,7 +524,7 @@ void configure::commands() {
 								}
 								else {
 									if (existNomeSave(param1) == false) {
-										addSave(param1, newGame, ano, turnos);
+										addSave(param1, &newGame, ano, turnos);
 										cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 										cout << getAsStringSave() << endl;
 									}
@@ -715,7 +715,7 @@ void configure::commands() {
 							}
 							else {
 								if (existNomeSave(param1) == false) {
-									addSave(param1, newGame, ano, turnos);
+									addSave(param1, &newGame, ano, turnos);
 									cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 									cout << getAsStringSave() << endl;
 								}
@@ -936,7 +936,7 @@ void configure::commands() {
 						}
 						else {
 							if (existNomeSave(param1) == false) {
-								addSave(param1, newGame, ano, turnos);
+								addSave(param1, &newGame, ano, turnos);
 								cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 								cout << getAsStringSave() << endl;
 							}
@@ -1228,7 +1228,7 @@ void configure::commands() {
 							}
 							else {
 								if (existNomeSave(param1) == false) {
-									addSave(param1, newGame, ano, turnos);
+									addSave(param1, &newGame, ano, turnos);
 									cout << ">>> AVISO: O jogo foi gravado com sucesso com o nome <" << param1 << ">." << endl;
 									cout << getAsStringSave() << endl;
 								}
@@ -1617,8 +1617,9 @@ void configure::cmdDebug( string command, string param1, string param2, int ano,
 }
 
 //Adiciona um Save
-const string configure::addSave(string nomeSave, game gameSave, int ano, int turno) {
+const string configure::addSave(string nomeSave, game* gameSave, int ano, int turno) {
 	ostringstream oss;
+
 	saves.push_back(new save(nomeSave, gameSave, ano, turno));
 	return oss.str();
 }
@@ -1640,7 +1641,7 @@ bool configure::removeSave(const string name) {
 void configure::ativaSave(const string name) {
 	for (auto it = saves.begin(); it != saves.end(); (it++)) {
 		if ((*it)->getNomeSave() == name) {
-			newGame = (*it)->getGameSave();
+			game* g = (*it)->getGameSave();
 			
 		}
 	}

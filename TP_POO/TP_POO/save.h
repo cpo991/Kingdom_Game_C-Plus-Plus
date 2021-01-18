@@ -10,22 +10,24 @@ using namespace std;
 
 class save {
 	string nomeSave;
-	game gameSave;
+	game* gameSave;
 	int turno, ano;
 	
 public:
 	//Construtor
-	//save(string nomeSave, game gameSave, int ano, int turno) :nomeSave(nomeSave), gameSave(gameSave), ano(ano), turno(turno) {};
+	save(string nomeSave, game* gameSave, int ano, int turno) :nomeSave(nomeSave), gameSave(gameSave), ano(ano), turno(turno) {};
 	
 	////Destrutor
 
-	save(string nomeSave, game gameSave, int ano, int turno);
+	//save(string nomeSave, game* gameSave, int ano, int turno);
 
 	//Retorna o nome do save
 	const string getNomeSave();
 
+	game* getGameSave();
+
 	//Retorna o vetor do jogo
-	game getGameSave();
+	//game getGameSave();
 
 	//Retorna o ano
 	const int getAnoSave();

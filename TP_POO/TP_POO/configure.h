@@ -19,7 +19,7 @@ class configure {
 	vector <save*> saves;
 public:
 	//Construtor
-	//configure(game& g);
+	configure(game& g);
 	configure() {}
 	~configure();
 
@@ -59,7 +59,7 @@ public:
 	void cmdDebug( string command, string param1, string param2, int ano, int turno);
 
 	//Adiciona um Save
-	const string addSave(string nomeSave, game gameSave, int ano, int turno);
+	const string addSave(string nomeSave, game* gameSave, int ano, int turno);
 	
 	//Apaga um Save
 	bool removeSave(const string name);

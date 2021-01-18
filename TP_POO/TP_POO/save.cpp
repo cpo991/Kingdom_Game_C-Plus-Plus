@@ -4,7 +4,15 @@
 #include "save.h"
 
 //Construtor
-save::save(string nomeSave, game gameSave, int ano, int turno) {};
+//save::save(string nomeSave, game* gameSave, int ano, int turno) {};
+
+/*save::save(string nomeSave, game gameSave, int ano, int turno)
+{
+}*/
+
+/*save::save(string nomeSave, game* gameSave, int ano, int turno)
+{
+}*/
 
 //Retorna o nome do save
 const string save::getNomeSave() {
@@ -12,7 +20,7 @@ const string save::getNomeSave() {
 }
 
 //Retorna o vetor do jogo
-game save::getGameSave() {
+game* save::getGameSave() {
 	return gameSave;
 }
 
