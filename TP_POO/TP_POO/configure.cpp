@@ -7,9 +7,6 @@
 //	newGame = &g;
 //}
 
-configure::~configure()
-{
-}
 
 // Abre o ficheiro menu.txt e imprime
 // Chama a função commands()
@@ -125,10 +122,10 @@ void configure::commands() {
 	do {
 		istringstream iss;
 		cout << "\nInsira um comando:  ";
+		phrase = command = param1 = param2 = "";
 		getline(cin, phrase);
 		iss.str(phrase);
 		iss >> command;
-		param1 = param2 = "";
 
 		//COMANDOS CARREGA, CRIA , LISTA , AVANÇA E HELP
 		if (!command.compare("carrega")) {
@@ -205,6 +202,7 @@ void configure::commands() {
 			//FASE 1 DO TURNO
 			int comandoCP = 0;
 			do {
+				phrase = command = param1 = param2 = "";
 				istringstream iss;
 				cout << "\n------FASE 1 ----" << endl;
 				cout << "Conquistar ou Passar?" << endl;
@@ -213,7 +211,6 @@ void configure::commands() {
 				getline(cin, phrase);
 				iss.str(phrase);
 				iss >> command;
-				param1 = param2 = "";
 
 				if (!command.compare("conquista")) {
 					iss >> param1;
@@ -435,6 +432,7 @@ void configure::commands() {
 				if (newGame.getSizeTerritorios() == 0) {
 					cout << "\nAVISO: Nao ha territorios para conquistar mais!" << endl;
 					endTurno = 1;
+					fimJogo();
 				}
 			} while (endFase1 != 1);
 
@@ -443,18 +441,18 @@ void configure::commands() {
 				cout << "\n------FASE 2 ----" << endl;
 				cout << "\n>>>> A recolher produtos e ouro!" << endl;
 				newGame.recolheProdGold();
-
+				endFase2 = 0;
 				if (newGame.existeTecnologia("bolsa") == true) {
 					endFase2 = 0;
 					do {
 						istringstream iss2;
+						phrase = command = param1 = param2 = "";
 						cout << "\n>>> AVISO: E POSSIVEL FAZER TROCAS DE PRODUTOS/OURO " << endl;
 						cout << "\nPretende avancar ou fazer trocas?" << endl;
 						cout << "\nInsira um comando: ";
 						getline(cin, phrase);
 						iss2.str(phrase);
 						iss2 >> command;
-						param1 = "";
 
 						if (!command.compare("maisouro")) {
 							iss2 >> param1;
@@ -670,11 +668,11 @@ void configure::commands() {
 				}
 				do {
 					istringstream iss2b;
+					phrase = command = param1 = param2 = "";
 					cout << "\nInsira um comando: ";
 					getline(cin, phrase);
 					iss2b.str(phrase);
 					iss2b >> command;
-					param1 = "";
 					if (!command.compare("avanca")) {
 						iss2b >> param1;
 						if (param1.compare("")) {
@@ -866,10 +864,10 @@ void configure::commands() {
 			endFase3 = 0;
 			do {
 				istringstream iss3;
+				phrase = command = param1 = param2 = "";
 				cout << "\n------FASE 3 ----" << endl;
 				cout << "Aumentar a forca militar ou Adquirir tecnologia ?" << endl;
 				cout << "\nInsira um comando: ";
-				phrase = command = param1 = param2 = "";
 				getline(cin, phrase);
 				iss3.str(phrase);
 				iss3 >> command;
@@ -1113,13 +1111,10 @@ void configure::commands() {
 			} while (compras != 2 && endFase3 != 1);
 
 			//FASE 4 DO TURNO
-			
+			evento = 0;
 			do {
 				cout << "\n------FASE 4 ----" << endl;
 				int forcaInv = 0, randSorte = 0, resNome = 0, ataque = 0;
-				unsigned seed = time_t(0);
-				srand(seed);
-				
 				string nome;
 				switch (randEvent)
 				{
@@ -1148,6 +1143,8 @@ void configure::commands() {
 						forcaInv = 2;
 						ataque = forcaInv + randSorte;
 						if (newGame.existeTecnologia("defesas") == true) {
+							cout << "\n >>> AVISO DE EVENTO: Foi encontrada a tecnologia defesas, o territorio " << nome << " foi defendido." << endl;
+							cout << "              + 1 unidade de resistencia no territorio " << nome << "." << endl;
 							newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
@@ -1155,6 +1152,8 @@ void configure::commands() {
 							fimJogo();
 						}
 						if (ataque >= resNome) {
+							cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " com sucesso." << endl; // territorio perde invasao
+							cout << "              Territorio " << nome << " removido do seu imperio." << endl;
 							newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 						}
 						if (ataque < resNome) {
@@ -1165,6 +1164,8 @@ void configure::commands() {
 						forcaInv = 3;
 						ataque = forcaInv + randSorte;
 						if (newGame.existeTecnologia("defesas") == true) {
+							cout << "\n >>> AVISO DE EVENTO: Foi encontrada a tecnologia defesas, o territorio " << nome << " foi defendido." << endl;
+							cout << "              + 1 unidade de resistencia no territorio " << nome << "." << endl;
 							newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 						}
 						if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
@@ -1172,6 +1173,8 @@ void configure::commands() {
 							fimJogo();
 						}
 						if (ataque >= resNome) {
+							cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " com sucesso." << endl; // territorio perde invasao
+							cout << "              Territorio " << nome << " removido do seu imperio." << endl;
 							newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 						}
 						if (ataque < resNome) {
@@ -1194,8 +1197,8 @@ void configure::commands() {
 				int endFase4 = 0;
 				do {
 					istringstream iss4;
+					phrase = command = param1 = param2 = "";
 					cout << "\nInsira um comando: ";
-					phrase = command = param1 = "";
 					getline(cin, phrase);
 					iss4.str(phrase);
 					iss4 >> command;
@@ -1287,9 +1290,6 @@ void configure::commands() {
 					if (!command.compare("avanca")) {
 						cout << "\n>>> AVISO: A AVANCAR PARA O TURNO SEGUINTE...\n\n" << endl;
 						endFase4 = 1;
-					}
-					if (!command.compare("sair")) {
-						sair();
 					}
 					//>>>>>>> DEBUG COMMANDS - START <<<<<<
 					if (!command.compare("toma")) {
@@ -1508,7 +1508,7 @@ int configure::sair() {
 }
 int game::sorteiaEvento() {
 	int random;
-	srand(time(0));
+	srand(time_t(0));
 	random = rand() % 4;
 	return random;
 }
@@ -1566,6 +1566,8 @@ void configure::cmdDebug( string command, string param1, string param2, int ano,
 				forcaInv = 2;
 				ataque = forcaInv + randSorte;
 				if (newGame.existeTecnologia("defesas") == true) {
+					cout << "\n >>> AVISO DE EVENTO: Foi encontrada a tecnologia defesas, o territorio " << nome << " foi defendido." << endl;
+					cout << "              + 1 unidade de resistencia no territorio "<< nome <<"." << endl;
 					newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 				}
 				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
@@ -1573,6 +1575,8 @@ void configure::cmdDebug( string command, string param1, string param2, int ano,
 					 fimJogo();
 				}
 				if (ataque >= resNome) {
+					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " com sucesso." << endl; // territorio perde invasao
+					cout << "              Territorio " << nome << " removido do seu imperio." << endl;
 					newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 				}
 				if (ataque < resNome) {
@@ -1583,6 +1587,8 @@ void configure::cmdDebug( string command, string param1, string param2, int ano,
 				forcaInv = 3;
 				ataque = forcaInv + randSorte;
 				if (newGame.existeTecnologia("defesas") == true) {
+					cout << "\n >>> AVISO DE EVENTO: Foi encontrada a tecnologia defesas, o territorio " << nome << " foi defendido." << endl;
+					cout << "              + 1 unidade de resistencia no territorio " << nome << "." << endl;
 					newGame.incrementaRes(nome); // incrementa resistencia do ultimo territorio
 				}
 				if (nome == "territorioInicial") { // nao tem mais territorios logo perde o jogo
@@ -1590,6 +1596,8 @@ void configure::cmdDebug( string command, string param1, string param2, int ano,
 					fimJogo();
 				}
 				if (ataque >= resNome) {
+					cout << "\n >>> AVISO DE EVENTO: Invasao ao territorio " << nome << " com sucesso." << endl; // territorio perde invasao
+					cout << "              Territorio " << nome << " removido do seu imperio." << endl;
 					newGame.removeTerritoryImperio(nome); //remove territorio que sofreu invasão
 				}
 				if (ataque < resNome) {
@@ -1684,4 +1692,11 @@ string configure::getAsStringSave()
 	}
 	oss << "_____________________________________" << endl;
 	return oss.str();
+}
+
+configure::~configure()
+{
+	/*for (auto it = saves.begin(); it < saves.end(); it++) {
+		delete(*it);
+	}*/
 }

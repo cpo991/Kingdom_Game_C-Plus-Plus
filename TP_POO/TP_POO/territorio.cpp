@@ -20,7 +20,7 @@ territorio::territorio(const territorio& territori)
 //Tipo de território
 string territorio::getType(string name) const {
 	string type = "";
-	int last = name.size();
+	size_t last = name.size();
 	if (isdigit(last) == 0)
 		type = name;
 	else
